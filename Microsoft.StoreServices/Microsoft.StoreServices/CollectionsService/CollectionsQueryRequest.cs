@@ -7,7 +7,6 @@
 
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.StoreServices
 {
@@ -45,7 +44,7 @@ namespace Microsoft.StoreServices
 
     public class Beneficiary 
     {
-        [Key]
+        //  Generally this would be the Key if you are using this in a DB
         [JsonIgnore] public long BeneficiaryId { get; set; }
         [JsonProperty("identitytype")] public string Identitytype { get; set; }
         [JsonProperty("identityValue")] public string UserCollectionsId { get; set; }

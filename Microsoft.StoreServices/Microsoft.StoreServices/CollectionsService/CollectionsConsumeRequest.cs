@@ -6,7 +6,6 @@
 //-----------------------------------------------------------------------------
 
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.StoreServices
 {
@@ -22,13 +21,14 @@ namespace Microsoft.StoreServices
         /// ProductId / StoreId of the consumable product.
         /// </summary>
         [JsonProperty("productId")] public string ProductId { get; set; }
-        
+
         /// <summary>
         /// Unique Id that is used to track the consume request and can
         /// be used to replay the request and verify the resulting status.
         /// </summary>
-        [Key] [JsonProperty("trackingId")] public string TrackingId { get; set; }
-        
+        //  Generally this would be the Key if you are using this in a DB
+        [JsonProperty("trackingId")] public string TrackingId { get; set; }
+
         /// <summary>
         /// Quantity to be removed from the user's balance of the consumable product.
         /// </summary>

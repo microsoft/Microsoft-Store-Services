@@ -8,13 +8,12 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.StoreServices.Purchase
 {
     public class ClawbackItem
     {
-        [Key]
+        //  Generally this would be the Key if you are using this in a DB
         [JsonProperty("orderId")] public string OrderId { get; set; }
         [JsonProperty("orderLineItems")] public List<OrderLineItem> OrderLineItems { get; set; }
         [JsonProperty("orderPurchasedDate")] public DateTime OrderPurchaseDate { get; set;}
@@ -24,7 +23,7 @@ namespace Microsoft.StoreServices.Purchase
     
     public class OrderLineItem
     {
-        [Key]
+        //  Generally this would be the Key if you are using this in a DB
         [JsonProperty("lineItemId")] public string LineItemId { get; set; }
         [JsonProperty("lineItemState")] public string LineItemState { get; set; }
         [JsonProperty("productId")] public string ProductId { get; set; }
