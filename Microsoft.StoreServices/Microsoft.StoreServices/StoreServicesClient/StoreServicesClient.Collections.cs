@@ -13,6 +13,11 @@ namespace Microsoft.StoreServices
 {
     public sealed partial class StoreServicesClient : IStoreServicesClient
     {
+        /// <summary>
+        /// Query for the user's current entitlements based on the filtering options in the request.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<CollectionsQueryResponse> CollectionsQueryAsync(CollectionsQueryRequest request)
         {
 
@@ -35,6 +40,11 @@ namespace Microsoft.StoreServices
             return userCollection;
         }
 
+        /// <summary>
+        /// Preform a consume transaction from the user's balance of the product based on the request parameters.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<CollectionsConsumeResponse> CollectionsConsumeAsync(CollectionsConsumeRequest request)
         {
             //  Validate that we have a productID, quantity, trackingId and a UserCollectionsId
@@ -51,20 +61,35 @@ namespace Microsoft.StoreServices
                 {
                     throw new ArgumentException($"{nameof(request.TrackingId)} must be provided", nameof(request.TrackingId));
                 }
-                if (request.Beneficiary == null ||
-                    string.IsNullOrEmpty(request.Beneficiary.UserCollectionsId))
+                if (request.RequestBeneficiary == null ||
+                    string.IsNullOrEmpty(request.RequestBeneficiary.UserCollectionsId))
                 {
-                    throw new ArgumentException($"{nameof(request.Beneficiary.UserCollectionsId)} must be provided", nameof(request.Beneficiary.UserCollectionsId));
+                    throw new ArgumentException($"{nameof(request.RequestBeneficiary.UserCollectionsId)} must be provided", nameof(request.RequestBeneficiary.UserCollectionsId));
                 }
             }
 
-            //  Post the request and wait for the response
-            var consumeResponse = await IssueRequestAsync<CollectionsConsumeResponse>(
-                "https://collections.mp.microsoft.com/v8.0/collections/consume",
-                JsonConvert.SerializeObject(request),
-                null);
-            
-            return consumeResponse;           
+            CollectionsConsumeResponse consumeResponse;
+            try
+            {
+                //  Post the request and wait for the response
+                consumeResponse = await IssueRequestAsync<CollectionsConsumeResponse>(
+                    "https://collections.mp.microsoft.com/v8.0/collections/consume",
+                    JsonConvert.SerializeObject(request),
+                    null);
+            }
+            catch(StoreServicesHttpResponseException ex)
+            {
+                //  Consume failures have a specific body format that will give us more information so we need to 
+                //  deserialize the JSON into a ConsumeError object
+                string responseBody = await ex.HttpResponseMessage.Content.ReadAsStringAsync();
+                var responseError = JsonConvert.DeserializeObject<CollectionsConsumeErrorResponse>(responseBody, new JsonSerializerSettings
+                {
+                    DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                });
+
+                throw new StoreServicesClientConsumeException(responseError.InnerError);
+            }
+            return consumeResponse;
         }
     }
 }

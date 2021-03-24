@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 namespace Microsoft.StoreServices
 {
     /// <summary>
-    /// StoreServicesClient functionality
+    /// Provides an interface to create a client that will manage the requests and responses from the
+    /// Microsoft Store Services.
     /// </summary>
     public interface IStoreServicesClient : IDisposable
     {

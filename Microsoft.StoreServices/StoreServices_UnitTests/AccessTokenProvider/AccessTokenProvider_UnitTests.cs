@@ -13,6 +13,9 @@ namespace StoreServices_UnitTests
     [TestClass]
     public class AccessTokenProvider_UnitTests
     {
+        /// <summary>
+        /// Validates the parameter checking when creating an AccessTokenProvider.
+        /// </summary>
         [TestMethod]
         public void InvalidCreationParameters_Exception()
         {

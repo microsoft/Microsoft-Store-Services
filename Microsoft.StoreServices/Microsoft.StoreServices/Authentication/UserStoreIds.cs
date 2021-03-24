@@ -24,7 +24,7 @@ namespace Microsoft.StoreServices
     /// from the client (UserCollectionsId or UserPurchaseId)
     /// </summary>
     class UserStoreIds
-    {
+    {//todo(cagood) - probably need to interface this one too.
         /// <summary>
         /// Uses the RefreshURI to generate a new UserStoreId key for this user once the current one is expired
         /// </summary>
