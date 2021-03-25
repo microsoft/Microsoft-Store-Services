@@ -40,13 +40,6 @@ namespace Microsoft.StoreServices
         Task<ClawbackQueryResponse> ClawbackQueryAsync(ClawbackQueryRequest request);
 
         /// <summary>
-        /// Allows the caller to grant a free product in the store to the user's account.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        Task<GrantProductResponse> GrantProductAsync(GrantProductRequest request);
-
-        /// <summary>
         /// Query's the Recurrence information for the user based on the parameters object
         /// </summary>
         /// <param name="request"></param>

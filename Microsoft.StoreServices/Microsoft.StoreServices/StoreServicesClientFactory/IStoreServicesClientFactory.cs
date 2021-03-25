@@ -28,6 +28,6 @@ namespace Microsoft.StoreServices
         /// the Microsoft Store Services.</param>
         /// <param name="accessTokenProvider">IAccessTokenProvider initialized with your services information that
         /// will be shared and used by all the generated StoreServicesClients.</param>
-        public void Initialize(string serviceIdentity, IAccessTokenProvider accessTokenProvider);
+        void Initialize(string serviceIdentity, IAccessTokenProvider accessTokenProvider);
     }
 }

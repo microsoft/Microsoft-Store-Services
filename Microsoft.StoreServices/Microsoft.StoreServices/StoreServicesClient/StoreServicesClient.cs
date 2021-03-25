@@ -51,7 +51,7 @@ namespace Microsoft.StoreServices
         public StoreServicesClient(string serviceIdentity, IAccessTokenProvider accessTokenProvider) 
         {
             _accessTokenProvider = accessTokenProvider;
-            ServiceIdentity = serviceIdentity ?? "Some reasonable default";
+            ServiceIdentity = serviceIdentity ?? "UnspecifiedService-Microsoft.StoreServices";
             _isDisposed = false;
         }
 

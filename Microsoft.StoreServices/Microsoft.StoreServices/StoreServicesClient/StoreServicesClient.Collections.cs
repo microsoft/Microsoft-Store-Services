@@ -61,10 +61,13 @@ namespace Microsoft.StoreServices
                 {
                     throw new ArgumentException($"{nameof(request.TrackingId)} must be provided", nameof(request.TrackingId));
                 }
-                if (request.RequestBeneficiary == null ||
-                    string.IsNullOrEmpty(request.RequestBeneficiary.UserCollectionsId))
+                if (request.RequestBeneficiary == null)
                 {
-                    throw new ArgumentException($"{nameof(request.RequestBeneficiary.UserCollectionsId)} must be provided", nameof(request.RequestBeneficiary.UserCollectionsId));
+                    throw new ArgumentException($"{nameof(request.RequestBeneficiary)} must be provided", nameof(request.RequestBeneficiary));
+                }
+                if (string.IsNullOrEmpty(request.RequestBeneficiary.UserCollectionsId))
+                {
+                    throw new ArgumentException("request.RequestBeneficiary.UserCollectionsId must be provided", "request.RequestBeneficiary.UserCollectionsId");
                 }
             }
 
@@ -81,11 +84,19 @@ namespace Microsoft.StoreServices
             {
                 //  Consume failures have a specific body format that will give us more information so we need to 
                 //  deserialize the JSON into a ConsumeError object
-                string responseBody = await ex.HttpResponseMessage.Content.ReadAsStringAsync();
-                var responseError = JsonConvert.DeserializeObject<CollectionsConsumeErrorResponse>(responseBody, new JsonSerializerSettings
+                CollectionsConsumeErrorResponse responseError;
+                try
                 {
-                    DateTimeZoneHandling = DateTimeZoneHandling.Utc
-                });
+                    string responseBody = await ex.HttpResponseMessage.Content.ReadAsStringAsync();
+                    responseError = JsonConvert.DeserializeObject<CollectionsConsumeErrorResponse>(responseBody, new JsonSerializerSettings
+                    {
+                        DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                    });
+                }
+                catch (Exception e)
+                {
+                    throw new StoreServicesClientException("Unable to parse ConsumeErrorResponse",e);
+                }
 
                 throw new StoreServicesClientConsumeException(responseError.InnerError);
             }
