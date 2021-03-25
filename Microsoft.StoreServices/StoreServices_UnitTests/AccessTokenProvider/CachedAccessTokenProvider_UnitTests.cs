@@ -15,6 +15,9 @@ namespace StoreServices_UnitTests
     [TestClass]
     public class CachedAccessTokenProvider_UnitTests
     {
+        /// <summary>
+        /// Validates the parameter checking when creating a CachedAccessTokenProvider.
+        /// </summary>
         [TestMethod]
         public void InvalidCreationParameters_Exception()
         {

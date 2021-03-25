@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 namespace Microsoft.StoreServices
 {
     /// <summary>
-    /// StoreServicesClient functionality
+    /// Provides an interface to create a client that will manage the requests and responses from the
+    /// Microsoft Store Services.
     /// </summary>
     public interface IStoreServicesClient : IDisposable
     {
@@ -37,13 +38,6 @@ namespace Microsoft.StoreServices
         /// <param name="request"></param>
         /// <returns></returns>
         Task<ClawbackQueryResponse> ClawbackQueryAsync(ClawbackQueryRequest request);
-
-        /// <summary>
-        /// Allows the caller to grant a free product in the store to the user's account.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        Task<GrantProductResponse> GrantProductAsync(GrantProductRequest request);
 
         /// <summary>
         /// Query's the Recurrence information for the user based on the parameters object

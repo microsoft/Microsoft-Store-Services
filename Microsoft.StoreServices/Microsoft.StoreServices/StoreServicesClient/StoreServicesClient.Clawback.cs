@@ -11,18 +11,19 @@ using System.Threading.Tasks;
 
 namespace Microsoft.StoreServices
 {
-    /// <summary>
-    /// Clawback is part of the Purchase Services that allows the caller to
-    /// check a user's account for refunded and revoked items that may have 
-    /// already been used or consumed on the game service side.
-    /// </summary>
     public sealed partial class StoreServicesClient : IStoreServicesClient
     {
+        /// <summary>
+        /// Query for the user's refunded products from the Clawback service based on the 
+        /// parameters of the request.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<ClawbackQueryResponse> ClawbackQueryAsync(ClawbackQueryRequest queryParameters)
         {
-            if (string.IsNullOrEmpty(queryParameters.Beneficiary))
+            if (string.IsNullOrEmpty(queryParameters.UserPurchaseId))
             {
-                throw new ArgumentException($"{nameof(queryParameters.Beneficiary)} must be provided", nameof(queryParameters.Beneficiary));
+                throw new ArgumentException($"{nameof(queryParameters.UserPurchaseId)} must be provided", nameof(queryParameters.UserPurchaseId));
             }
 
             //  Post the request and wait for the response

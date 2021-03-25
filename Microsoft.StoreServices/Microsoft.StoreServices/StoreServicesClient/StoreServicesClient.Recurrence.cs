@@ -11,17 +11,18 @@ using System.Threading.Tasks;
 
 namespace Microsoft.StoreServices
 {
-    /// <summary>
-    /// Recurrences is part of the Purchase Services that allows the caller to
-    /// check a user's subscription status and manage the subscription as well
-    /// </summary>
     public sealed partial class StoreServicesClient : IStoreServicesClient
     {
+        /// <summary>
+        /// Query for the user's subscriptions.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<RecurrenceQueryResponse> RecurrenceQueryAsync(RecurrenceQueryRequest request)
         {
-            if (string.IsNullOrEmpty(request.Beneficiary))
+            if (string.IsNullOrEmpty(request.UserPurchaseId))
             {
-                throw new ArgumentException($"{nameof(request.Beneficiary)} must be provided", nameof(request.Beneficiary));
+                throw new ArgumentException($"{nameof(request.UserPurchaseId)} must be provided", nameof(request.UserPurchaseId));
             }
 
             //  Post the request and wait for the response
@@ -33,11 +34,16 @@ namespace Microsoft.StoreServices
             return userRecurrences;
         }
 
+        /// <summary>
+        /// Change the user's subscription based on the request parameters.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<RecurrenceChangeResponse> RecurrenceChangeAysnc(RecurrenceChangeRequest request)
         {
-            if (string.IsNullOrEmpty(request.Beneficiary))
+            if (string.IsNullOrEmpty(request.UserPurchaseId))
             {
-                throw new ArgumentException($"{nameof(request.Beneficiary)} must be provided", nameof(request.Beneficiary));
+                throw new ArgumentException($"{nameof(request.UserPurchaseId)} must be provided", nameof(request.UserPurchaseId));
             }
 
             //  Post the request and wait for the response
@@ -48,6 +54,5 @@ namespace Microsoft.StoreServices
 
             return userRecurrence;
         }
-
     }
 }

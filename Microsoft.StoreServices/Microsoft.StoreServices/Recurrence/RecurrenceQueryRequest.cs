@@ -9,8 +9,14 @@ using Newtonsoft.Json;
 
 namespace Microsoft.StoreServices
 {
+    /// <summary>
+    /// JSON request body for a query to the Recurrence service
+    /// </summary>
     public class RecurrenceQueryRequest
     {
-        [JsonProperty("b2bKey")] public string Beneficiary { get; set; }
+        /// <summary>
+        /// UserPurchaseId that identifies the user we are asking about
+        /// </summary>
+        [JsonProperty("b2bKey")] public string UserPurchaseId { get; set; }
     }
 }

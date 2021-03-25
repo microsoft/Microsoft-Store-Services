@@ -7,8 +7,12 @@
 
 namespace Microsoft.StoreServices
 {
+    /// <summary>
+    /// JSON response body from a change request to a subscription
+    /// </summary>
     public class RecurrenceChangeResponse : RecurrenceItem
     {
-        //  Recurrence Change returns just the one item
+        //  Recurrence Change returns just one item so no additional 
+        //  properties are needed.
     }
 }

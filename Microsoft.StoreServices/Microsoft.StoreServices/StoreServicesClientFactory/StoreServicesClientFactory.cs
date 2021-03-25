@@ -10,9 +10,20 @@ using System.Net.Http;
 
 namespace Microsoft.StoreServices
 {
+    /// <summary>
+    /// Factory that will provide IStoreServicesClients on request from a shared IAccessTokenProvider.
+    /// </summary>
     public class StoreServicesClientFactory : IStoreServicesClientFactory
     {
+        /// <summary>
+        /// Shared IAccessTokenProvider to be used with each StoreServices client created.
+        /// </summary>
         private IAccessTokenProvider _accessTokenProvider;
+
+        /// <summary>
+        /// Identification string of your service for logging purposes on the calls to the Microsoft
+        /// Store Services.
+        /// </summary>
         public string ServiceIdentity { get; private set; }
 
         /// <summary>
@@ -32,10 +43,12 @@ namespace Microsoft.StoreServices
         }
 
         /// <summary>
-        /// Constructor if you already have the needed service identity and IAccessTokenProvider
+        /// Constructor if you already have the needed service identity and IAccessTokenProvider.
         /// </summary>
-        /// <param name="serviceIdentity"></param>
-        /// <param name="accessTokenProvider"></param>
+        /// <param name="serviceIdentity">Identification string of your service for logging purposes on the calls to
+        /// the Microsoft Store Services.</param>
+        /// <param name="accessTokenProvider">IAccessTokenProvider initialized with your services information that
+        /// will be shared and used by all the generated StoreServicesClients.</param>
         public StoreServicesClientFactory(string serviceIdentity,
                                           IAccessTokenProvider accessTokenProvider) 
         {
