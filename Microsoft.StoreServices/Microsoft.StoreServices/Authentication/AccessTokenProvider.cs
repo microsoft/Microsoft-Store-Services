@@ -67,17 +67,17 @@ namespace Microsoft.StoreServices
             _clientSecret = clientSecret;
         }
 
-        public Task<AccessToken> GetServiceAccessTokenAsync()
+        public virtual Task<AccessToken> GetServiceAccessTokenAsync()
         {
             return CreateAccessTokenAsync(AccessTokenAudienceTypes.Service);
         }
 
-        public Task<AccessToken> GetCollectionsAccessTokenAsync()
+        public virtual Task<AccessToken> GetCollectionsAccessTokenAsync()
         {
             return CreateAccessTokenAsync(AccessTokenAudienceTypes.Collections);
         }
 
-        public Task<AccessToken> GetPurchaseAccessTokenAsync()
+        public virtual Task<AccessToken> GetPurchaseAccessTokenAsync()
         {
             return CreateAccessTokenAsync(AccessTokenAudienceTypes.Purchase);
         }

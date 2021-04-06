@@ -45,7 +45,7 @@ namespace Microsoft.StoreServices
         /// Gets the currently cached Service access token or generates a new one if not cached.
         /// </summary>
         /// <returns></returns>
-        new public Task<AccessToken> GetServiceAccessTokenAsync()
+        public override Task<AccessToken> GetServiceAccessTokenAsync()
         {
             return GetTokenAsync(AccessTokenAudienceTypes.Service);
         }
@@ -54,7 +54,7 @@ namespace Microsoft.StoreServices
         /// Gets the currently cached Collections access token or generates a new one if not cached.
         /// </summary>
         /// <returns></returns>
-        new public Task<AccessToken> GetCollectionsAccessTokenAsync()
+        public override Task<AccessToken> GetCollectionsAccessTokenAsync()
         {
             return GetTokenAsync(AccessTokenAudienceTypes.Collections);
         }
@@ -63,7 +63,7 @@ namespace Microsoft.StoreServices
         /// Gets the currently cached Purchase access token or generates a new one if not cached.
         /// </summary>
         /// <returns></returns>
-        new public Task<AccessToken> GetPurchaseAccessTokenAsync()
+        public override Task<AccessToken> GetPurchaseAccessTokenAsync()
         {
             return GetTokenAsync(AccessTokenAudienceTypes.Purchase);
         }
