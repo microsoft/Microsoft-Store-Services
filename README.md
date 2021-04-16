@@ -6,6 +6,9 @@ Provide a library to help simplify the proccess for authenticating with and call
 ## Store Services
 This library specifically provides the functionality outlined in [Manage product entitlements from a service](https://docs.microsoft.com/en-us/windows/uwp/monetize/view-and-grant-products-from-a-service).
 
+## Sample Service
+A sample service that demonstrates how to use the Microsoft.StoreServices library as well as some logic around managing consumables and refunded items can be found in the following repo: [https://github.com/microsoft/Microsoft-Store-Services-Sample](https://github.com/microsoft/Microsoft-Store-Services-Sample)
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
