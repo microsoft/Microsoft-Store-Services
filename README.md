@@ -1,7 +1,7 @@
 # Microsoft.StoreServices 
 
 ## Goals
-Provide a library to help simplify the proccess for authenticating with and calling the Microsoft Store Services from your own back-end services.  With these services you can verify and manage user purchases made for your app or game within the Microsoft Store (including Xbox consoles).  
+Provide a library to help simplify the process for authenticating with and calling the Microsoft Store Services from your own back-end services.  With these services you can verify and manage user purchases made for your app or game within the Microsoft Store (including Xbox consoles).  
 
 ## Store Services
 This library specifically provides the functionality outlined in [Manage product entitlements from a service](https://docs.microsoft.com/en-us/windows/uwp/monetize/view-and-grant-products-from-a-service).
