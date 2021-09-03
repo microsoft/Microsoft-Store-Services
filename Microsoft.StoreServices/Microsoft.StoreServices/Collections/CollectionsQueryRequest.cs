@@ -28,7 +28,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Specifies which product types to return in the query results. For a list of valid values, see EntitlementFilterTypes.]
         /// </summary>
-        [JsonProperty("EntitlementFilters")] public List<string> EntitlementFilters { get; set; }
+        [JsonProperty("entitlementFilters")] public List<string> EntitlementFilters { get; set; }
 
         /// <summary>
         /// If specified, the service only returns products applicable to the provided product/SKU pairs. Recommended for all service-to-service queries for faster and more reliable results.
@@ -55,6 +55,11 @@ namespace Microsoft.StoreServices
         /// </summary>
         [JsonProperty("validityType")] public string ValidityType { get; set; }
 
+        /// <summary>
+        /// Specifies which development sandbox the results should be scoped to.  If no sandbox is specified the results will always be to the sandbox RETAIL.
+        /// </summary>
+        [JsonProperty("sbx")] public string SandboxId { get; set; }
+
         public CollectionsQueryRequest()
         {
             //  default values most commonly used
@@ -70,10 +75,14 @@ namespace Microsoft.StoreServices
             EntitlementFilters = new List<string>() {
                 EntitlementFilterTypes.Game,
                 EntitlementFilterTypes.Consumable,
-                EntitlementFilterTypes.Durable
+                EntitlementFilterTypes.UnmanagedConsumable,
+                EntitlementFilterTypes.Durable,
+                EntitlementFilterTypes.Subscription
             };
 
             Beneficiaries = new List<CollectionsRequestBeneficiary>();
+
+            SandboxId = "";
         }
     }
 
@@ -151,6 +160,12 @@ namespace Microsoft.StoreServices
         /// Developer-managed consumables that must be fulfilled before being able to be purchased by the user again.
         /// </summary>
         public const string UnmanagedConsumable = "*:UnmanagedConsumable";
+
+        /// <summary>
+        /// Store-managed subscriptions. Ex: Xbox Game Pass, Publisher specific subscription.  This product type is not 
+        /// the Add-on Subscription type that can be configured in the Add-ons page in Partner Center.
+        /// </summary>
+        public const string Subscription        = "*:Pass";
     }
 
     /// <summary>

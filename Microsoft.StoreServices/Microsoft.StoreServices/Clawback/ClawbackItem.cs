@@ -31,12 +31,12 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// UTC date time when the purchase transaction was made.
         /// </summary>
-        [JsonProperty("orderPurchasedDate")] public DateTime OrderPurchaseDate { get; set;}
+        [JsonProperty("orderPurchasedDate")] public DateTimeOffset OrderPurchaseDate { get; set;}
 
         /// <summary>
         /// UTC date time when the purchase was refunded (if in a refunded state).
         /// </summary>
-        [JsonProperty("orderRefundedDate")] public DateTime OrderRefundedDate { get; set;}
+        [JsonProperty("orderRefundedDate")] public DateTimeOffset OrderRefundedDate { get; set;}
 
     }
     

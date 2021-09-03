@@ -96,11 +96,16 @@ namespace Microsoft.StoreServices
                 throw new ArgumentException($"{nameof(audience)} required", nameof(audience));
             }
 
+            //  URL encode the Secret key to ensure it gets properly transmitted if containing
+            //  characters such as '%'.  We just encode the secret so the rest of the body is
+            //  easily read in debugging tools such as Fiddler.
+            var encodedSecret = System.Web.HttpUtility.UrlEncode(_clientSecret);
+
             //  Build the HTTP request information to generate the access token
-            var requestUri = $"https://login.microsoftonline.com/{_tenantId}/oauth2/token";
+            var requestUri = $"https://login.microsoftonline.com/{_tenantId}/oauth2/v2.0/token";
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, requestUri.ToString());
             var requestBody = $"grant_type=client_credentials&client_id={_clientId}" +
-                              $"&client_secret={_clientSecret}" +
+                              $"&client_secret={encodedSecret}" +
                               $"&resource={audience}";
             httpRequest.Content = new StringContent(requestBody, Encoding.UTF8, "application/x-www-form-urlencoded");
 

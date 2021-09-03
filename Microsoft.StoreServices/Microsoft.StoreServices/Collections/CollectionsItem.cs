@@ -19,7 +19,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The date on which the user acquired the item.
         /// </summary>
-        [JsonProperty("acquiredDate")] public DateTime AcquiredDate { get; set; }
+        [JsonProperty("acquiredDate")] public DateTimeOffset AcquiredDate { get; set; }
 
         /// <summary>
         /// Indicates how the user has this entitlement.
@@ -29,7 +29,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The UTC date that the item will expire.
         /// </summary>
-        [JsonProperty("endDate")] public DateTime EndDate { get; set; }
+        [JsonProperty("endDate")] public DateTimeOffset EndDate { get; set; }
 
         /// <summary>
         /// An ID that identifies this collection item from other items that the user owns. This ID is unique per product.
@@ -57,7 +57,7 @@ namespace Microsoft.StoreServices
         /// The UTC date that this item was last modified. With consumable products, this value changes when the user’s quantity
         /// balance changes through an additional purchase of the consumable product or when a consume request is issued.
         /// </summary>
-        [JsonProperty("modifiedDate")] public DateTime ModifiedDate { get; set; }
+        [JsonProperty("modifiedDate")] public DateTimeOffset ModifiedDate { get; set; }
 
         /// <summary>
         /// The two-character ISO 3166 country code indicating the region store the product was acquired from.
@@ -104,7 +104,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The UTC date that the item became or will become valid.
         /// </summary>
-        [JsonProperty("startDate")] public DateTime StartDate { get; set; }
+        [JsonProperty("startDate")] public DateTimeOffset StartDate { get; set; }
 
         /// <summary>
         /// The status of the item.

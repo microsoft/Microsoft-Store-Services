@@ -30,14 +30,14 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The UTC date and time that the subscription will or has expired
         /// </summary>
-        [JsonProperty("expirationTime")] public DateTime ExpirationTime { get; set; }
+        [JsonProperty("expirationTime")] public DateTimeOffset ExpirationTime { get; set; }
 
         /// <summary>
         /// The UTC date and time that the user's Grace period will end if auto-renew fails at the 
         /// ExpirationTime.  During Grace, users should still have access and be considered valid
         /// subscribers, but notified they need to fix their auto-renew payment.
         /// </summary>
-        [JsonProperty("expirationTimeWithGrace")] public DateTime ExpirationTimeWithGrace { get; set; }
+        [JsonProperty("expirationTimeWithGrace")] public DateTimeOffset ExpirationTimeWithGrace { get; set; }
 
         /// <summary>
         /// An ID that identifies this collection item from other items that the user owns. This ID is unique per product.
@@ -52,7 +52,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The UTC date that this item was last modified.
         /// </summary>
-        [JsonProperty("lastModified")] public DateTime LastModified { get; set; }
+        [JsonProperty("lastModified")] public DateTimeOffset LastModified { get; set; }
 
         /// <summary>
         /// The country the product was purchased in following the two-character ISO 3166 country/region code. EX: US.
@@ -78,12 +78,12 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The UTC date that the subscription became or will become valid.
         /// </summary>
-        [JsonProperty("startTime")] public DateTime StartTime { get; set; }
+        [JsonProperty("startTime")] public DateTimeOffset StartTime { get; set; }
 
         /// <summary>
         /// The UTC date that the subscription was canceled.
         /// </summary>
-        [JsonProperty("cancellationDate")] public DateTime CancellationDate { get; set; }
+        [JsonProperty("cancellationDate")] public DateTimeOffset CancellationDate { get; set; }
     }
 
     /// <summary>

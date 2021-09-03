@@ -57,12 +57,12 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The UTC date and time when the Access Token expires
         /// </summary>
-        public DateTime ExpiresOn => DateTime.UnixEpoch.AddSeconds(EpochExpiresOn);
+        public DateTimeOffset ExpiresOn => DateTime.UnixEpoch.AddSeconds(EpochExpiresOn);
 
         /// <summary>
         /// The UTC date and time when the Access Token becomes valid and can be used
         /// </summary>
-        public DateTime ValidAfter => DateTime.UnixEpoch.AddSeconds(EpochValidAfter);
+        public DateTimeOffset ValidAfter => DateTime.UnixEpoch.AddSeconds(EpochValidAfter);
     }
 
     /// <summary>
