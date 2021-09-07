@@ -101,12 +101,16 @@ namespace Microsoft.StoreServices
             //  easily read in debugging tools such as Fiddler.
             var encodedSecret = System.Web.HttpUtility.UrlEncode(_clientSecret);
 
-            //  Build the HTTP request information to generate the access token
+            //  Build the HTTP request information to generate the access token.  We are using
+            //  Azure AD v2.0 to generate the tokens. See the following:
+            //  https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow
+
             var requestUri = $"https://login.microsoftonline.com/{_tenantId}/oauth2/v2.0/token";
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, requestUri.ToString());
             var requestBody = $"grant_type=client_credentials&client_id={_clientId}" +
                               $"&client_secret={encodedSecret}" +
-                              $"&resource={audience}";
+                              $"&scope={audience}/.default";
+
             httpRequest.Content = new StringContent(requestBody, Encoding.UTF8, "application/x-www-form-urlencoded");
 
             // Post the request and wait for the response
@@ -117,7 +121,14 @@ namespace Microsoft.StoreServices
 
                 if (httpResponse.IsSuccessStatusCode)
                 {
-                    return JsonConvert.DeserializeObject<AccessToken>(responseBody);
+                    var token = JsonConvert.DeserializeObject<AccessToken>(responseBody);
+                    if (string.IsNullOrEmpty(token.Audience))
+                    {
+                        //  The Azure v2.0 AAD URI doesn't pass back the audience in the request body
+                        //  so we copy it from the audience that we put in the request
+                        token.Audience = audience;
+                    }
+                    return token;
                 }
                 else
                 {
