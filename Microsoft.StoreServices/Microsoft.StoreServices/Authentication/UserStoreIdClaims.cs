@@ -71,16 +71,16 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The UTC date and time when the UserStoreId becomes valid and can be used
         /// </summary>
-        public DateTime ValidAfter => DateTime.UnixEpoch.AddSeconds(EpochValidAfter);
+        public DateTimeOffset ValidAfter => DateTime.UnixEpoch.AddSeconds(EpochValidAfter);
 
         /// <summary>
         /// The UTC date and time when the UserStoreId expires
         /// </summary>
-        public DateTime ExpiresOn => DateTime.UnixEpoch.AddSeconds(EpochExpiresOn);
+        public DateTimeOffset ExpiresOn => DateTime.UnixEpoch.AddSeconds(EpochExpiresOn);
 
         /// <summary>
         /// The UTC date and time when the UserStoreId was created
         /// </summary>
-        public DateTime IssuedOn => DateTime.UnixEpoch.AddSeconds(EpochIssuedOn);
+        public DateTimeOffset IssuedOn => DateTime.UnixEpoch.AddSeconds(EpochIssuedOn);
     }
 }
