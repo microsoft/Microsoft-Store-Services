@@ -65,5 +65,10 @@ namespace Microsoft.StoreServices
         /// If using the Extend change type, specifies how many days to add to the user's subscription.
         /// </summary>
         [JsonProperty("extensionTimeInDays")] public int ExtensionTimeInDays { get; set; }
+
+        /// <summary>
+        /// Defines the development SandboxId that results should be scoped to
+        /// </summary>
+        [JsonProperty("sbx")] public string SandboxId { get; set; }
     }
 }

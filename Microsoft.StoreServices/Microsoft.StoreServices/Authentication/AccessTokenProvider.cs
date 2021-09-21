@@ -98,12 +98,21 @@ namespace Microsoft.StoreServices
                 throw new ArgumentException($"{nameof(audience)} required", nameof(audience));
             }
 
-            //  Build the HTTP request information to generate the access token
-            var requestUri = $"https://login.microsoftonline.com/{_tenantId}/oauth2/token";
+            //  URL encode the Secret key to ensure it gets properly transmitted if containing
+            //  characters such as '%'.  We just encode the secret so the rest of the body is
+            //  easily read in debugging tools such as Fiddler.
+            var encodedSecret = System.Web.HttpUtility.UrlEncode(_clientSecret);
+
+            //  Build the HTTP request information to generate the access token.  We are using
+            //  Azure AD v2.0 to generate the tokens. See the following:
+            //  https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow
+
+            var requestUri = $"https://login.microsoftonline.com/{_tenantId}/oauth2/v2.0/token";
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, requestUri.ToString());
             var requestBody = $"grant_type=client_credentials&client_id={_clientId}" +
-                              $"&client_secret={_clientSecret}" +
-                              $"&resource={audience}";
+                              $"&client_secret={encodedSecret}" +
+                              $"&scope={audience}/.default";
+
             httpRequest.Content = new StringContent(requestBody, Encoding.UTF8, "application/x-www-form-urlencoded");
 
             // Post the request and wait for the response
@@ -114,7 +123,14 @@ namespace Microsoft.StoreServices
 
                 if (httpResponse.IsSuccessStatusCode)
                 {
-                    return JsonConvert.DeserializeObject<AccessToken>(responseBody);
+                    var token = JsonConvert.DeserializeObject<AccessToken>(responseBody);
+                    if (string.IsNullOrEmpty(token.Audience))
+                    {
+                        //  The Azure v2.0 AAD URI doesn't pass back the audience in the request body
+                        //  so we copy it from the audience that we put in the request
+                        token.Audience = audience;
+                    }
+                    return token;
                 }
                 else
                 {

@@ -5,13 +5,12 @@
       <Authors>Xbox Advanced Technology Group</Authors>
       <PackageId>Microsoft.StoreServices</PackageId>
       <Company>Microsoft</Company>
-      <Version>1.0.0</Version>
+      <Version>1.21.09</Version>
       <PackageTags>Microsoft Store Services;Microsoft;Xbox</PackageTags>
-      <Description>
-          This client library enables working with the Microsoft Store Services to manage and validate user purchases within the Microsoft Store.  This library specifically has functionality to help request the needed Azure Active Directory access tokens and call the store services with this authorization.  More information can be found in the following articles:
+      <Description>This client library enables working with the Microsoft Store Services to manage and validate user purchases within the Microsoft Store.  This library specifically has functionality to help request the needed Azure Active Directory access tokens and call the store services with this authorization.  More information can be found in the following articles:
           Monetization, engagement, and Store services - https://docs.microsoft.com/en-us/windows/uwp/monetize/
           Manage product entitlements from a service - https://docs.microsoft.com/en-us/windows/uwp/monetize/view-and-grant-products-from-a-service
-      </Description>
+</Description>
       <Copyright>Copyright (C) Microsoft Corporation. All rights reserved.</Copyright>
       <PackageIcon>Logo.png</PackageIcon>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

@@ -61,9 +61,16 @@ namespace Microsoft.StoreServices
         public UserStoreIdType KeyType { get; set; }
 
         /// <summary>
-        /// UTC date time when the key will expire and need to be refreshed.
+        /// UTC date time when the key will expire, this is longer than the recommended
+        /// refresh time which we track with RefreshAfter
         /// </summary>
-        public DateTime Expires { get; set; }
+        public DateTimeOffset Expires { get; set; }
+
+        /// <summary>
+        /// UTC date that you should refresh the token to ensure it stays valid
+        /// which is every 2 weeks.
+        /// </summary>
+        public DateTimeOffset RefreshAfter { get; set; }
         
         /// <summary>
         /// The UserStoreId that was used to generate this object and would be
@@ -88,6 +95,9 @@ namespace Microsoft.StoreServices
             RefreshUri = keyClaims.RefreshUri;
             Expires = keyClaims.ExpiresOn;
             Key = storeIdKey;
+
+            //  Recommended time to refresh the ticket is every 2 weeks
+            RefreshAfter = keyClaims.IssuedOn.AddDays(14);
 
             if (keyClaims.Audience == UserStoreIdAudiences.UserCollectionsId)
             {

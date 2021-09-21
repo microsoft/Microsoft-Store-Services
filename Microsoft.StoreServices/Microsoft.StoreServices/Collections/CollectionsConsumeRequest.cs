@@ -40,5 +40,22 @@ namespace Microsoft.StoreServices
         /// Quantity to be removed from the user's balance of the consumable product.
         /// </summary>
         [JsonProperty("removeQuantity")] public uint RemoveQuantity { get; set; }
+
+        /// <summary>
+        /// Used to determine if this is a managed or unmanaged consumable as the consume request JSON is different
+        /// between them.
+        /// </summary>
+        [JsonIgnore] public bool IsUnmanagedConsumable { get; set; }
+
+        /// <summary>
+        /// If this is an unmanaged consumable, then we don't want to add the 'removeQuantity' parameter.  Unmanaged
+        /// are always qty of 1 and the request will fail if we pass in any value for 'removeQuantity'.
+        /// </summary>
+        /// <returns></returns>
+        public bool ShouldSerializeRemoveQuantity()
+        {
+            // don't serialize the Manager property if an employee is their own manager
+            return !IsUnmanagedConsumable;
+        }
     }
 }

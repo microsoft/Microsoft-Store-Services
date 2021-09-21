@@ -26,28 +26,27 @@ namespace Microsoft.StoreServices
     /// </summary>
     public class AccessToken
     {
-        /// <summary>
-        /// Lifetime of the token in seconds from when it was created
-        /// </summary>
-        [JsonProperty("expires_in")] public uint ExpiresIn { get; set; }
+        private uint expiresIn;
 
         /// <summary>
         /// Lifetime of the token in seconds from when it was created
         /// </summary>
-        [JsonProperty("ext_expires_in")] public uint ExtExpiredIn { get; set; }
+        [JsonProperty("expires_in")] public uint ExpiresIn
+        {
+            get { return expiresIn; }
 
-        /// <summary>
-        /// Seconds from the Unix Epoc that represents the UTC datetime the token will expire
-        /// </summary>
-        [JsonProperty("expires_on")] public uint EpochExpiresOn { get; set; }
-
-        /// <summary>
-        /// Seconds from the Unix Epoc that represents the UTC datetime the token starts being valid and can be used.
-        /// </summary>
-        [JsonProperty("not_before")] public uint EpochValidAfter { get; set; }
+            //  The Azure AAD 2.0 URI only includes the expires_in time value so we need to
+            //  generate the ExpiresOn value based off of it and when this was created.
+            set
+            {
+                expiresIn = value;
+                ExpiresOn = DateTimeOffset.Now.AddSeconds(value);
+            }
+        }
 
         /// <summary>
         /// Audience URI tied to the token which determines its type and which Microsoft Store Service it can be used with.
+        /// With the Azure AD URI 1.0 this was returned in the result, with 2.0 it is not and needs to be set manually.
         /// </summary>
         [JsonProperty("resource")] public string Audience { get; set; }
         
@@ -59,12 +58,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The UTC date and time when the Access Token expires
         /// </summary>
-        public DateTime ExpiresOn => DateTime.UnixEpoch.AddSeconds(EpochExpiresOn);
-
-        /// <summary>
-        /// The UTC date and time when the Access Token becomes valid and can be used
-        /// </summary>
-        public DateTime ValidAfter => DateTime.UnixEpoch.AddSeconds(EpochValidAfter);
+        public DateTimeOffset ExpiresOn { get; set; }
     }
 
     /// <summary>

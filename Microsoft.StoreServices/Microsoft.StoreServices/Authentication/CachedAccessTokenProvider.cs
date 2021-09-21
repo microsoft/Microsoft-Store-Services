@@ -78,12 +78,12 @@ namespace Microsoft.StoreServices
         /// <returns></returns>
         protected async Task<AccessToken> GetTokenAsync(string audience)
         {
-            var currentUTC = DateTime.Now.ToUniversalTime();
+            var currentUTC = DateTime.UtcNow;
 
             //  If we are unable to acquire a token, it is expired, or expiring
             //  in less than 5 minutes we create a new one and cache it
             if(!_serverCache.TryGetValue(audience, out AccessToken token) ||
-               DateTime.Compare(token.ExpiresOn.AddMinutes(-5), currentUTC) <= 0)
+               (token.ExpiresOn.AddMinutes(-5)) <= currentUTC)
             {
                 token = await CreateAccessTokenAsync(audience);
                 CacheAccessToken(audience, token);
