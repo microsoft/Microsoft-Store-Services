@@ -168,7 +168,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Information about how long the trial remains valid.
         /// </summary>
-        [JsonProperty("trialTimeRemaining")] public string TrialTimeRemaining { get; set; }
+        [JsonProperty("trialTimeRemaining")] public TimeSpan TrialTimeRemaining { get; set; }
     }
 
     /// <summary>
