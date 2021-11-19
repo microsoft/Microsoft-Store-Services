@@ -35,7 +35,7 @@ namespace Microsoft.StoreServices
             //  the request
             //  Post the request and wait for the response
             var userCollection = await IssueRequestAsync<CollectionsQueryResponse>(
-                "https://collections.mp.microsoft.com/v8.0/collections/b2bLicensePreview",
+                "https://wus2.ppe.collections.commerce.microsoft.com/v8.0/collections/b2bLicensePreview",
                 JsonConvert.SerializeObject(request),
                 null);
 
@@ -78,7 +78,7 @@ namespace Microsoft.StoreServices
             {
                 //  Post the request and wait for the response
                 consumeResponse = await IssueRequestAsync<CollectionsConsumeResponse>(
-                    "https://collections.mp.microsoft.com/v8.0/collections/consume",
+                    "https://wus2.ppe.collections.commerce.microsoft.com/v8.0/collections/consume",
                     JsonConvert.SerializeObject(request),
                     null);
             }
