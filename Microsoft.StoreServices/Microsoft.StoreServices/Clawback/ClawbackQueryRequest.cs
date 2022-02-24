@@ -41,6 +41,12 @@ namespace Microsoft.StoreServices
 
             UserPurchaseId = ""; 
         }
+
+        /// <summary>
+        /// Defines the development SandboxId that results should be scoped to
+        /// </summary>
+        [JsonProperty("sbx")] public string SandboxId { get; set; }
+
     }
 
     /// <summary>
