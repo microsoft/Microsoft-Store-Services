@@ -42,6 +42,11 @@ namespace Microsoft.StoreServices
         [JsonProperty("removeQuantity")] public uint RemoveQuantity { get; set; }
 
         /// <summary>
+        /// Quantity to be removed from the user's balance of the consumable product.
+        /// </summary>
+        [JsonProperty("includeOrderIds")] public bool IncludeOrderIds { get; set; } = false;
+
+        /// <summary>
         /// Used to determine if this is a managed or unmanaged consumable as the consume request JSON is different
         /// between them.
         /// </summary>

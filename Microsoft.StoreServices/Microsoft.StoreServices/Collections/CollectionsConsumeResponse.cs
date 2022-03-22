@@ -36,6 +36,34 @@ namespace Microsoft.StoreServices
         /// The ProductId / StoreId of the consumable that was fulfilled.
         /// </summary>
         [JsonProperty("productId")] public string ProductId { get; set; }
+
+        /// <summary>
+        /// An array of ConsumeOrderTransactionContractV8 objects indicating the orders used to fulfill the consume request.
+        /// This is only returned if the includeOrderIds parameter is set to true in the request.
+        /// </summary>
+        [JsonProperty("orderTransactions")] public List<ConsumeOrderTransactionContractV8> OrderTransactions { get; set; }
+    }
+
+    /// <summary>
+    /// Ids related to the purchased order by the user that was used to fulfill the consume request.
+    /// </summary>
+    public class ConsumeOrderTransactionContractV8
+    {
+        /// <summary>
+        /// Id of user's purchase order used to fulfill all or part of this consume request.
+        /// </summary>
+        [JsonProperty("orderId")] public string OrderId { get; set; }
+
+        /// <summary>
+        /// Id of the line item the consumable was within the purchase order made by the user.
+        /// This Id is more unique to a consumable purchase than OrderId as there can be multiple line item Ids per Order Id.
+        /// </summary>
+        [JsonProperty("orderLineItemId")] public string OrderLineItemId { get; set; }
+
+        /// <summary>
+        /// Amount of the consume request that was fulfilled by this specific OrderId / LineItemId
+        /// </summary>
+        [JsonProperty("quantityConsumed")] public int QuantityConsumed { get; set; }
     }
 
     /// <summary>

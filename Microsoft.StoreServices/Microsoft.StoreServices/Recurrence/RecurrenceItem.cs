@@ -94,18 +94,33 @@ namespace Microsoft.StoreServices
     public class RecurrenceStates
     {
         /// <summary>
-        /// Currently subscribed and should have access to subscription benefits
+        /// This indicates a perpetual subscription.
+        /// </summary>
+        public static string None = "None";
+
+        /// <summary>
+        /// The subscription is active and the user is entitled to use the services.
         /// </summary>
         public static string Active   = "Active";
 
         /// <summary>
-        /// Subscription was canceled, benefits should not be active.
+        /// The subscription is past the expiration date, and the user turned off the automatic renew option for the subscription.
+        /// </summary>
+        public static string Inactive = "Inactive";
+
+        /// <summary>
+        /// The subscription has been purposefully terminated before the expiration date, with or without a refund.
         /// </summary>
         public static string Canceled = "Canceled";
 
         /// <summary>
-        /// Subscription was refunded, benefits should not be active.
+        /// The subscription is in dunning (that is, the subscription is nearing expiration, and Microsoft is trying to acquire funds to automatically renew the subscription).
         /// </summary>
-        public static string Revoked  = "Revoked";
+        public static string InDunning = "InDunning";
+
+        /// <summary>
+        /// The dunning period is over and the subscription failed to renew after several attempts.
+        /// </summary>
+        public static string Failed = "Failed";
     }
 }
