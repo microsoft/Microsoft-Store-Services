@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
       <Authors>Xbox Advanced Technology Group</Authors>
       <PackageId>Microsoft.StoreServices</PackageId>
       <Company>Microsoft</Company>
@@ -24,10 +24,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="jose-jwt" Version="3.0.0" />
+      <PackageReference Include="jose-jwt" Version="4.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
-      <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
