@@ -10,12 +10,12 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Collections.V8
 {
     /// <summary>
     /// JSON request body for a query to the Collections service
     /// </summary>
-    public class CollectionsQueryRequest
+    public class CollectionsV8QueryRequest
     {
         /// <summary>
         /// The maximum number of products to return in one response. The default and maximum value is 100.
@@ -50,7 +50,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// The user for which this item is entitled. You will use the UserCollectionsId in this property to define the user you want the results for.
         /// </summary>
-        [JsonProperty("beneficiaries")] public List<CollectionsRequestBeneficiary> Beneficiaries { get; set; }
+        [JsonProperty("beneficiaries")] public List<CollectionsV8RequestBeneficiary> Beneficiaries { get; set; }
 
         /// <summary>
         /// Filter the results to this validity type which is based off the Status values of the items to be returned.
@@ -62,7 +62,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         [JsonProperty("sbx")] public string SandboxId { get; set; }
 
-        public CollectionsQueryRequest()
+        public CollectionsV8QueryRequest()
         {
             //  default values most commonly used
             Market = "neutral";
@@ -82,7 +82,7 @@ namespace Microsoft.StoreServices
                 EntitlementFilterTypes.Subscription
             };
 
-            Beneficiaries = new List<CollectionsRequestBeneficiary>();
+            Beneficiaries = new List<CollectionsV8RequestBeneficiary>();
 
             SandboxId = "";
         }
@@ -91,7 +91,7 @@ namespace Microsoft.StoreServices
     /// <summary>
     /// JSON structure to provide the UserCollectionsId to identify which user we are making the request for.
     /// </summary>
-    public class CollectionsRequestBeneficiary 
+    public class CollectionsV8RequestBeneficiary
     {
         /// <summary>
         /// Must be set to "b2b".
@@ -108,10 +108,10 @@ namespace Microsoft.StoreServices
         /// </summary>
         [JsonProperty("localTicketReference")] public string LocalTicketReference { get; set; }
 
-        public CollectionsRequestBeneficiary()
+        public CollectionsV8RequestBeneficiary()
         {
-            Identitytype         = "b2b";
-            UserCollectionsId    = "";
+            Identitytype = "b2b";
+            UserCollectionsId = "";
             LocalTicketReference = "";
         }
     }
@@ -141,22 +141,22 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Games products.
         /// </summary>
-        public const string Game                = "*:Game";
+        public const string Game = "*:Game";
 
         /// <summary>
         /// Apps that are not games.
         /// </summary>
-        public const string Application         = "*:Application";
+        public const string Application = "*:Application";
 
         /// <summary>
         /// Game content such as DLC and most single-time purchase items
         /// </summary>
-        public const string Durable             = "*:Durable";
+        public const string Durable = "*:Durable";
 
         /// <summary>
         /// Store-managed consumable products (recommended consumable type for most scenarios).
         /// </summary>
-        public const string Consumable          = "*:Consumable";
+        public const string Consumable = "*:Consumable";
 
         /// <summary>
         /// Developer-managed consumables that must be fulfilled before being able to be purchased by the user again.
@@ -167,7 +167,7 @@ namespace Microsoft.StoreServices
         /// Store-managed subscriptions. Ex: Xbox Game Pass, Publisher specific subscription.  This product type is not 
         /// the Add-on Subscription type that can be configured in the Add-ons page in Partner Center.
         /// </summary>
-        public const string Subscription        = "*:Pass";
+        public const string Subscription = "*:Pass";
     }
 
     /// <summary>
@@ -178,22 +178,22 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Everything will be returned.
         /// </summary>
-        public const string All           = "All";
+        public const string All = "All";
 
         /// <summary>
         /// Items that have a state of Active
         /// </summary>
-        public const string Valid         = "Valid";
+        public const string Valid = "Valid";
 
         /// <summary>
         /// Items that are Expired, Revoked, or in other non-valid states.
         /// </summary>
-        public const string Invalid       = "Invalid";
+        public const string Invalid = "Invalid";
 
         /// <summary>
         /// Items that are active but not yet reached their end date
         /// </summary>
-        public const string NotYetEnded   = "NotYetEnded";
+        public const string NotYetEnded = "NotYetEnded";
 
         /// <summary>
         /// Items that have not yet been activated such as pre-orders

@@ -9,6 +9,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Microsoft.StoreServices.Collections.V8;
 
 namespace Microsoft.StoreServices
 {
@@ -25,14 +26,14 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<CollectionsQueryResponse> CollectionsQueryAsync(CollectionsQueryRequest request);
+        Task<CollectionsV8QueryResponse> CollectionsQueryAsync(CollectionsV8QueryRequest request);
 
         /// <summary>
         /// Consumes a specified quantity of a product from a user's active balance in the store.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<CollectionsConsumeResponse> CollectionsConsumeAsync(CollectionsConsumeRequest request);
+        Task<CollectionsV8ConsumeResponse> CollectionsConsumeAsync(CollectionsV8ConsumeRequest request);
 
         /// <summary>
         /// Query's the Clawback information for the user based on the parameters object.

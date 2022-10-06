@@ -10,12 +10,12 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Collections.V8
 {
     /// <summary>
     /// JSON response from a successful consume request
     /// </summary>
-    public class CollectionsConsumeResponse
+    public class CollectionsV8ConsumeResponse
     {
         /// <summary>
         /// ID that identifies this collection item from other items that the user owns. This ID is unique per product.
@@ -69,7 +69,7 @@ namespace Microsoft.StoreServices
     /// <summary>
     /// Error data from the consume service if the consume request failed
     /// </summary>
-    public class ConsumeError
+    public class ConsumeErrorV8
     {
         /// <summary>
         /// Error code related to the consume service
@@ -100,7 +100,7 @@ namespace Microsoft.StoreServices
     /// <summary>
     /// JSON response body if there was an error executing the consume request
     /// </summary>
-    public class CollectionsConsumeErrorResponse
+    public class CollectionsConsumeErrorResponseV8
     {
         /// <summary>
         /// Error code related to the consume service
@@ -120,7 +120,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Error data from the consume service if the consume request failed
         /// </summary>
-        [JsonProperty("innererror")] public ConsumeError InnerError { get; set; }
+        [JsonProperty("innererror")] public ConsumeErrorV8 InnerError { get; set; }
 
         /// <summary>
         /// Message describing the error

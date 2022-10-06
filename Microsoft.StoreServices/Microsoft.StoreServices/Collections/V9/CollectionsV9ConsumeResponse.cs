@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// CollectionsQueryResponse.cs
+// CollectionsV9ConsumeResponse.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -7,18 +7,18 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using Microsoft.StoreServices.Collections.V8;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Collections.V9
 {
     /// <summary>
-    /// JSON response body from the Collections service
+    /// JSON response from a successful consume request
+    /// NOTE: Collections v9 does not have its own consume API and so we use same endpoint for V8's consume.
     /// </summary>
-    public class CollectionsQueryResponse
+    public class CollectionsV9ConsumeResponse : CollectionsV8ConsumeResponse
     {
-        /// <summary>
-        /// List of CollectionsItems returned from the request
-        /// </summary>
-        public List<CollectionsItem> Items { get; set; }
+
     }
 }

@@ -1,22 +1,16 @@
-﻿//-----------------------------------------------------------------------------
-// CollectionsItem.cs
-//
-// Xbox Advanced Technology Group (ATG)
-// Copyright (C) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License file under the project root for
-// license information.
-//-----------------------------------------------------------------------------
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Collections
 {
     /// <summary>
-    /// An item the user owns or is entitled to
+    /// CollectionsItem contract values shared with both V8 and V9
     /// </summary>
-    public class CollectionsItem
+    public class CollectionsItemBase
     {
         /// <summary>
         /// The date on which the user acquired the item.
@@ -39,38 +33,10 @@ namespace Microsoft.StoreServices
         [JsonProperty("id")] public string Id { get; set; }
 
         /// <summary>
-        /// The offerInstanceId value that would have been provided if calling the Xbox Inventory Service. This shouldn’t be needed
-        /// in most cases.
-        /// </summary>
-        [JsonProperty("legacyOfferInstanceId")] public string LegacyOfferInstanceId { get; set; }
-
-        /// <summary>
-        /// The older ProductID format from the Xbox Developer Portal and used by the Xbox Inventory Service. New products created
-        /// in Partner Center don’t have these by default but can be enrolled to have this value if needed.
-        /// </summary>
-        [JsonProperty("legacyProductId")] public string LegacyProductId { get; set; }
-
-        /// <summary>
-        /// The ID of the previously supplied localTicketReference in the request body.
-        /// </summary>
-        [JsonProperty("localTicketReference")] public string LocalTicketReference { get; set; }
-
-        /// <summary>
         /// The UTC date that this item was last modified. With consumable products, this value changes when the user’s quantity
         /// balance changes through an additional purchase of the consumable product or when a consume request is issued.
         /// </summary>
         [JsonProperty("modifiedDate")] public DateTimeOffset ModifiedDate { get; set; }
-
-        /// <summary>
-        /// The two-character ISO 3166 country code indicating the region store the product was acquired from.
-        /// </summary>
-        [JsonProperty("purchasedCountry")] public string PurchasedCountry { get; set; }
-
-        /// <summary>
-        /// Indicates what type of product that this relates to. Usually, this is “Games” but can also be blank for
-        /// game-related content.
-        /// </summary>
-        [JsonProperty("productFamily")] public string ProductFamily { get; set; }
 
         /// <summary>
         /// Also refereed to as the Store ID for the product within the Microsoft Store catalog. An example Store ID for
@@ -84,19 +50,14 @@ namespace Microsoft.StoreServices
         [JsonProperty("productKind")] public string ProductKind { get; set; }
 
         /// <summary>
-        /// Provides specific information to manage this product through the Recurrence services if this is a subscription.
+        /// The quantity of the item. For non-consumable products, this is always 1. For consumable products, this represents the remaining balance that can be consumed or fulfilled for the user.
         /// </summary>
-        [JsonProperty("recurrenceData")] public RecurrenceData RecurrenceData { get; set; }
+        [JsonProperty("quantity")] public int Quantity { get; set; }
 
         /// <summary>
         /// If this product is entitled because of a bundle or subscription, the ProductIds of those parent products are provided here.
         /// </summary>
         [JsonProperty("satisfiedByProductIds")] public List<object> SatisfiedByProductIds { get; set; }
-
-        /// <summary>
-        /// Indicates if the item is entitled because of a sharing scenario. When calling Microsoft Store Services from your own service this should always return as None.
-        /// </summary>
-        [JsonProperty("sharingSource")] public string SharingSource { get; set; }
 
         /// <summary>
         /// The specific SKU identifier if there are multiple offerings of the product in the Microsoft Store catalog. An example Store ID for a SKU is 0010.
@@ -119,24 +80,14 @@ namespace Microsoft.StoreServices
         [JsonProperty("tags")] public List<object> Tags { get; set; }
 
         /// <summary>
-        /// Information about this product—if it’s a trial and the time remaining.
-        /// </summary>
-        [JsonProperty("trialData")] public TrialData TrialData { get; set; }
-
-        /// <summary>
-        /// The offer ID from an in-app purchase.
-        /// </summary>
-        [JsonProperty("devOfferId")] public string DevOfferId { get; set; }
-
-        /// <summary>
-        /// The quantity of the item. For non-consumable products, this is always 1. For consumable products, this represents the remaining balance that can be consumed or fulfilled for the user.
-        /// </summary>
-        [JsonProperty("quantity")] public int Quantity { get; set; }
-
-        /// <summary>
         /// The transaction ID as a result of the purchase of this item. Can be used for reporting an item as fulfilled.
         /// </summary>
         [JsonProperty("transactionId")] public string TransactionId { get; set; }
+
+        /// <summary>
+        /// Information about this product—if it’s a trial and the time remaining.
+        /// </summary>
+        [JsonProperty("trialData")] public TrialData TrialData { get; set; }
     }
 
     /// <summary>
@@ -239,6 +190,11 @@ namespace Microsoft.StoreServices
         /// Apps that are not games.
         /// </summary>
         public const string Application = "Application";
+
+        /// <summary>
+        /// Store-managed Subscription such as Xbox Game Pass.
+        /// </summary>
+        public const string Pass = "Pass";
 
         /// <summary>
         /// Game content such as DLC and most single-time purchase items.

@@ -10,6 +10,7 @@
 using System;
 using System.Net.Http;
 using System.Runtime.Serialization;
+using Microsoft.StoreServices.Collections.V8;
 
 namespace Microsoft.StoreServices
 {
@@ -115,12 +116,12 @@ namespace Microsoft.StoreServices
     /// </summary>
     public class StoreServicesClientConsumeException : StoreServicesException
     {
-        public ConsumeError ConsumeErrorInformation{ get; private set; }
+        public ConsumeErrorV8 ConsumeErrorInformation{ get; private set; }
         /// <summary>
         /// Initialize a new instance of the StoreServicesClientConsumeException class with the specified error message and 
         /// inner exception.
         /// </summary>
-        public StoreServicesClientConsumeException(ConsumeError consumeErrorInformation)
+        public StoreServicesClientConsumeException(ConsumeErrorV8 consumeErrorInformation)
         {
             ConsumeErrorInformation = consumeErrorInformation;
         }

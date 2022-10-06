@@ -7,6 +7,7 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Microsoft.StoreServices.Collections.V8;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CollectionsQueryResponse> CollectionsQueryAsync(CollectionsQueryRequest request)
+        public async Task<CollectionsV8QueryResponse> CollectionsQueryAsync(CollectionsV8QueryRequest request)
         {
 
             //  Validate that we have a UserCollectionsId
@@ -34,7 +35,7 @@ namespace Microsoft.StoreServices
             //  Now pass these values to get the correct Delegated Auth and Signature headers for
             //  the request
             //  Post the request and wait for the response
-            var userCollection = await IssueRequestAsync<CollectionsQueryResponse>(
+            var userCollection = await IssueRequestAsync<CollectionsV8QueryResponse>(
                 "https://collections.mp.microsoft.com/v8.0/collections/b2bLicensePreview",
                 JsonConvert.SerializeObject(request),
                 null);
@@ -47,7 +48,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CollectionsConsumeResponse> CollectionsConsumeAsync(CollectionsConsumeRequest request)
+        public async Task<CollectionsV8ConsumeResponse> CollectionsConsumeAsync(CollectionsV8ConsumeRequest request)
         {
             //  Validate that we have a productID, quantity, trackingId and a UserCollectionsId
             {
@@ -73,11 +74,11 @@ namespace Microsoft.StoreServices
                 }
             }
 
-            CollectionsConsumeResponse consumeResponse;
+            CollectionsV8ConsumeResponse consumeResponse;
             try
             {
                 //  Post the request and wait for the response
-                consumeResponse = await IssueRequestAsync<CollectionsConsumeResponse>(
+                consumeResponse = await IssueRequestAsync<CollectionsV8ConsumeResponse>(
                     "https://collections.mp.microsoft.com/v8.0/collections/consume",
                     JsonConvert.SerializeObject(request),
                     null);
@@ -86,11 +87,11 @@ namespace Microsoft.StoreServices
             {
                 //  Consume failures have a specific body format that will give us more information so we need to 
                 //  deserialize the JSON into a ConsumeError object
-                CollectionsConsumeErrorResponse responseError;
+                CollectionsConsumeErrorResponseV8 responseError;
                 try
                 {
                     string responseBody = await ex.HttpResponseMessage.Content.ReadAsStringAsync();
-                    responseError = JsonConvert.DeserializeObject<CollectionsConsumeErrorResponse>(responseBody, new JsonSerializerSettings
+                    responseError = JsonConvert.DeserializeObject<CollectionsConsumeErrorResponseV8>(responseBody, new JsonSerializerSettings
                     {
                         DateTimeZoneHandling = DateTimeZoneHandling.Utc
                     });
