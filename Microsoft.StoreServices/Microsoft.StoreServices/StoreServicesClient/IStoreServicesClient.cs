@@ -10,6 +10,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.StoreServices.Collections.V8;
+using Microsoft.StoreServices.Collections.V9;
 
 namespace Microsoft.StoreServices
 {
@@ -20,13 +21,22 @@ namespace Microsoft.StoreServices
     public interface IStoreServicesClient : IDisposable
     {
         /// <summary>
-        /// Query the user's collections information and returns any items that meet the 
-        /// query parameters.  These items are directly owned by the user who's 
+        /// Query the user's collections information from the V8 endpoint and returns any items  
+        /// that meet the query parameters.  These items are directly owned by the user who's 
         /// UserCollectionsId we are passing with the QueryParameters.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         Task<CollectionsV8QueryResponse> CollectionsQueryAsync(CollectionsV8QueryRequest request);
+
+        /// <summary>
+        /// Query the user's collections information from the V9 endpoint and returns any items  
+        /// that meet the query parameters.  These items are directly owned by the user who's 
+        /// UserCollectionsId we are passing with the QueryParameters.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CollectionsV9QueryResponse> CollectionsQueryAsync(CollectionsV9QueryRequest request);
 
         /// <summary>
         /// Consumes a specified quantity of a product from a user's active balance in the store.
@@ -64,12 +74,14 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <returns></returns>
         Task<AccessToken> GetServiceAccessTokenAsync();
+
         /// <summary>
         /// Provides the Collections Access Token from the IAccessTokenControler used when the
         /// Client was configured.
         /// </summary>
         /// <returns></returns>
         Task<AccessToken> GetCollectionsAccessTokenAsync();
+
         /// <summary>
         /// Provides the Purchase Access Token from the IAccessTokenControler used when the
         /// Client was configured.

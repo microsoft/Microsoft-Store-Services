@@ -7,6 +7,7 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Microsoft.StoreServices.Collections.V9
@@ -17,7 +18,13 @@ namespace Microsoft.StoreServices.Collections.V9
     public class CollectionsV9QueryResponse
     {
         /// <summary>
-        /// List of CollectionsItems returned from the request
+        /// Token used in a follow-up query request to get the remainder of the
+        /// query results.
+        /// </summary>
+        public string ContinuationToken { get; set; }
+
+        /// <summary>
+        /// List of CollectionsItems returned from the request.
         /// </summary>
         public List<CollectionsV9Item> Items { get; set; }
     }

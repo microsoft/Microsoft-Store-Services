@@ -56,8 +56,6 @@ namespace Microsoft.StoreServices.Collections.V8
         /// </summary>
         [JsonProperty("sharingSource")] public string SharingSource { get; set; }
 
-       
-
         /// <summary>
         /// The offer ID from an in-app purchase.
         /// </summary>

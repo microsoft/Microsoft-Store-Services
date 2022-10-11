@@ -25,10 +25,8 @@ namespace StoreServices_UnitTests
             var tokenResponse = new AccessToken
             {
                 Audience = AccessTokenAudienceTypes.Service,
-                EpochValidAfter = (uint)DateTimeOffset.Now.ToUnixTimeSeconds(),
-                EpochExpiresOn = (uint)DateTimeOffset.Now.ToUnixTimeSeconds() + 240,
+                ExpiresOn = DateTimeOffset.Now.AddSeconds(240),
                 ExpiresIn = 240,
-                ExtExpiredIn = 240,
                 Token = "TestExpiringServiceTokenIn4Minutes"
             };
             result.Content = new StringContent(JsonConvert.SerializeObject(tokenResponse));
@@ -48,10 +46,8 @@ namespace StoreServices_UnitTests
             var tokenResponse = new AccessToken
             {
                 Audience = AccessTokenAudienceTypes.Service,
-                EpochValidAfter = (uint)DateTimeOffset.Now.ToUnixTimeSeconds(),
-                EpochExpiresOn = (uint)DateTimeOffset.Now.ToUnixTimeSeconds() + 14400,
+                ExpiresOn = DateTimeOffset.Now.AddSeconds(14400),
                 ExpiresIn = 14400,
-                ExtExpiredIn = 14400,
                 Token = "TestServiceToken"
             };
 
@@ -72,10 +68,8 @@ namespace StoreServices_UnitTests
             var tokenResponse = new AccessToken
             {
                 Audience = AccessTokenAudienceTypes.Service,
-                EpochValidAfter = (uint)DateTimeOffset.Now.ToUnixTimeSeconds(),
-                EpochExpiresOn = (uint)DateTimeOffset.Now.ToUnixTimeSeconds() + 14400,
+                ExpiresOn = DateTimeOffset.Now.AddSeconds(14400),
                 ExpiresIn = 14400,
-                ExtExpiredIn = 14400,
                 Token = "TestCollectionsToken"
             };
 
@@ -96,10 +90,8 @@ namespace StoreServices_UnitTests
             var tokenResponse = new AccessToken
             {
                 Audience = AccessTokenAudienceTypes.Service,
-                EpochValidAfter = (uint)DateTimeOffset.Now.ToUnixTimeSeconds(),
-                EpochExpiresOn = (uint)DateTimeOffset.Now.ToUnixTimeSeconds() + 14400,
+                ExpiresOn = DateTimeOffset.Now.AddSeconds(14400),
                 ExpiresIn = 14400,
-                ExtExpiredIn = 14400,
                 Token = "TestCollectionsToken"
             };
 

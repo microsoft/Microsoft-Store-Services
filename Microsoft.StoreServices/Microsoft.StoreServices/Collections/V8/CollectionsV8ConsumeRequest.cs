@@ -21,7 +21,7 @@ namespace Microsoft.StoreServices.Collections.V8
         /// contains the UserCollectionsId obtained from the client. This is
         /// marked with virtual so it can be overridden to define a key value.
         /// </summary>
-        [JsonProperty("beneficiary")] public virtual CollectionsV8RequestBeneficiary RequestBeneficiary { get; set; }
+        [JsonProperty("beneficiary")] public virtual CollectionsRequestBeneficiary RequestBeneficiary { get; set; }
 
         /// <summary>
         /// ProductId / StoreId of the consumable product.

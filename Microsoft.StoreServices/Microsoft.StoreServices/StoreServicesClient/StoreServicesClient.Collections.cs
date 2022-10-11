@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------------------
 
 using Microsoft.StoreServices.Collections.V8;
+using Microsoft.StoreServices.Collections.V9;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -17,13 +18,12 @@ namespace Microsoft.StoreServices
     public sealed partial class StoreServicesClient : IStoreServicesClient
     {
         /// <summary>
-        /// Query for the user's current entitlements based on the filtering options in the request.
+        /// Query for the user's current entitlements based on the filtering options in the request agaomst v8.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         public async Task<CollectionsV8QueryResponse> CollectionsQueryAsync(CollectionsV8QueryRequest request)
         {
-
             //  Validate that we have a UserCollectionsId
             if (request.Beneficiaries == null ||
                 request.Beneficiaries.Count != 1 ||
@@ -37,6 +37,33 @@ namespace Microsoft.StoreServices
             //  Post the request and wait for the response
             var userCollection = await IssueRequestAsync<CollectionsV8QueryResponse>(
                 "https://collections.mp.microsoft.com/v8.0/collections/b2bLicensePreview",
+                JsonConvert.SerializeObject(request),
+                null);
+
+            return userCollection;
+        }
+
+        /// <summary>
+        /// Query for the user's current entitlements based on the filtering options in the request against v9.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CollectionsV9QueryResponse> CollectionsQueryAsync(CollectionsV9QueryRequest request)
+        {
+
+            //  Validate that we have a UserCollectionsId
+            if (request.Beneficiaries == null ||
+                request.Beneficiaries.Count != 1 ||
+                string.IsNullOrEmpty(request.Beneficiaries[0].UserCollectionsId))
+            {
+                throw new ArgumentException($"{nameof(request.Beneficiaries)} must be provided", nameof(request.Beneficiaries));
+            }
+
+            //  Now pass these values to get the correct Delegated 
+            //  Auth and Signature headers for the request
+            //  Post the request and wait for the response
+            var userCollection = await IssueRequestAsync<CollectionsV9QueryResponse>(
+                "https://collections.mp.microsoft.com/v9.0/collections/PublisherQuery",
                 JsonConvert.SerializeObject(request),
                 null);
 

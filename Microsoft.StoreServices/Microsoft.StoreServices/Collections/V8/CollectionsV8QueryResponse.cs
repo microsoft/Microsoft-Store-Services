@@ -17,6 +17,12 @@ namespace Microsoft.StoreServices.Collections.V8
     public class CollectionsV8QueryResponse
     {
         /// <summary>
+        /// Token used in a follow-up query request to get the remainder of the
+        /// query results.
+        /// </summary>
+        public string ContinuationToken { get; set; }
+
+        /// <summary>
         /// List of CollectionsItems returned from the request
         /// </summary>
         public List<CollectionsV8Item> Items { get; set; }
