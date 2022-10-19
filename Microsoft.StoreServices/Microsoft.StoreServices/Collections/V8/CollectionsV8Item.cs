@@ -60,6 +60,16 @@ namespace Microsoft.StoreServices.Collections.V8
         /// The offer ID from an in-app purchase.
         /// </summary>
         [JsonProperty("devOfferId")] public string DevOfferId { get; set; }
+    }
 
+    /// <summary>
+    /// Subscription related information for the product.
+    /// </summary>
+    public class RecurrenceData
+    {
+        /// <summary>
+        /// Unique Id to be used with the Recurrence services to manage this subscription.
+        /// </summary>
+        [JsonProperty("recurrenceId")] public string RecurrenceId { get; set; }
     }
 }

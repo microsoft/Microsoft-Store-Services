@@ -22,7 +22,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CollectionsV8QueryResponse> CollectionsQueryAsync(CollectionsV8QueryRequest request)
+        public async Task<CollectionsV8QueryResponse> CollectionsV8QueryAsync(CollectionsV8QueryRequest request)
         {
             //  Validate that we have a UserCollectionsId
             if (request.Beneficiaries == null ||
@@ -48,7 +48,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CollectionsV9QueryResponse> CollectionsQueryAsync(CollectionsV9QueryRequest request)
+        public async Task<CollectionsV9QueryResponse> CollectionsV9QueryAsync(CollectionsV9QueryRequest request)
         {
 
             //  Validate that we have a UserCollectionsId

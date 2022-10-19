@@ -91,17 +91,6 @@ namespace Microsoft.StoreServices.Collections
     }
 
     /// <summary>
-    /// Subscription related information for the product.
-    /// </summary>
-    public class RecurrenceData
-    {
-        /// <summary>
-        /// Unique Id to be used with the Recurrence services to manage this subscription.
-        /// </summary>
-        [JsonProperty("recurrenceId")] public string RecurrenceId { get; set; }
-    }
-
-    /// <summary>
     /// Trial information related to the users entitlement to the product.
     /// </summary>
     public class TrialData

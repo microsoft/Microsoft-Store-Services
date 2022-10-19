@@ -27,7 +27,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<CollectionsV8QueryResponse> CollectionsQueryAsync(CollectionsV8QueryRequest request);
+        Task<CollectionsV8QueryResponse> CollectionsV8QueryAsync(CollectionsV8QueryRequest request);
 
         /// <summary>
         /// Query the user's collections information from the V9 endpoint and returns any items  
@@ -36,7 +36,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<CollectionsV9QueryResponse> CollectionsQueryAsync(CollectionsV9QueryRequest request);
+        Task<CollectionsV9QueryResponse> CollectionsV9QueryAsync(CollectionsV9QueryRequest request);
 
         /// <summary>
         /// Consumes a specified quantity of a product from a user's active balance in the store.
