@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// CollectionsConsumeResponse.cs
+// CollectionsV8ConsumeResponse.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
