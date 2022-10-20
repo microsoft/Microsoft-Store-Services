@@ -57,8 +57,6 @@ namespace Microsoft.StoreServices.Collections.V8
         }
     }
 
-    
-
     /// <summary>
     /// String values that can be added to a query request to filter the results to these specific
     /// product types.

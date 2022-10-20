@@ -18,7 +18,7 @@ namespace Microsoft.StoreServices
     public sealed partial class StoreServicesClient : IStoreServicesClient
     {
         /// <summary>
-        /// Query for the user's current entitlements based on the filtering options in the request agaomst v8.
+        /// Query for the user's current entitlements based on the filtering options in the request against v8.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>

@@ -8,8 +8,6 @@
 //-----------------------------------------------------------------------------
 
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 
 namespace Microsoft.StoreServices.Collections.V9
 {

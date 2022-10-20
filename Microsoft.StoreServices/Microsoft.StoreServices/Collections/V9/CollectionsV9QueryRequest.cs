@@ -31,8 +31,4 @@ namespace Microsoft.StoreServices.Collections.V9
             MaxPageSize       = 100;            //  Default Max is 100
         }
     }
-
-    
-
-    
 }

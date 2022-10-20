@@ -96,31 +96,31 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// This indicates a perpetual subscription.
         /// </summary>
-        public static string None = "None";
+        public static readonly string None = "None";
 
         /// <summary>
         /// The subscription is active and the user is entitled to use the services.
         /// </summary>
-        public static string Active   = "Active";
+        public static readonly string Active   = "Active";
 
         /// <summary>
         /// The subscription is past the expiration date, and the user turned off the automatic renew option for the subscription.
         /// </summary>
-        public static string Inactive = "Inactive";
+        public static readonly string Inactive = "Inactive";
 
         /// <summary>
         /// The subscription has been purposefully terminated before the expiration date, with or without a refund.
         /// </summary>
-        public static string Canceled = "Canceled";
+        public static readonly string Canceled = "Canceled";
 
         /// <summary>
         /// The subscription is in dunning (that is, the subscription is nearing expiration, and Microsoft is trying to acquire funds to automatically renew the subscription).
         /// </summary>
-        public static string InDunning = "InDunning";
+        public static readonly string InDunning = "InDunning";
 
         /// <summary>
         /// The dunning period is over and the subscription failed to renew after several attempts.
         /// </summary>
-        public static string Failed = "Failed";
+        public static readonly string Failed = "Failed";
     }
 }

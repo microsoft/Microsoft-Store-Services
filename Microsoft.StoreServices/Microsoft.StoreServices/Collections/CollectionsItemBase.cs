@@ -126,18 +126,18 @@ namespace Microsoft.StoreServices.Collections
         /// <summary>
         /// Owned or entitled through a subscription.
         /// </summary>
-        public static string Recurring = "Recurring";
+        public static readonly string Recurring = "Recurring";
 
         /// <summary>
         /// Direct digital purchase or code redemption.
         /// </summary>
-        public static string Single = "Single";
+        public static readonly string Single = "Single";
 
         /// <summary>
         /// Owned but requires other products to continue use.
         /// Ex: Games With Gold obtained games which expire if Gold subscription ends
         /// </summary>
-        public static string Conditional = "Conditional";
+        public static readonly string Conditional = "Conditional";
     }
 
     /// <summary>
@@ -148,27 +148,27 @@ namespace Microsoft.StoreServices.Collections
         /// <summary>
         /// The product is actively entitled. The user should have access to it.
         /// </summary>
-        public static string Active = "Active";
+        public static readonly string Active = "Active";
 
         /// <summary>
         /// Most commonly indicates that the user requested a refund.
         /// </summary>
-        public static string Revoked = "Revoked";
+        public static readonly string Revoked = "Revoked";
 
         /// <summary>
         /// The product was part of an entitlement (usually a subscription) that has since expired.
         /// </summary>
-        public static string Expired = "Expired";
+        public static readonly string Expired = "Expired";
 
         /// <summary>
         /// No information on this type
         /// </summary>
-        public static string Banned = "Banned";
+        public static readonly string Banned = "Banned";
 
         /// <summary>
         /// No information on this type
         /// </summary>
-        public static string Suspended = "Suspended";
+        public static readonly string Suspended = "Suspended";
     }
 
     /// <summary>

@@ -79,7 +79,7 @@ namespace Microsoft.StoreServices.Collections
     }
 
     /// <summary>
-    /// JSON structure to denote the ProductId and the Sku
+    /// JSON structure to denote the ProductId and the sku
     /// </summary>
     public class ProductSkuId
     {
@@ -120,7 +120,7 @@ namespace Microsoft.StoreServices.Collections
         public const string NotYetEnded = "NotYetEnded";
 
         /// <summary>
-        /// Items that have not yet been activated such as pre-orders
+        /// Items that have not yet been activated such as preorders
         /// </summary>
         public const string NotYetStarted = "NotYetStarted";
     }
