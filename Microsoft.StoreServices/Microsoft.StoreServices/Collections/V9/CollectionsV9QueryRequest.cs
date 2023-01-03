@@ -21,14 +21,15 @@ namespace Microsoft.StoreServices.Collections.V9
         /// Required for Collections v9 - the service only returns products applicable to the provided productIds. 
         /// </summary>
         [JsonRequired]
-        [JsonProperty("productSkuIds")] public new List<ProductSkuId> ProductSkuIds { get; set; }
+        [JsonProperty("productSkuIds")]
+        public new List<ProductSkuId> ProductSkuIds { get; set; }
 
         public CollectionsV9QueryRequest()
         {
             Beneficiaries     = new List<CollectionsRequestBeneficiary>();
             ProductSkuIds     = new List<ProductSkuId>();
             ExcludeDuplicates = true;     //  Only include one result (entitlement) per item.
-            MaxPageSize       = 100;            //  Default Max is 100
+            MaxPageSize       = 100;      //  Default Max is 100
         }
     }
 }

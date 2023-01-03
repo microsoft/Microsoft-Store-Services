@@ -21,17 +21,20 @@ namespace Microsoft.StoreServices.Collections.V8
         /// <summary>
         /// Specifies which product types to return in the query results. For a list of valid values, see EntitlementFilterTypes.]
         /// </summary>
-        [JsonProperty("entitlementFilters")] public List<string> EntitlementFilters { get; set; }
+        [JsonProperty("entitlementFilters")]
+        public List<string> EntitlementFilters { get; set; }
 
         /// <summary>
         /// The country/region/market that you want to check the entitlement for. Using “neutral” (recommended) searches all markets. Otherwise, use the two-character ISO 3166 country/region code, for example, US.
         /// </summary>
-        [JsonProperty("market")] public string Market { get; set; }
+        [JsonProperty("market")]
+        public string Market { get; set; }
 
         /// <summary>
         /// Include items that are entitled through bundles or subscriptions in the results. If set to false, the results only contain the items the user has purchased, such as the parent bundle’s product information. If you’re using this parameter, always specify which products you want results for to avoid long or timed-out requests.
         /// </summary>
-        [JsonProperty("expandSatisfyingItems")] public bool ExpandSatisfyingItems { get; set; }
+        [JsonProperty("expandSatisfyingItems")]
+        public bool ExpandSatisfyingItems { get; set; }
 
         public CollectionsV8QueryRequest()
         {

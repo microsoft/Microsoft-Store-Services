@@ -59,13 +59,10 @@ namespace Microsoft.StoreServices
                 throw new ArgumentException($"{nameof(request.Beneficiaries)} must be provided", nameof(request.Beneficiaries));
             }
 
-            //  Now pass these values to get the correct Delegated 
-            //  Auth and Signature headers for the request
             //  Post the request and wait for the response
             var userCollection = await IssueRequestAsync<CollectionsV9QueryResponse>(
                 "https://collections.mp.microsoft.com/v9.0/collections/PublisherQuery",
-                JsonConvert.SerializeObject(request),
-                null);
+                JsonConvert.SerializeObject(request, Formatting.Indented));
 
             return userCollection;
         }

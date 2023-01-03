@@ -17,37 +17,44 @@ namespace Microsoft.StoreServices.Collections
         /// <summary>
         /// The user for which this item is entitled. You will use the UserCollectionsId in this property to define the user you want the results for.
         /// </summary>
-        [JsonProperty("beneficiaries")][JsonRequired] public List<CollectionsRequestBeneficiary> Beneficiaries { get; set; }
+        [JsonProperty("beneficiaries", NullValueHandling = NullValueHandling.Ignore)]
+        public List<CollectionsRequestBeneficiary> Beneficiaries { get; set; }
 
         /// <summary>
         /// The maximum number of products to return in one response. The default and maximum value is 100.
         /// </summary>
-        [JsonProperty("continuationToken")][JsonIgnore] public string ContinuationToken { get; set; }
+        [JsonProperty("continuationToken", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContinuationToken { get; set; }
 
         /// <summary>
         /// Removes duplicate entitlements where the user might be entitled to a single product from multiple sources.
         /// </summary>
-        [JsonProperty("excludeDuplicates")] public bool ExcludeDuplicates { get; set; }
+        [JsonProperty("excludeDuplicates")]
+        public bool ExcludeDuplicates { get; set; }
 
         /// <summary>
         /// The maximum number of products to return in one response. The default and maximum value is 100.
         /// </summary>
-        [JsonProperty("maxPageSize")] public int MaxPageSize { get; set; }
+        [JsonProperty("maxPageSize")]
+        public int MaxPageSize { get; set; }
 
         /// <summary>
         /// If specified, the service only returns products applicable to the provided product/SKU pairs. Recommended for all service-to-service queries for faster and more reliable results.
         /// </summary>
-        [JsonProperty("productSkuIds")][JsonIgnore] public List<ProductSkuId> ProductSkuIds { get; set; }
+        [JsonProperty("productSkuIds", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ProductSkuId> ProductSkuIds { get; set; }
 
         /// <summary>
         /// Specifies which development sandbox the results should be scoped to.  If no sandbox is specified the results will always be to the sandbox RETAIL.
         /// </summary>
-        [JsonProperty("sbx")][JsonIgnore] public string SandboxId { get; set; }
+        [JsonProperty("sbx", NullValueHandling = NullValueHandling.Ignore)]
+        public string SandboxId { get; set; }
 
         /// <summary>
         /// Filter the results to this validity type which is based off the Status values of the items to be returned.
         /// </summary>
-        [JsonProperty("validityType")] public string ValidityType { get; set; }
+        [JsonProperty("validityType", NullValueHandling = NullValueHandling.Ignore)]
+        public string ValidityType { get; set; }
     }
 
     /// <summary>
@@ -58,17 +65,20 @@ namespace Microsoft.StoreServices.Collections
         /// <summary>
         /// Must be set to "b2b".
         /// </summary>
-        [JsonProperty("identitytype")] public string Identitytype { get; set; }
+        [JsonProperty("identitytype")]
+        public string Identitytype { get; set; }
 
         /// <summary>
         /// The User Store ID key that represents the identity of the user for whom you want to report a consumable product as fulfilled.
         /// </summary>
-        [JsonProperty("identityValue")] public virtual string UserCollectionsId { get; set; }
+        [JsonProperty("identityValue")]
+        public virtual string UserCollectionsId { get; set; }
 
         /// <summary>
         /// The requested identifier for the returned response. We recommend that you use the same value as the userId claim in the User Store ID key.
         /// </summary>
-        [JsonProperty("localTicketReference")] public string LocalTicketReference { get; set; }
+        [JsonProperty("localTicketReference")]
+        public string LocalTicketReference { get; set; }
 
         public CollectionsRequestBeneficiary()
         {
@@ -86,12 +96,14 @@ namespace Microsoft.StoreServices.Collections
         /// <summary>
         /// ProductId (StoreId) of the item offered within the store.
         /// </summary>
-        [JsonProperty("productId")] public string ProductId { get; set; }
+        [JsonProperty("productId")]
+        public string ProductId { get; set; }
 
         /// <summary>
         /// SkuId representing the specific sub-offering of the product that was purchased.  For query requests, this value can be blank.
         /// </summary>
-        [JsonProperty("skuId")][JsonIgnore] public string SkuId { get; set; }
+        [JsonProperty("skuId", NullValueHandling = NullValueHandling.Ignore)]
+        public string SkuId { get; set; }
     }
 
     /// <summary>

@@ -22,44 +22,52 @@ namespace Microsoft.StoreServices.Collections.V8
         /// The offerInstanceId value that would have been provided if calling the Xbox Inventory Service. This shouldn’t be needed
         /// in most cases.
         /// </summary>
-        [JsonProperty("legacyOfferInstanceId")] public string LegacyOfferInstanceId { get; set; }
+        [JsonProperty("legacyOfferInstanceId")]
+        public string LegacyOfferInstanceId { get; set; }
 
         /// <summary>
         /// The older ProductID format from the Xbox Developer Portal and used by the Xbox Inventory Service. New products created
         /// in Partner Center don’t have these by default but can be enrolled to have this value if needed.
         /// </summary>
-        [JsonProperty("legacyProductId")] public string LegacyProductId { get; set; }
+        [JsonProperty("legacyProductId")]
+        public string LegacyProductId { get; set; }
 
         /// <summary>
         /// The ID of the previously supplied localTicketReference in the request body.
         /// </summary>
-        [JsonProperty("localTicketReference")] public string LocalTicketReference { get; set; }
+        [JsonProperty("localTicketReference")]
+        public string LocalTicketReference { get; set; }
 
         /// <summary>
         /// The two-character ISO 3166 country code indicating the region store the product was acquired from.
         /// </summary>
-        [JsonProperty("purchasedCountry")] public string PurchasedCountry { get; set; }
+        [JsonProperty("purchasedCountry")]
+        public string PurchasedCountry { get; set; }
 
         /// <summary>
         /// Indicates what type of product that this relates to. Usually, this is “Games” but can also be blank for
         /// game-related content.
         /// </summary>
-        [JsonProperty("productFamily")] public string ProductFamily { get; set; }
+        [JsonProperty("productFamily")]
+        public string ProductFamily { get; set; }
 
         /// <summary>
         /// Provides specific information to manage this product through the Recurrence services if this is a subscription.
         /// </summary>
-        [JsonProperty("recurrenceData")] public RecurrenceData RecurrenceData { get; set; }
+        [JsonProperty("recurrenceData")]
+        public RecurrenceData RecurrenceData { get; set; }
 
         /// <summary>
         /// Indicates if the item is entitled because of a sharing scenario. When calling Microsoft Store Services from your own service this should always return as None.
         /// </summary>
-        [JsonProperty("sharingSource")] public string SharingSource { get; set; }
+        [JsonProperty("sharingSource")]
+        public string SharingSource { get; set; }
 
         /// <summary>
         /// The offer ID from an in-app purchase.
         /// </summary>
-        [JsonProperty("devOfferId")] public string DevOfferId { get; set; }
+        [JsonProperty("devOfferId")]
+        public string DevOfferId { get; set; }
     }
 
     /// <summary>
@@ -70,6 +78,7 @@ namespace Microsoft.StoreServices.Collections.V8
         /// <summary>
         /// Unique Id to be used with the Recurrence services to manage this subscription.
         /// </summary>
-        [JsonProperty("recurrenceId")] public string RecurrenceId { get; set; }
+        [JsonProperty("recurrenceId")]
+        public string RecurrenceId { get; set; }
     }
 }

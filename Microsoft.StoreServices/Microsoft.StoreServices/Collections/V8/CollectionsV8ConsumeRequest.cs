@@ -21,12 +21,14 @@ namespace Microsoft.StoreServices.Collections.V8
         /// contains the UserCollectionsId obtained from the client. This is
         /// marked with virtual so it can be overridden to define a key value.
         /// </summary>
-        [JsonProperty("beneficiary")] public virtual CollectionsRequestBeneficiary RequestBeneficiary { get; set; }
+        [JsonProperty("beneficiary")]
+        public virtual CollectionsRequestBeneficiary RequestBeneficiary { get; set; }
 
         /// <summary>
         /// ProductId / StoreId of the consumable product.
         /// </summary>
-        [JsonProperty("productId")] public string ProductId { get; set; }
+        [JsonProperty("productId")]
+        public string ProductId { get; set; }
 
         /// <summary>
         /// Unique Id that is used to track the consume request and can
@@ -34,23 +36,27 @@ namespace Microsoft.StoreServices.Collections.V8
         /// Generally this would be the Key if you are using this in a DB
         /// so it is marked with virtual so it can be overridden.
         /// </summary>
-        [JsonProperty("trackingId")] public virtual string TrackingId { get; set; }
+        [JsonProperty("trackingId")]
+        public virtual string TrackingId { get; set; }
 
         /// <summary>
         /// Quantity to be removed from the user's balance of the consumable product.
         /// </summary>
-        [JsonProperty("removeQuantity")] public uint RemoveQuantity { get; set; }
+        [JsonProperty("removeQuantity")]
+        public uint RemoveQuantity { get; set; }
 
         /// <summary>
         /// Quantity to be removed from the user's balance of the consumable product.
         /// </summary>
-        [JsonProperty("includeOrderIds")] public bool IncludeOrderIds { get; set; } = false;
+        [JsonProperty("includeOrderIds")]
+        public bool IncludeOrderIds { get; set; } = false;
 
         /// <summary>
         /// Used to determine if this is a managed or unmanaged consumable as the consume request JSON is different
         /// between them.
         /// </summary>
-        [JsonIgnore] public bool IsUnmanagedConsumable { get; set; }
+        [JsonIgnore]
+        public bool IsUnmanagedConsumable { get; set; }
 
         /// <summary>
         /// If this is an unmanaged consumable, then we don't want to add the 'removeQuantity' parameter.  Unmanaged

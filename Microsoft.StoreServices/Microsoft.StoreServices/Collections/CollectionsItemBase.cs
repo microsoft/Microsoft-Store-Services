@@ -21,79 +21,94 @@ namespace Microsoft.StoreServices.Collections
         /// <summary>
         /// The date on which the user acquired the item.
         /// </summary>
-        [JsonProperty("acquiredDate")] public DateTimeOffset AcquiredDate { get; set; }
+        [JsonProperty("acquiredDate")]
+        public DateTimeOffset AcquiredDate { get; set; }
 
         /// <summary>
         /// Indicates how the user has this entitlement.
         /// </summary>
-        [JsonProperty("acquisitionType")] public string AcquisitionType { get; set; }
+        [JsonProperty("acquisitionType")]
+        public string AcquisitionType { get; set; }
 
         /// <summary>
         /// The UTC date that the item will expire.
         /// </summary>
-        [JsonProperty("endDate")] public DateTimeOffset EndDate { get; set; }
+        [JsonProperty("endDate")]
+        public DateTimeOffset EndDate { get; set; }
 
         /// <summary>
         /// An ID that identifies this collection item from other items that the user owns. This ID is unique per product.
         /// </summary>
-        [JsonProperty("id")] public string Id { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// The UTC date that this item was last modified. With consumable products, this value changes when the user’s quantity
         /// balance changes through an additional purchase of the consumable product or when a consume request is issued.
         /// </summary>
-        [JsonProperty("modifiedDate")] public DateTimeOffset ModifiedDate { get; set; }
+        [JsonProperty("modifiedDate")]
+        public DateTimeOffset ModifiedDate { get; set; }
 
         /// <summary>
         /// Also refereed to as the Store ID for the product within the Microsoft Store catalog. An example Store ID for
         /// a product is 9NBLGGH42CFD.
         /// </summary>
-        [JsonProperty("productId")] public string ProductId { get; set; }
+        [JsonProperty("productId")]
+        public string ProductId { get; set; }
 
         /// <summary>
         /// Indicates the product type. For more information, see ProductKindTypes.
         /// </summary>
-        [JsonProperty("productKind")] public string ProductKind { get; set; }
+        [JsonProperty("productKind")]
+        public string ProductKind { get; set; }
 
         /// <summary>
         /// The quantity of the item. For non-consumable products, this is always 1. For consumable products, this represents the remaining balance that can be consumed or fulfilled for the user.
         /// </summary>
-        [JsonProperty("quantity")] public int Quantity { get; set; }
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
 
         /// <summary>
         /// If this product is entitled because of a bundle or subscription, the ProductIds of those parent products are provided here.
         /// </summary>
-        [JsonProperty("satisfiedByProductIds")] public List<object> SatisfiedByProductIds { get; set; }
+        [JsonProperty("satisfiedByProductIds")]
+        public List<object> SatisfiedByProductIds { get; set; }
 
         /// <summary>
         /// The specific SKU identifier if there are multiple offerings of the product in the Microsoft Store catalog. An example Store ID for a SKU is 0010.
         /// </summary>
-        [JsonProperty("skuId")] public string SkuId { get; set; }
+        [JsonProperty("skuId")]
+        public string SkuId { get; set; }
 
         /// <summary>
         /// The UTC date that the item became or will become valid.
         /// </summary>
-        [JsonProperty("startDate")] public DateTimeOffset StartDate { get; set; }
+        [JsonProperty("startDate")]
+        public DateTimeOffset StartDate { get; set; }
 
         /// <summary>
         /// The status of the item.
         /// </summary>
-        [JsonProperty("status")] public string Status { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
 
         /// <summary>
         /// Tags related to the product.
         /// </summary>
-        [JsonProperty("tags")] public List<object> Tags { get; set; }
+        [JsonProperty("tags")]
+        public List<object> Tags { get; set; }
 
         /// <summary>
         /// The transaction ID as a result of the purchase of this item. Can be used for reporting an item as fulfilled.
         /// </summary>
-        [JsonProperty("transactionId")] public string TransactionId { get; set; }
+        [JsonProperty("transactionId")]
+        public string TransactionId { get; set; }
 
         /// <summary>
         /// Information about this product—if it’s a trial and the time remaining.
         /// </summary>
-        [JsonProperty("trialData")] public TrialData TrialData { get; set; }
+        [JsonProperty("trialData")]
+        public TrialData TrialData { get; set; }
     }
 
     /// <summary>
@@ -104,17 +119,20 @@ namespace Microsoft.StoreServices.Collections
         /// <summary>
         /// Indicates if this product is licensed through a trial.
         /// </summary>
-        [JsonProperty("isInTrialPeriod")] public bool IsInTrialPeriod { get; set; }
+        [JsonProperty("isInTrialPeriod")]
+        public bool IsInTrialPeriod { get; set; }
 
         /// <summary>
         /// Indicates if the product is in a trial period, such as a subscription.
         /// </summary>
-        [JsonProperty("isTrial")] public bool IsTrial { get; set; }
+        [JsonProperty("isTrial")]
+        public bool IsTrial { get; set; }
 
         /// <summary>
         /// Information about how long the trial remains valid.
         /// </summary>
-        [JsonProperty("trialTimeRemaining")] public TimeSpan TrialTimeRemaining { get; set; }
+        [JsonProperty("trialTimeRemaining")]
+        public TimeSpan TrialTimeRemaining { get; set; }
     }
 
     /// <summary>

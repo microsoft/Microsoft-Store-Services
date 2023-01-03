@@ -31,7 +31,8 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Lifetime of the token in seconds from when it was created
         /// </summary>
-        [JsonProperty("expires_in")] public uint ExpiresIn
+        [JsonProperty("expires_in")]
+        public uint ExpiresIn
         {
             get { return expiresIn; }
 
@@ -48,12 +49,14 @@ namespace Microsoft.StoreServices
         /// Audience URI tied to the token which determines its type and which Microsoft Store Service it can be used with.
         /// With the Azure AD URI 1.0 this was returned in the result, with 2.0 it is not and needs to be set manually.
         /// </summary>
-        [JsonProperty("resource")] public string Audience { get; set; }
+        [JsonProperty("resource")]
+        public string Audience { get; set; }
         
         /// <summary>
         /// Actual token to be used in calling the services or obtaining User Store Ids
         /// </summary>
-        [JsonProperty("access_token")] public string Token { get; set; }
+        [JsonProperty("access_token")]
+        public string Token { get; set; }
 
         /// <summary>
         /// The UTC date and time when the Access Token expires

@@ -48,27 +48,32 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Service or identity of who created and signed the JWT representing the UserStoreId
         /// </summary>
-        [JsonProperty("iss")] public string Issuer { get; set; }
+        [JsonProperty("iss")]
+        public string Issuer { get; set; }
 
         /// <summary>
         /// Represents if this is a UserCollectionsId or UserPurchaseId.  See UserStoreIdAudiences.
         /// </summary>
-        [JsonProperty("aud")] public string Audience { get; set; }
+        [JsonProperty("aud")]
+        public string Audience { get; set; }
 
         /// <summary>
         /// Seconds from the Unix Epoc that represents the UTC datetime the UserStoreId was generated
         /// </summary>
-        [JsonProperty("iat")] public uint EpochIssuedOn { get; set; }
+        [JsonProperty("iat")]
+        public uint EpochIssuedOn { get; set; }
 
         /// <summary>
         /// Seconds from the Unix Epoc that represents the UTC datetime the UserStoreId will expire
         /// </summary>
-        [JsonProperty("exp")] public uint EpochExpiresOn { get; set; }
+        [JsonProperty("exp")]
+        public uint EpochExpiresOn { get; set; }
 
         /// <summary>
         /// Seconds from the Unix Epoc that represents the UTC datetime the UserStoreId starts being valid and can be used.
         /// </summary>
-        [JsonProperty("nbf")] public uint EpochValidAfter { get; set; }
+        [JsonProperty("nbf")]
+        public uint EpochValidAfter { get; set; }
 
         /// <summary>
         /// The UTC date and time when the UserStoreId becomes valid and can be used

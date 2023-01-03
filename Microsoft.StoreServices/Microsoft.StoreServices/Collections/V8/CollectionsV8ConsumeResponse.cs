@@ -20,28 +20,33 @@ namespace Microsoft.StoreServices.Collections.V8
         /// <summary>
         /// ID that identifies this collection item from other items that the user owns. This ID is unique per product.
         /// </summary>
-        [JsonProperty("itemId")] public string ItemId { get; set; }
+        [JsonProperty("itemId")]
+        public string ItemId { get; set; }
 
         /// <summary>
         /// The remaining balance of this consumable that the user owns.
         /// </summary>
-        [JsonProperty("newQuantity")] public int NewQuantity { get; set; }
+        [JsonProperty("newQuantity")]
+        public int NewQuantity { get; set; }
 
         /// <summary>
         /// The unique tracking ID that was provided in the request to track and validate that the fulfillment succeeded.
         /// </summary>
-        [JsonProperty("trackingId")] public string TrackingId { get; set; }
+        [JsonProperty("trackingId")]
+        public string TrackingId { get; set; }
 
         /// <summary>
         /// The ProductId / StoreId of the consumable that was fulfilled.
         /// </summary>
-        [JsonProperty("productId")] public string ProductId { get; set; }
+        [JsonProperty("productId")]
+        public string ProductId { get; set; }
 
         /// <summary>
         /// An array of ConsumeOrderTransactionContractV8 objects indicating the orders used to fulfill the consume request.
         /// This is only returned if the includeOrderIds parameter is set to true in the request.
         /// </summary>
-        [JsonProperty("orderTransactions")] public List<ConsumeOrderTransactionContractV8> OrderTransactions { get; set; }
+        [JsonProperty("orderTransactions")]
+        public List<ConsumeOrderTransactionContractV8> OrderTransactions { get; set; }
     }
 
     /// <summary>
@@ -52,18 +57,21 @@ namespace Microsoft.StoreServices.Collections.V8
         /// <summary>
         /// Id of user's purchase order used to fulfill all or part of this consume request.
         /// </summary>
-        [JsonProperty("orderId")] public string OrderId { get; set; }
+        [JsonProperty("orderId")]
+        public string OrderId { get; set; }
 
         /// <summary>
         /// Id of the line item the consumable was within the purchase order made by the user.
         /// This Id is more unique to a consumable purchase than OrderId as there can be multiple line item Ids per Order Id.
         /// </summary>
-        [JsonProperty("orderLineItemId")] public string OrderLineItemId { get; set; }
+        [JsonProperty("orderLineItemId")]
+        public string OrderLineItemId { get; set; }
 
         /// <summary>
         /// Amount of the consume request that was fulfilled by this specific OrderId / LineItemId
         /// </summary>
-        [JsonProperty("quantityConsumed")] public int QuantityConsumed { get; set; }
+        [JsonProperty("quantityConsumed")]
+        public int QuantityConsumed { get; set; }
     }
 
     /// <summary>
@@ -74,27 +82,32 @@ namespace Microsoft.StoreServices.Collections.V8
         /// <summary>
         /// Error code related to the consume service
         /// </summary>
-        [JsonProperty("code")] public string Code { get; set; }
+        [JsonProperty("code")]
+        public string Code { get; set; }
 
         /// <summary>
         /// Additional data about the error
         /// </summary>
-        [JsonProperty("data")] public List<string> Data { get; set; }
+        [JsonProperty("data")]
+        public List<string> Data { get; set; }
 
         /// <summary>
         /// Additional details about the error
         /// </summary>
-        [JsonProperty("details")] public List<object> Details { get; set; }
+        [JsonProperty("details")]
+        public List<object> Details { get; set; }
 
         /// <summary>
         /// Message describing the error
         /// </summary>
-        [JsonProperty("message")] public string Message { get; set; }
+        [JsonProperty("message")]
+        public string Message { get; set; }
 
         /// <summary>
         /// Source of the error being reported
         /// </summary>
-        [JsonProperty("source")] public string Source { get; set; }
+        [JsonProperty("source")]
+        public string Source { get; set; }
     }
 
     /// <summary>
@@ -105,31 +118,37 @@ namespace Microsoft.StoreServices.Collections.V8
         /// <summary>
         /// Error code related to the consume service
         /// </summary>
-        [JsonProperty("code")] public string Code { get; set; }
+        [JsonProperty("code")]
+        public string Code { get; set; }
 
         /// <summary>
         /// Additional data about the error
         /// </summary>
-        [JsonProperty("data")] public List<string> Data { get; set; }
+        [JsonProperty("data")]
+        public List<string> Data { get; set; }
 
         /// <summary>
         /// Additional details about the error
         /// </summary>
-        [JsonProperty("details")] public List<object> Details { get; set; }
+        [JsonProperty("details")]
+        public List<object> Details { get; set; }
 
         /// <summary>
         /// Error data from the consume service if the consume request failed
         /// </summary>
-        [JsonProperty("innererror")] public ConsumeErrorV8 InnerError { get; set; }
+        [JsonProperty("innererror")]
+        public ConsumeErrorV8 InnerError { get; set; }
 
         /// <summary>
         /// Message describing the error
         /// </summary>
-        [JsonProperty("message")] public string Message { get; set; }
+        [JsonProperty("message")]
+        public string Message { get; set; }
 
         /// <summary>
         /// Source of the error being reported
         /// </summary>
-        [JsonProperty("source")] public string Source { get; set; }
+        [JsonProperty("source")]
+        public string Source { get; set; }
     }
 }

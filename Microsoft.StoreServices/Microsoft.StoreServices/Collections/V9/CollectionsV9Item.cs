@@ -19,6 +19,7 @@ namespace Microsoft.StoreServices.Collections.V9
         /// <summary>
         /// Provides specific information to manage this product through the Recurrence services if this is a subscription.
         /// </summary>
-        [JsonProperty("recurrenceId")] public string RecurrenceId { get; set; }
+        [JsonProperty("recurrenceId")]
+        public string RecurrenceId { get; set; }
     }
 }
