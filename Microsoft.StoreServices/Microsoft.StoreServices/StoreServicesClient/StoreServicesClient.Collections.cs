@@ -32,8 +32,6 @@ namespace Microsoft.StoreServices
                 throw new ArgumentException($"{nameof(request.Beneficiaries)} must be provided", nameof(request.Beneficiaries));
             }
 
-            //  Now pass these values to get the correct Delegated Auth and Signature headers for
-            //  the request
             //  Post the request and wait for the response
             var userCollection = await IssueRequestAsync<CollectionsV8QueryResponse>(
                 "https://collections.mp.microsoft.com/v8.0/collections/b2bLicensePreview",
