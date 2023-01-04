@@ -12,6 +12,42 @@ using Newtonsoft.Json;
 namespace Microsoft.StoreServices
 {
     /// <summary>
+    /// JSON request body to initiate a subscription management action
+    /// </summary>
+    public class RecurrenceChangeRequest
+    {
+        /// <summary>
+        /// Id unique to the user and the subscription to be acted upon.
+        /// </summary>
+        [JsonIgnore] 
+        public string RecurrenceId { get; set; }
+
+        /// <summary>
+        /// The UserPurchaseId that identifies the user we are acting for.
+        /// </summary>
+        [JsonProperty("b2bKey")] 
+        public string UserPurchaseId { get; set; }
+
+        /// <summary>
+        /// Type of action to be done with the subscription.  See RecurrenceChangeTypes.
+        /// </summary>
+        [JsonProperty("changeType")] 
+        public string ChangeType { get; set; }
+
+        /// <summary>
+        /// If using the Extend change type, specifies how many days to add to the user's subscription.
+        /// </summary>
+        [JsonProperty("extensionTimeInDays")] 
+        public int ExtensionTimeInDays { get; set; }
+
+        /// <summary>
+        /// Defines the development SandboxId that results should be scoped to
+        /// </summary>
+        [JsonProperty("sbx")] 
+        public string SandboxId { get; set; }
+    }
+
+    /// <summary>
     /// Types of change actions that can be done to manage a subscription.
     /// </summary>
     public enum RecurrenceChangeType
@@ -39,36 +75,5 @@ namespace Microsoft.StoreServices
         /// currently disabled.
         /// </summary>
         ToggleAutoRenew
-    }
-
-    /// <summary>
-    /// JSON request body to initiate a subscription management action
-    /// </summary>
-    public class RecurrenceChangeRequest
-    {
-        /// <summary>
-        /// Id unique to the user and the subscription to be acted upon.
-        /// </summary>
-        [JsonIgnore] public string RecurrenceId { get; set; }
-
-        /// <summary>
-        /// The UserPurchaseId that identifies the user we are acting for.
-        /// </summary>
-        [JsonProperty("b2bKey")] public string UserPurchaseId { get; set; }
-
-        /// <summary>
-        /// Type of action to be done with the subscription.  See RecurrenceChangeTypes.
-        /// </summary>
-        [JsonProperty("changeType")] public string ChangeType { get; set; }
-
-        /// <summary>
-        /// If using the Extend change type, specifies how many days to add to the user's subscription.
-        /// </summary>
-        [JsonProperty("extensionTimeInDays")] public int ExtensionTimeInDays { get; set; }
-
-        /// <summary>
-        /// Defines the development SandboxId that results should be scoped to
-        /// </summary>
-        [JsonProperty("sbx")] public string SandboxId { get; set; }
     }
 }

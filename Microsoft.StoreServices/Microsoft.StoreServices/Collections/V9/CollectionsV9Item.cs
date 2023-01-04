@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// CollectionsQueryResponse.cs
+// CollectionsV9Item.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -7,18 +7,19 @@
 // license information.
 //-----------------------------------------------------------------------------
 
-using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Collections.V9
 {
     /// <summary>
-    /// JSON response body from the Collections service
+    /// An item the user owns or is entitled to
     /// </summary>
-    public class CollectionsQueryResponse
+    public class CollectionsV9Item : CollectionsItemBase
     {
         /// <summary>
-        /// List of CollectionsItems returned from the request
+        /// Provides specific information to manage this product through the Recurrence services if this is a subscription.
         /// </summary>
-        public List<CollectionsItem> Items { get; set; }
+        [JsonProperty("recurrenceId")]
+        public string RecurrenceId { get; set; }
     }
 }

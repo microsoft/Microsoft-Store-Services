@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// RecurrenceQueryRequest.cs
+// CollectionsV9QueryResponse.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -8,25 +8,24 @@
 //-----------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Collections.V9
 {
     /// <summary>
-    /// JSON request body for a query to the Recurrence service
+    /// JSON response body from the Collections service
     /// </summary>
-    public class RecurrenceQueryRequest
+    public class CollectionsV9QueryResponse
     {
         /// <summary>
-        /// UserPurchaseId that identifies the user we are asking about
+        /// Token used in a follow-up query request to get the remainder of the
+        /// query results.
         /// </summary>
-        [JsonProperty("b2bKey")]
-        public string UserPurchaseId { get; set; }
+        public string ContinuationToken { get; set; }
 
         /// <summary>
-        /// Defines the development SandboxId that results should be scoped to
-        /// otherwise leave blank to default to RETAIL
+        /// List of CollectionsItems returned from the request.
         /// </summary>
-        [JsonProperty("sbx")]
-        public string SandboxId { get; set; }
+        public List<CollectionsV9Item> Items { get; set; }
     }
 }

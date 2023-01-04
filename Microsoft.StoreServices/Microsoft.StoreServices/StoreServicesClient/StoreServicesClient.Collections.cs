@@ -7,6 +7,8 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Microsoft.StoreServices.Collections.V8;
+using Microsoft.StoreServices.Collections.V9;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -16,11 +18,35 @@ namespace Microsoft.StoreServices
     public sealed partial class StoreServicesClient : IStoreServicesClient
     {
         /// <summary>
-        /// Query for the user's current entitlements based on the filtering options in the request.
+        /// Query for the user's current entitlements based on the filtering options in the request against v8.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CollectionsQueryResponse> CollectionsQueryAsync(CollectionsQueryRequest request)
+        public async Task<CollectionsV8QueryResponse> CollectionsV8QueryAsync(CollectionsV8QueryRequest request)
+        {
+            //  Validate that we have a UserCollectionsId
+            if (request.Beneficiaries == null ||
+                request.Beneficiaries.Count != 1 ||
+                string.IsNullOrEmpty(request.Beneficiaries[0].UserCollectionsId))
+            {
+                throw new ArgumentException($"{nameof(request.Beneficiaries)} must be provided", nameof(request.Beneficiaries));
+            }
+
+            //  Post the request and wait for the response
+            var userCollection = await IssueRequestAsync<CollectionsV8QueryResponse>(
+                "https://collections.mp.microsoft.com/v8.0/collections/b2bLicensePreview",
+                JsonConvert.SerializeObject(request),
+                null);
+
+            return userCollection;
+        }
+
+        /// <summary>
+        /// Query for the user's current entitlements based on the filtering options in the request against v9.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CollectionsV9QueryResponse> CollectionsV9QueryAsync(CollectionsV9QueryRequest request)
         {
 
             //  Validate that we have a UserCollectionsId
@@ -31,13 +57,10 @@ namespace Microsoft.StoreServices
                 throw new ArgumentException($"{nameof(request.Beneficiaries)} must be provided", nameof(request.Beneficiaries));
             }
 
-            //  Now pass these values to get the correct Delegated Auth and Signature headers for
-            //  the request
             //  Post the request and wait for the response
-            var userCollection = await IssueRequestAsync<CollectionsQueryResponse>(
-                "https://collections.mp.microsoft.com/v8.0/collections/b2bLicensePreview",
-                JsonConvert.SerializeObject(request),
-                null);
+            var userCollection = await IssueRequestAsync<CollectionsV9QueryResponse>(
+                "https://collections.mp.microsoft.com/v9.0/collections/PublisherQuery",
+                JsonConvert.SerializeObject(request, Formatting.Indented));
 
             return userCollection;
         }
@@ -47,7 +70,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CollectionsConsumeResponse> CollectionsConsumeAsync(CollectionsConsumeRequest request)
+        public async Task<CollectionsV8ConsumeResponse> CollectionsConsumeAsync(CollectionsV8ConsumeRequest request)
         {
             //  Validate that we have a productID, quantity, trackingId and a UserCollectionsId
             {
@@ -73,11 +96,11 @@ namespace Microsoft.StoreServices
                 }
             }
 
-            CollectionsConsumeResponse consumeResponse;
+            CollectionsV8ConsumeResponse consumeResponse;
             try
             {
                 //  Post the request and wait for the response
-                consumeResponse = await IssueRequestAsync<CollectionsConsumeResponse>(
+                consumeResponse = await IssueRequestAsync<CollectionsV8ConsumeResponse>(
                     "https://collections.mp.microsoft.com/v8.0/collections/consume",
                     JsonConvert.SerializeObject(request),
                     null);
@@ -86,11 +109,11 @@ namespace Microsoft.StoreServices
             {
                 //  Consume failures have a specific body format that will give us more information so we need to 
                 //  deserialize the JSON into a ConsumeError object
-                CollectionsConsumeErrorResponse responseError;
+                CollectionsConsumeErrorResponseV8 responseError;
                 try
                 {
                     string responseBody = await ex.HttpResponseMessage.Content.ReadAsStringAsync();
-                    responseError = JsonConvert.DeserializeObject<CollectionsConsumeErrorResponse>(responseBody, new JsonSerializerSettings
+                    responseError = JsonConvert.DeserializeObject<CollectionsConsumeErrorResponseV8>(responseBody, new JsonSerializerSettings
                     {
                         DateTimeZoneHandling = DateTimeZoneHandling.Utc
                     });

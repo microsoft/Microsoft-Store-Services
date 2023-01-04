@@ -21,71 +21,84 @@ namespace Microsoft.StoreServices
         /// Indicates if the user is enrolled to have their subscription auto-renew at the end
         /// of the next billing cycle.
         /// </summary>
-        [JsonProperty("autoRenew")] public bool AutoRenew { get; set; }
+        [JsonProperty("autoRenew")]
+        public bool AutoRenew { get; set; }
 
         /// <summary>
         /// Id that was used when the UserPurchaseId was created.  This will match the UserId value in the
         /// UserPurchaseId.
         /// </summary>
-        [JsonProperty("beneficiary")] public string Beneficiary { get; set; }
+        [JsonProperty("beneficiary")]
+        public string Beneficiary { get; set; }
 
         /// <summary>
         /// The UTC date and time that the subscription will or has expired
         /// </summary>
-        [JsonProperty("expirationTime")] public DateTimeOffset ExpirationTime { get; set; }
+        [JsonProperty("expirationTime")]
+        public DateTimeOffset ExpirationTime { get; set; }
 
         /// <summary>
         /// The UTC date and time that the user's Grace period will end if auto-renew fails at the 
         /// ExpirationTime.  During Grace, users should still have access and be considered valid
         /// subscribers, but notified they need to fix their auto-renew payment.
         /// </summary>
-        [JsonProperty("expirationTimeWithGrace")] public DateTimeOffset ExpirationTimeWithGrace { get; set; }
+        [JsonProperty("expirationTimeWithGrace")]
+        public DateTimeOffset ExpirationTimeWithGrace { get; set; }
 
         /// <summary>
         /// An ID that identifies this collection item from other items that the user owns. This ID is unique per product.
         /// </summary>
-        [JsonProperty("id")] public string Id { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// Indicates if the product is in a trial period, such as a subscription.
         /// </summary>
-        [JsonProperty("isTrial")] public bool IsTrial { get; set; }
+        [JsonProperty("isTrial")]
+        public bool IsTrial { get; set; }
 
         /// <summary>
         /// The UTC date that this item was last modified.
         /// </summary>
-        [JsonProperty("lastModified")] public DateTimeOffset LastModified { get; set; }
+        [JsonProperty("lastModified")]
+        public DateTimeOffset LastModified { get; set; }
 
         /// <summary>
         /// The country the product was purchased in following the two-character ISO 3166 country/region code. EX: US.
         /// </summary>
-        [JsonProperty("market")] public string Market { get; set; }
+        [JsonProperty("market")]
+        public string Market { get; set; }
 
         /// <summary>
         /// Also refereed to as the Store ID for the product within the Microsoft Store catalog. An example Store ID for
         /// a product is 9NBLGGH42CFD.
         /// </summary>
-        [JsonProperty("productId")] public string ProductId { get; set; }
+        [JsonProperty("productId")]
+        public string ProductId { get; set; }
 
         /// <summary>
         /// Current state of the recurrence.  See RecurrenceSates.
         /// </summary>
-        [JsonProperty("recurrenceState")] public string RecurrenceState { get; set; }
+        [JsonProperty("recurrenceState")]
+        public string RecurrenceState { get; set; }
 
         /// <summary>
         /// The specific SKU identifier if there are multiple offerings of the product in the Microsoft Store catalog. An example Store ID for a SKU is 0010.
         /// </summary>
-        [JsonProperty("skuId")] public string SkuId { get; set; }
+        [JsonProperty("skuId")]
+        public string SkuId { get; set; }
 
         /// <summary>
         /// The UTC date that the subscription became or will become valid.
         /// </summary>
-        [JsonProperty("startTime")] public DateTimeOffset StartTime { get; set; }
+        [JsonProperty("startTime")]
+        public DateTimeOffset StartTime { get; set; }
 
         /// <summary>
         /// The UTC date that the subscription was canceled.
         /// </summary>
-        [JsonProperty("cancellationDate")] public DateTimeOffset CancellationDate { get; set; }
+        [JsonProperty("cancellationDate")]
+        public DateTimeOffset CancellationDate { get; set; }
     }
 
     /// <summary>
@@ -96,31 +109,31 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// This indicates a perpetual subscription.
         /// </summary>
-        public static string None = "None";
+        public static readonly string None = "None";
 
         /// <summary>
         /// The subscription is active and the user is entitled to use the services.
         /// </summary>
-        public static string Active   = "Active";
+        public static readonly string Active   = "Active";
 
         /// <summary>
         /// The subscription is past the expiration date, and the user turned off the automatic renew option for the subscription.
         /// </summary>
-        public static string Inactive = "Inactive";
+        public static readonly string Inactive = "Inactive";
 
         /// <summary>
         /// The subscription has been purposefully terminated before the expiration date, with or without a refund.
         /// </summary>
-        public static string Canceled = "Canceled";
+        public static readonly string Canceled = "Canceled";
 
         /// <summary>
         /// The subscription is in dunning (that is, the subscription is nearing expiration, and Microsoft is trying to acquire funds to automatically renew the subscription).
         /// </summary>
-        public static string InDunning = "InDunning";
+        public static readonly string InDunning = "InDunning";
 
         /// <summary>
         /// The dunning period is over and the subscription failed to renew after several attempts.
         /// </summary>
-        public static string Failed = "Failed";
+        public static readonly string Failed = "Failed";
     }
 }

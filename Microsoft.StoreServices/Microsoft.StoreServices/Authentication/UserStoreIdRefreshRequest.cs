@@ -16,7 +16,10 @@ namespace Microsoft.StoreServices
     /// </summary>
     class UserStoreIdRefreshRequest
     {
-        [JsonProperty("serviceTicket")] public string ServiceToken { get; set; }
-        [JsonProperty("key")] public string UserStoreId { get; set; }
+        [JsonProperty("serviceTicket")]
+        public string ServiceToken { get; set; }
+
+        [JsonProperty("key")]
+        public string UserStoreId { get; set; }
     }
 }

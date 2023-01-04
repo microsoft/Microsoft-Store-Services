@@ -20,12 +20,14 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// UserPurchaseId that identifies the user we are asking about
         /// </summary>
-        [JsonProperty("b2bKey")] public string UserPurchaseId { get; set; }
+        [JsonProperty("b2bKey")]
+        public string UserPurchaseId { get; set; }
 
         /// <summary>
         /// String list that filters the Clawback query results to specific states. See LineItemStates.
         /// </summary>
-        [JsonProperty("lineItemStateFilter")] public List<string> LineItemStateFilter { get; set; }
+        [JsonProperty("lineItemStateFilter")]
+        public List<string> LineItemStateFilter { get; set; }
 
         /// <summary>
         /// Creates an object used to generate the JSON body of the request.
@@ -45,8 +47,8 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Defines the development SandboxId that results should be scoped to
         /// </summary>
-        [JsonProperty("sbx")] public string SandboxId { get; set; }
-
+        [JsonProperty("sbx")]
+        public string SandboxId { get; set; }
     }
 
     /// <summary>

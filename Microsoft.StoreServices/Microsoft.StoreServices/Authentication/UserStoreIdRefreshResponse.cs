@@ -16,6 +16,7 @@ namespace Microsoft.StoreServices
     /// </summary>
     class UserStoreIdRefreshResponse
     {
-        [JsonProperty("key")] public string Key { get; set; }
+        [JsonProperty("key")]
+        public string Key { get; set; }
     }
 }

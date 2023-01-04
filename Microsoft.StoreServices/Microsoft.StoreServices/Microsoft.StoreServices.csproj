@@ -24,9 +24,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="jose-jwt" Version="4.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
+      <PackageReference Include="jose-jwt" Version="4.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.10" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>

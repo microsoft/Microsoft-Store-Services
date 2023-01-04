@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// StoreServicesClient.Clawback.cs
+// IStoreServicesClient.Clawback.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -9,6 +9,8 @@
 
 using System;
 using System.Threading.Tasks;
+using Microsoft.StoreServices.Collections.V8;
+using Microsoft.StoreServices.Collections.V9;
 
 namespace Microsoft.StoreServices
 {
@@ -19,20 +21,29 @@ namespace Microsoft.StoreServices
     public interface IStoreServicesClient : IDisposable
     {
         /// <summary>
-        /// Query the user's collections information and returns any items that meet the 
-        /// query parameters.  These items are directly owned by the user who's 
+        /// Query the user's collections information from the V8 endpoint and returns any items  
+        /// that meet the query parameters.  These items are directly owned by the user who's 
         /// UserCollectionsId we are passing with the QueryParameters.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<CollectionsQueryResponse> CollectionsQueryAsync(CollectionsQueryRequest request);
+        Task<CollectionsV8QueryResponse> CollectionsV8QueryAsync(CollectionsV8QueryRequest request);
+
+        /// <summary>
+        /// Query the user's collections information from the V9 endpoint and returns any items  
+        /// that meet the query parameters.  These items are directly owned by the user who's 
+        /// UserCollectionsId we are passing with the QueryParameters.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CollectionsV9QueryResponse> CollectionsV9QueryAsync(CollectionsV9QueryRequest request);
 
         /// <summary>
         /// Consumes a specified quantity of a product from a user's active balance in the store.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<CollectionsConsumeResponse> CollectionsConsumeAsync(CollectionsConsumeRequest request);
+        Task<CollectionsV8ConsumeResponse> CollectionsConsumeAsync(CollectionsV8ConsumeRequest request);
 
         /// <summary>
         /// Query's the Clawback information for the user based on the parameters object.
@@ -63,12 +74,14 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <returns></returns>
         Task<AccessToken> GetServiceAccessTokenAsync();
+
         /// <summary>
         /// Provides the Collections Access Token from the IAccessTokenControler used when the
         /// Client was configured.
         /// </summary>
         /// <returns></returns>
         Task<AccessToken> GetCollectionsAccessTokenAsync();
+
         /// <summary>
         /// Provides the Purchase Access Token from the IAccessTokenControler used when the
         /// Client was configured.
