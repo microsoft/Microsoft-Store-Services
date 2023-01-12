@@ -9,16 +9,16 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Clawback.V1
 {
     /// <summary>
     /// JSON response body from the Clawback service
     /// </summary>
-    public class ClawbackQueryResponse
+    public class ClawbackV1QueryResponse
     {
         /// <summary>
         /// List of ClawbackItems returned from the request
         /// </summary>
-        public List<ClawbackItem> Items { get; set; }
+        public List<ClawbackV1Item> Items { get; set; }
     }
 }

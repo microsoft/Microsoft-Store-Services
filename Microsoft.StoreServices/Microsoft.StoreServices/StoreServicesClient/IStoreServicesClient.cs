@@ -11,6 +11,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.StoreServices.Collections.V8;
 using Microsoft.StoreServices.Collections.V9;
+using Microsoft.StoreServices.Clawback.V1;
 
 namespace Microsoft.StoreServices
 {
@@ -50,7 +51,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<ClawbackQueryResponse> ClawbackQueryAsync(ClawbackQueryRequest request);
+        Task<ClawbackV1QueryResponse> ClawbackV1QueryAsync(ClawbackV1QueryRequest request);
 
         /// <summary>
         /// Query's the Recurrence information for the user based on the parameters object

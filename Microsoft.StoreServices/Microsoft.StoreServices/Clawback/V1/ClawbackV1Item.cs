@@ -11,14 +11,14 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Clawback.V1
 {
     /// <summary>
     /// Item representing a result from the purchase/query service (aka Clawback).  Depending on the 
     /// OrderLineItems[].LineItemState values the item may be a refunded or revoked item from the 
     /// user's owned items.
     /// </summary>
-    public class ClawbackItem
+    public class ClawbackV1Item
     {
         /// <summary>
         /// OrderId represents a unique identifier for the purchase transaction this information is tied to.
@@ -36,15 +36,15 @@ namespace Microsoft.StoreServices
         /// UTC date time when the purchase transaction was made.
         /// </summary>
         [JsonProperty("orderPurchasedDate")]
-        public DateTimeOffset OrderPurchaseDate { get; set;}
+        public DateTimeOffset OrderPurchaseDate { get; set; }
 
         /// <summary>
         /// UTC date time when the purchase was refunded (if in a refunded state).
         /// </summary>
         [JsonProperty("orderRefundedDate")]
-        public DateTimeOffset OrderRefundedDate { get; set;}
+        public DateTimeOffset OrderRefundedDate { get; set; }
     }
-    
+
     /// <summary>
     /// Represents a single product that was included in the purchase transaction made by the user.
     /// </summary>

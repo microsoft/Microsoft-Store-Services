@@ -10,6 +10,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
+using Microsoft.StoreServices.Clawback.V1;
 
 namespace Microsoft.StoreServices
 {
@@ -21,7 +22,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<ClawbackQueryResponse> ClawbackQueryAsync(ClawbackQueryRequest queryParameters)
+        public async Task<ClawbackV1QueryResponse> ClawbackV1QueryAsync(ClawbackV1QueryRequest queryParameters)
         {
             if (string.IsNullOrEmpty(queryParameters.UserPurchaseId))
             {
@@ -29,7 +30,7 @@ namespace Microsoft.StoreServices
             }
 
             //  Post the request and wait for the response
-            var userClawback = await IssueRequestAsync<ClawbackQueryResponse>(
+            var userClawback = await IssueRequestAsync<ClawbackV1QueryResponse>(
                 "https://purchase.mp.microsoft.com/v8.0/b2b/orders/query",
                 JsonConvert.SerializeObject(queryParameters),
                 null);
