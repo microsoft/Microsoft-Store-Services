@@ -11,7 +11,7 @@ namespace Microsoft.StoreServices
 {
     /// <summary>
     /// Interface to create a factory that will provide IStoreServicesClients on request from
-    /// a shared IAccessTokenProvider.
+    /// a shared IStoreServicesTokenProvider.
     /// </summary>
     public interface IStoreServicesClientFactory
     {
@@ -22,14 +22,14 @@ namespace Microsoft.StoreServices
         IStoreServicesClient CreateClient();
 
         /// <summary>
-        /// Used to set the IAccessTokenProvider and ServiceIdentity of the factory if 
+        /// Used to set the IStoreServicesTokenProvider and ServiceIdentity of the factory if 
         /// we were unable to initialize the object with them. Ex: Factory is created in
         /// ASP.NET's ConfigureServices(), but you don't have the AAD Ids until Configure().
         /// </summary>
         /// <param name="serviceIdentity">Identification string of your service for logging purposes on the calls to
         /// the Microsoft Store Services.</param>
-        /// <param name="accessTokenProvider">IAccessTokenProvider initialized with your services information that
+        /// <param name="tokenProvider">IStoreServicesTokenProvider initialized with your services information that
         /// will be shared and used by all the generated StoreServicesClients.</param>
-        void Initialize(string serviceIdentity, IAccessTokenProvider accessTokenProvider);
+        void Initialize(string serviceIdentity, IStoreServicesTokenProvider tokenProvider);
     }
 }

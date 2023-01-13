@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// AccessTokenProvider.cs
+// StoreServicesTokenProvider.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -17,14 +17,14 @@ using System.Threading.Tasks;
 namespace Microsoft.StoreServices
 {
     /// <summary>
-    /// An IAccessTokenProvider that generates access tokens required for Microsoft Store
+    /// An IStoreServicesTokenProvider that generates access tokens required for Microsoft Store
     /// Services authentication.
     /// </summary>
-    public class AccessTokenProvider : IAccessTokenProvider
+    public class StoreServicesTokenProvider : IStoreServicesTokenProvider
     {
         /// <summary>
         /// Can be overridden with an HttpClientFactory.CreateClient() if used by your service.
-        /// Ex: AccessTokenProvider.CreateHttpClientFunc = httpClientFactory.CreateClient;
+        /// Ex: StoreServicesTokenProvider.CreateHttpClientFunc = httpClientFactory.CreateClient;
         /// </summary>
         public static Func<HttpClient> CreateHttpClientFunc = () => new HttpClient();
 
@@ -50,7 +50,7 @@ namespace Microsoft.StoreServices
         /// <param name="tenantId">Registered AAD Tenant Id for your service</param>
         /// <param name="clientId">Registered AAD Client Id for your service</param>
         /// <param name="clientSecret">Registered AAD Client secret for your service</param>
-        public AccessTokenProvider(string tenantId, string clientId, string clientSecret)
+        public StoreServicesTokenProvider(string tenantId, string clientId, string clientSecret)
         {
             if (string.IsNullOrEmpty(tenantId))
             {
@@ -159,7 +159,7 @@ namespace Microsoft.StoreServices
         public virtual Task<SASToken> GetClawbackV2SASTokenAsync()
         {
             return CreateSASTokenAsync(SASTokenType.ClawbackV2, "");    // We do not have a cached PurchaseAccessToken to pass
-                                                                        // that will be implemented with the CachedAccessTokenProvider class.
+                                                                        // that will be implemented with the StoreServicesCachedTokenProvider class.
         }
 
         /// <summary>

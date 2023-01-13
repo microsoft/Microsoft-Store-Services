@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// CachedAccessTokenProvider.cs
+// StoreServicesCachedTokenProvider.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -16,10 +16,10 @@ using System.Threading.Tasks;
 namespace Microsoft.StoreServices
 {
     /// <summary>
-    /// An IAccessTokenProvider that generates, caches, retrieves, and manages the expiration of the 
+    /// An IStoreServicesProvider that generates, caches, retrieves, and manages the expiration of the 
     /// access tokens for your service required for Microsoft Store Services authentication.
     /// </summary>
-    public class CachedAccessTokenProvider : AccessTokenProvider
+    public class StoreServicesCachedTokenProvider : StoreServicesTokenProvider
     {
         /// <summary>
         /// Cache used to store and retrieve access tokens
@@ -33,7 +33,7 @@ namespace Microsoft.StoreServices
         /// <param name="tenantId">Registered AAD Tenant Id for your service</param>
         /// <param name="clientId">Registered AAD Client Id for your service</param>
         /// <param name="clientSecret">Registered AAD Client secret for your service</param>
-        public CachedAccessTokenProvider(IMemoryCache serverCache,
+        public StoreServicesCachedTokenProvider(IMemoryCache serverCache,
                                          string tenantId,
                                          string clientId,
                                          string clientSecret) : base (tenantId, clientId, clientSecret)

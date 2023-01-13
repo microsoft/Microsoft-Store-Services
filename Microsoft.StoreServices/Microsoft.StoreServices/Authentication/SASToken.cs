@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// ClawbackV2SASToken.cs
+// 2SASToken.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.

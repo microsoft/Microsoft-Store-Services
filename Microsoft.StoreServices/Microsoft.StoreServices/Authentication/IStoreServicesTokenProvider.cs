@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// IAccessTokenProvider.cs
+// IStoreServicesTokenProvider.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.StoreServices
 {
-    public interface IAccessTokenProvider
+    public interface IStoreServicesTokenProvider
     {
         /// <summary>
         /// Provides a Service access token for your service that will have an audience 
