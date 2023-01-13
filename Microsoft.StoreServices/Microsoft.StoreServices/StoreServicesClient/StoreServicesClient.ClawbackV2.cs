@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// StoreServicesClient.ClawbackV1.cs
+// StoreServicesClient.ClawbackV2.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -10,7 +10,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
-using Microsoft.StoreServices.Clawback.V1;
+using Microsoft.StoreServices.Clawback.V2;
 
 namespace Microsoft.StoreServices
 {
@@ -22,20 +22,16 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<ClawbackV1QueryResponse> ClawbackV1QueryAsync(ClawbackV1QueryRequest queryParameters)
+        public async Task<ClawbackV2QueryEventsResponse> ClawbackV2QueryEventsAsync()
         {
-            if (string.IsNullOrEmpty(queryParameters.UserPurchaseId))
-            {
-                throw new ArgumentException($"{nameof(queryParameters.UserPurchaseId)} must be provided", nameof(queryParameters.UserPurchaseId));
-            }
-
             //  Post the request and wait for the response
-            var userClawback = await IssueRequestAsync<ClawbackV1QueryResponse>(
-                "https://purchase.mp.microsoft.com/v8.0/b2b/orders/query",
-                JsonConvert.SerializeObject(queryParameters),
-                null);
+            //var userClawback = await IssueRequestAsync<ClawbackV1QueryResponse>(
+            //    "https://purchase.mp.microsoft.com/v8.0/b2b/orders/query",
+            //    JsonConvert.SerializeObject(queryParameters),
+            //    null);
 
-            return userClawback;
+            // return userClawback;
+            return null;
         }
     }
 }

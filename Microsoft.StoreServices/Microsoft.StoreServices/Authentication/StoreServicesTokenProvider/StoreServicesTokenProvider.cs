@@ -183,7 +183,7 @@ namespace Microsoft.StoreServices
             {
                 if (TokenType == SASTokenType.ClawbackV2)
                 {
-                    var purchaseAccessToken = await GetPurchaseAccessTokenAsync();
+                    var purchaseAccessToken = await GetServiceAccessTokenAsync();
                     AccessToken = purchaseAccessToken.Token;
 
                     if(string.IsNullOrEmpty(AccessToken))

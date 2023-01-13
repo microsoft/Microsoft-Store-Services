@@ -7,6 +7,7 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Microsoft.StoreServices.Authentication;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -139,6 +140,15 @@ namespace Microsoft.StoreServices
         public Task<AccessToken> GetPurchaseAccessTokenAsync()
         {
             return _storeServicesTokenProvider.GetPurchaseAccessTokenAsync();
+        }
+
+        /// <summary>
+        /// Provides an SAS Token to the Clawback V2 Events Service from the IStoreServicesTokenProvider.
+        /// </summary>
+        /// <returns></returns>
+        public Task<SASToken> GetClawbackV2SASTokenAsync()
+        {
+            return _storeServicesTokenProvider.GetClawbackV2SASTokenAsync();
         }
 
         /// <summary>

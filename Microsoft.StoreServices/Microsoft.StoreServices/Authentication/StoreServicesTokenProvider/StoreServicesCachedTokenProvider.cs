@@ -144,7 +144,7 @@ namespace Microsoft.StoreServices
                 //  Check which Access Token type we need to generate a new SAS Token
                 if(tokenType == SASTokenType.ClawbackV2)
                 {
-                    accessToken = await GetPurchaseAccessTokenAsync();
+                    accessToken = await GetServiceAccessTokenAsync();
                 }
                 else
                 {

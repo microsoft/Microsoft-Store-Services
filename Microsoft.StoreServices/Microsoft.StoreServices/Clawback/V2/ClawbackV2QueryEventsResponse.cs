@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// ClawbackV1QueryResponse.cs
+// ClawbackResponse.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -7,18 +7,15 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Microsoft.StoreServices.Clawback.V1
+namespace Microsoft.StoreServices.Clawback.V2
 {
-    /// <summary>
-    /// JSON response body from the Clawback service
-    /// </summary>
-    public class ClawbackV1QueryResponse
+    public class ClawbackV2QueryEventsResponse
     {
-        /// <summary>
-        /// List of ClawbackItems returned from the request
-        /// </summary>
-        public List<ClawbackV1Item> Items { get; set; }
     }
 }
