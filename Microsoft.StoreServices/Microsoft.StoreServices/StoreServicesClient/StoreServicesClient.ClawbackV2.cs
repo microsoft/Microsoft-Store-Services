@@ -7,6 +7,8 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Azure.Storage.Queues;
+using Azure.Storage.Queues.Models;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -24,11 +26,18 @@ namespace Microsoft.StoreServices
         /// <returns></returns>
         public async Task<ClawbackV2QueryEventsResponse> ClawbackV2QueryEventsAsync()
         {
-            //  Post the request and wait for the response
-            //var userClawback = await IssueRequestAsync<ClawbackV1QueryResponse>(
-            //    "https://purchase.mp.microsoft.com/v8.0/b2b/orders/query",
-            //    JsonConvert.SerializeObject(queryParameters),
-            //    null);
+            var sasToken = await _storeServicesTokenProvider.GetClawbackV2SASTokenAsync();
+            var uri = new Uri(sasToken.Token);
+            var eventQueueClient = new QueueClient(uri);
+
+            var peekResult = await eventQueueClient.PeekMessagesAsync();
+
+            var getResult = await eventQueueClient.ReceiveMessagesAsync();
+
+            foreach(var message in getResult.Value)
+            {
+                var deleteMessageResult = await eventQueueClient.DeleteMessageAsync(message.MessageId, message.PopReceipt);
+            }
 
             // return userClawback;
             return null;
