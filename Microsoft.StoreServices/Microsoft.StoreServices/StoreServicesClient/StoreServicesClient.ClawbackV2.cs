@@ -8,11 +8,10 @@
 //-----------------------------------------------------------------------------
 
 using Azure.Storage.Queues;
-using Azure.Storage.Queues.Models;
-using Newtonsoft.Json;
-using System;
-using System.Threading.Tasks;
 using Microsoft.StoreServices.Clawback.V2;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Microsoft.StoreServices
 {
@@ -24,23 +23,40 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<ClawbackV2QueryEventsResponse> ClawbackV2QueryEventsAsync()
+        public async Task<List<ClawbackV2Message>> ClawbackV2QueryEventsAsync()
         {
             var sasToken = await _storeServicesTokenProvider.GetClawbackV2SASTokenAsync();
             var uri = new Uri(sasToken.Token);
             var eventQueueClient = new QueueClient(uri);
 
-            var peekResult = await eventQueueClient.PeekMessagesAsync();
+            var getMessagesResult = await eventQueueClient.ReceiveMessagesAsync();
 
-            var getResult = await eventQueueClient.ReceiveMessagesAsync();
-
-            foreach(var message in getResult.Value)
+            var clawbackMessages = new List<ClawbackV2Message>();
+            foreach(var queueMessage in getMessagesResult.Value)
             {
-                var deleteMessageResult = await eventQueueClient.DeleteMessageAsync(message.MessageId, message.PopReceipt);
+                var clawbackMessage = new ClawbackV2Message(queueMessage);
+                clawbackMessages.Add(clawbackMessage);
             }
 
-            // return userClawback;
-            return null;
+            return clawbackMessages;
+        }
+
+        public async Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync()
+        {
+            var sasToken = await _storeServicesTokenProvider.GetClawbackV2SASTokenAsync();
+            var uri = new Uri(sasToken.Token);
+            var eventQueueClient = new QueueClient(uri);
+
+            var getMessagesResult = await eventQueueClient.PeekMessagesAsync();
+
+            var clawbackMessages = new List<ClawbackV2Message>();
+            foreach (var queueMessage in getMessagesResult.Value)
+            {
+                var clawbackMessage = new ClawbackV2Message(queueMessage);
+                clawbackMessages.Add(clawbackMessage);
+            }
+
+            return clawbackMessages;
         }
     }
 }

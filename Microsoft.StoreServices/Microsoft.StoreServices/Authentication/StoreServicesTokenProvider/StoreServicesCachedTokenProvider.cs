@@ -131,7 +131,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="audience"></param>
         /// <returns></returns>
-        protected async Task<SASToken> GetSASTokenAsync(string tokenType)
+        protected virtual async Task<SASToken> GetSASTokenAsync(string tokenType)
         {
             var currentUTC = DateTimeOffset.UtcNow;
 

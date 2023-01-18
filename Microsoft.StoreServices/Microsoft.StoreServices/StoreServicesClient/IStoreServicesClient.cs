@@ -13,6 +13,7 @@ using Microsoft.StoreServices.Collections.V8;
 using Microsoft.StoreServices.Collections.V9;
 using Microsoft.StoreServices.Clawback.V1;
 using Microsoft.StoreServices.Clawback.V2;
+using System.Collections.Generic;
 
 namespace Microsoft.StoreServices
 {
@@ -55,11 +56,16 @@ namespace Microsoft.StoreServices
         Task<ClawbackV1QueryResponse> ClawbackV1QueryAsync(ClawbackV1QueryRequest request);
 
         /// <summary>
-        /// Query's the Clawback v2 service for refund events
+        /// Queries the Clawback v2 service for refund events
         /// </summary>
-        /// <param name="request"></param>
         /// <returns></returns>
-        Task<ClawbackV2QueryEventsResponse> ClawbackV2QueryEventsAsync();
+        Task<List<ClawbackV2Message>> ClawbackV2QueryEventsAsync();
+
+        /// <summary>
+        /// Queries the Clawback v2 service and peeks at the messages
+        /// </summary>
+        /// <returns></returns>
+        Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync();
 
         /// <summary>
         /// Query's the Recurrence information for the user based on the parameters object
