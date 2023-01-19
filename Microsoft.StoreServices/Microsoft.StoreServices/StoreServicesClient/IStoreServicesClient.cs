@@ -59,13 +59,13 @@ namespace Microsoft.StoreServices
         /// Queries the Clawback v2 service for refund events
         /// </summary>
         /// <returns></returns>
-        Task<List<ClawbackV2Message>> ClawbackV2QueryEventsAsync();
+        Task<List<ClawbackV2Message>> ClawbackV2QueryEventsAsync(int? maxMessages = null);
 
         /// <summary>
         /// Queries the Clawback v2 service and peeks at the messages
         /// </summary>
         /// <returns></returns>
-        Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync();
+        Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync(int? maxMessages = null);
 
         /// <summary>
         /// Query's the Recurrence information for the user based on the parameters object

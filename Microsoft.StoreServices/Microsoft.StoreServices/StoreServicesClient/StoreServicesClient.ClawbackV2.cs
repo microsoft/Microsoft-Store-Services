@@ -21,15 +21,26 @@ namespace Microsoft.StoreServices
         /// Query for the user's refunded products from the Clawback service based on the 
         /// parameters of the request.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="maxMessages">Max number of messages to receive from the Clawback v2 message queue.  Default value is 1, Max value is 32</param>
         /// <returns></returns>
-        public async Task<List<ClawbackV2Message>> ClawbackV2QueryEventsAsync()
+        public async Task<List<ClawbackV2Message>> ClawbackV2QueryEventsAsync(int? maxMessages = null)
         {
+            if(maxMessages == null)
+            {
+                maxMessages = 1;    // default return value when a maxMessages parameter is not passed to the
+                                    // Azure Message Queue
+            }
+
+            if (maxMessages <= 0 || maxMessages > 32)
+            {
+                throw new ArgumentException($"{nameof(maxMessages)} has value of {maxMessages}, must be between 1 - 32", nameof(maxMessages));
+            }
+
             var sasToken = await _storeServicesTokenProvider.GetClawbackV2SASTokenAsync();
             var uri = new Uri(sasToken.Token);
             var eventQueueClient = new QueueClient(uri);
 
-            var getMessagesResult = await eventQueueClient.ReceiveMessagesAsync();
+            var getMessagesResult = await eventQueueClient.ReceiveMessagesAsync(maxMessages);
 
             var clawbackMessages = new List<ClawbackV2Message>();
             foreach(var queueMessage in getMessagesResult.Value)
@@ -41,13 +52,24 @@ namespace Microsoft.StoreServices
             return clawbackMessages;
         }
 
-        public async Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync()
+        public async Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync(int? maxMessages = null)
         {
+            if (maxMessages == null)
+            {
+                maxMessages = 1;    // default return value when a maxMessages parameter is not passed to the
+                                    // Azure Message Queue
+            }
+
+            if (maxMessages <= 0 || maxMessages > 32)
+            {
+                throw new ArgumentException($"{nameof(maxMessages)} has value of {maxMessages}, must be between 1 - 32", nameof(maxMessages));
+            }
+
             var sasToken = await _storeServicesTokenProvider.GetClawbackV2SASTokenAsync();
             var uri = new Uri(sasToken.Token);
             var eventQueueClient = new QueueClient(uri);
 
-            var getMessagesResult = await eventQueueClient.PeekMessagesAsync();
+            var getMessagesResult = await eventQueueClient.PeekMessagesAsync(maxMessages);
 
             var clawbackMessages = new List<ClawbackV2Message>();
             foreach (var queueMessage in getMessagesResult.Value)
