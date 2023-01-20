@@ -79,4 +79,20 @@ namespace Microsoft.StoreServices.Clawback.V2
     }
 }
 
+/// <summary>
+/// Values supported for the RefundState of the order
+/// </summary>
+public static class RefundStates
+{
+    /// <summary>
+    /// Refunded item was able to be removed from the user's entitlement. 
+    /// No action should be required on the partner service.
+    /// </summary>
+    public const string Refunded = "Refunded";
 
+    /// <summary>
+    /// Refunded item was already fulfilled / consumed and could not be removed from the user's entitlements.
+    /// Partner service should check for this item in their consume transaction records.
+    /// </summary>
+    public const string Revoked = "Revoked";
+}

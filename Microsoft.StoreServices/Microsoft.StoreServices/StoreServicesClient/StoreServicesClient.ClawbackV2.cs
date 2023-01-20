@@ -25,7 +25,7 @@ namespace Microsoft.StoreServices
         /// <returns></returns>
         public async Task<List<ClawbackV2Message>> ClawbackV2QueryEventsAsync(int? maxMessages = null)
         {
-            if(maxMessages == null)
+            if (maxMessages == null)
             {
                 maxMessages = 1;    // default return value when a maxMessages parameter is not passed to the
                                     // Azure Message Queue
@@ -43,7 +43,7 @@ namespace Microsoft.StoreServices
             var getMessagesResult = await eventQueueClient.ReceiveMessagesAsync(maxMessages);
 
             var clawbackMessages = new List<ClawbackV2Message>();
-            foreach(var queueMessage in getMessagesResult.Value)
+            foreach (var queueMessage in getMessagesResult.Value)
             {
                 var clawbackMessage = new ClawbackV2Message(queueMessage);
                 clawbackMessages.Add(clawbackMessage);
@@ -79,6 +79,44 @@ namespace Microsoft.StoreServices
             }
 
             return clawbackMessages;
+        }
+
+        /// <summary>
+        /// Deletes the provided message from the Clawback message queue.
+        /// </summary>
+        /// <param name="messageToDelete">Which message should be deleted from the message queue.</param>
+        /// <returns>HTTP status code from the delete request to the Azure Message Queue</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="Exception"></exception>
+        public async Task<int> ClawbackV2DeleteMessageAsync(ClawbackV2Message messageToDelete)
+        {
+            if (messageToDelete == null)
+            {
+                throw new ArgumentException($"{nameof(messageToDelete)} cannot be null", nameof(messageToDelete));
+            }
+
+            if (string.IsNullOrEmpty(messageToDelete.PopReceipt))
+            {
+                throw new ArgumentException($"{nameof(messageToDelete.PopReceipt)} cannot be empty", nameof(messageToDelete.PopReceipt));
+            }
+
+            if (string.IsNullOrEmpty(messageToDelete.MessageId))
+            {
+                throw new ArgumentException($"{nameof(messageToDelete.MessageId)} cannot be empty", nameof(messageToDelete.MessageId));
+            }
+
+            var sasToken = await _storeServicesTokenProvider.GetClawbackV2SASTokenAsync();
+            var uri = new Uri(sasToken.Token);
+            var eventQueueClient = new QueueClient(uri);
+
+            var deleteResponse = await eventQueueClient.DeleteMessageAsync(messageToDelete.MessageId, messageToDelete.PopReceipt);
+
+            if (deleteResponse.IsError)
+            {
+                throw new Exception($"Error deleting MessageId {messageToDelete.MessageId} from ClawbackV2 queue. {deleteResponse.ReasonPhrase}");
+            }
+
+            return deleteResponse.Status;
         }
     }
 }

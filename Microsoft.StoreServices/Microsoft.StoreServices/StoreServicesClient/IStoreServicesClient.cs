@@ -68,6 +68,15 @@ namespace Microsoft.StoreServices
         Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync(int? maxMessages = null);
 
         /// <summary>
+        /// Deletes the provided message from the Clawback message queue.
+        /// </summary>
+        /// <param name="messageToDelete">Which message should be deleted from the message queue.</param>
+        /// <returns>HTTP status code from the delete request to the Azure Message Queue</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="Exception"></exception>
+        Task<int> ClawbackV2DeleteMessageAsync(ClawbackV2Message messageToDelete);
+
+        /// <summary>
         /// Query's the Recurrence information for the user based on the parameters object
         /// </summary>
         /// <param name="request"></param>
