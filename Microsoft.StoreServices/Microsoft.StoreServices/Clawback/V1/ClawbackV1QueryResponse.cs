@@ -17,6 +17,12 @@ namespace Microsoft.StoreServices.Clawback.V1
     public class ClawbackV1QueryResponse
     {
         /// <summary>
+        /// Token used in a follow-up query request to get the remainder of the
+        /// query results.
+        /// </summary>
+        public string ContinuationToken { get; set; }
+
+        /// <summary>
         /// List of ClawbackItems returned from the request
         /// </summary>
         public List<ClawbackV1Item> Items { get; set; }

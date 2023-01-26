@@ -49,6 +49,12 @@ namespace Microsoft.StoreServices.Clawback.V1
         /// </summary>
         [JsonProperty("sbx")]
         public string SandboxId { get; set; }
+
+        /// <summary>
+        /// The maximum number of products to return in one response. The default and maximum value is 100.
+        /// </summary>
+        [JsonProperty("continuationToken", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContinuationToken { get; set; }
     }
 
     /// <summary>

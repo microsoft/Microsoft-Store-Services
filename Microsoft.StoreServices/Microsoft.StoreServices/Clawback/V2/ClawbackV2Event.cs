@@ -54,25 +54,6 @@ namespace Microsoft.StoreServices.Clawback.V2
         /// </summary>
         [JsonProperty("subject")]
         public string Subject { get; set; }
-        
-        //  Todo:Cagood - I don't think these are needed
-        /// <summary>
-        /// Content type of the data structure
-        /// </summary>
-        [JsonProperty("traceparent")]
-        public string Traceparent { get; set; }
-
-        /// <summary>
-        /// Contract version of the event
-        /// </summary>
-        [JsonProperty("specversion")]
-        public string SpecVersion { get; set; }
-
-        /// <summary>
-        /// Content type of the data structure
-        /// </summary>
-        [JsonProperty("dataContentType")]
-        public string DataContentType { get; set; }
     }
 }
 

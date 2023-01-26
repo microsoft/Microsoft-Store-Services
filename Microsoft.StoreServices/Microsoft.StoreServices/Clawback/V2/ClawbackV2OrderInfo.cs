@@ -66,12 +66,6 @@ namespace Microsoft.StoreServices.Clawback.V2
         public string SandboxId { get; set; }
 
         /// <summary>
-        /// Quantity granted with the purchase. Usually 1 but can be more if this is a consumable.
-        /// </summary>
-        [JsonProperty("quantity")]
-        public int Quantity { get; set; }
-
-        /// <summary>
         /// SkuId representing the specific sub-offering of the product that was purchased.
         /// </summary>
         [JsonProperty("skuId")]
