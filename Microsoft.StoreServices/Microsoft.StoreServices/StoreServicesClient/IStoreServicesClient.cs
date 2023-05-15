@@ -90,7 +90,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<RecurrenceChangeResponse> RecurrenceChangeAysnc(RecurrenceChangeRequest request);
+        Task<RecurrenceChangeResponse> RecurrenceChangeAsync(RecurrenceChangeRequest request);
 
         /// <summary>
         /// Provides the Service Access Token from the IAccessTokenControler used when the

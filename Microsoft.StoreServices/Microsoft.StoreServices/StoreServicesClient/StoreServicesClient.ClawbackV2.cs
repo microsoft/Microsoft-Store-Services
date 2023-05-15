@@ -19,7 +19,8 @@ namespace Microsoft.StoreServices
     {
         /// <summary>
         /// Query for the user's refunded products from the Clawback service based on the 
-        /// parameters of the request.
+        /// parameters of the request.  Any returned events are put in a timeout and will
+        /// not be returned in any follow up calls for 30 seconds. 
         /// </summary>
         /// <param name="maxMessages">Max number of messages to receive from the Clawback v2 message queue.  Default value is 1, Max value is 32</param>
         /// <returns></returns>
@@ -52,6 +53,13 @@ namespace Microsoft.StoreServices
             return clawbackMessages;
         }
 
+        /// <summary>
+        /// Query for the user's refunded products from the Clawback service based on the 
+        /// parameters of the request.  Peek does not put any retrieved messages in a timeout.
+        /// </summary>
+        /// <param name="maxMessages">Max number of messages to receive from the Clawback v2 message queue.  Default value is 1, Max value is 32</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync(int? maxMessages = null)
         {
             if (maxMessages == null)

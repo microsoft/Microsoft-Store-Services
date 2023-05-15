@@ -41,7 +41,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<RecurrenceChangeResponse> RecurrenceChangeAysnc(RecurrenceChangeRequest request)
+        public async Task<RecurrenceChangeResponse> RecurrenceChangeAsync(RecurrenceChangeRequest request)
         {
             if (string.IsNullOrEmpty(request.UserPurchaseId))
             {

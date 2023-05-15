@@ -140,9 +140,9 @@ namespace Microsoft.StoreServices
             if (!_serverCache.TryGetValue(tokenType, out SASToken token) ||
                (token.ExpiresOn.AddMinutes(-5)) <= currentUTC)
             {
-                AccessToken accessToken = null;
+                AccessToken accessToken;
                 //  Check which Access Token type we need to generate a new SAS Token
-                if(tokenType == SASTokenType.ClawbackV2)
+                if (tokenType == SASTokenType.ClawbackV2)
                 {
                     accessToken = await GetServiceAccessTokenAsync();
                 }

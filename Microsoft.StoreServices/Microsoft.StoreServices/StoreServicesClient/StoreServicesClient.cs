@@ -109,9 +109,9 @@ namespace Microsoft.StoreServices
                     DateTimeZoneHandling = DateTimeZoneHandling.Utc
                 });
             }
-            catch (HttpRequestException httpReqEx)
+            catch (HttpRequestException httpRequestEx)
             {
-                throw new StoreServicesClientException($"HTTP request for type {typeof(T)} failed.", httpReqEx);
+                throw new StoreServicesClientException($"HTTP request for type {typeof(T)} failed.", httpRequestEx);
             }
         }
 
