@@ -56,5 +56,3 @@ namespace Microsoft.StoreServices.Clawback.V2
         public string Subject { get; set; }
     }
 }
-
-

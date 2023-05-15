@@ -51,7 +51,7 @@ namespace Microsoft.StoreServices.Clawback.V2
         /// UTC date time when the purchase was refunded (if in a refunded state).
         /// </summary>
         [JsonProperty("refundInitiatedDate")]
-        public DateTimeOffset RefundInitiatedDate { get; set; }
+        public DateTimeOffset? RefundInitiatedDate { get; set; }
 
         /// <summary>
         /// Current state of the item indicating if it is active, revoked, or refunded.
