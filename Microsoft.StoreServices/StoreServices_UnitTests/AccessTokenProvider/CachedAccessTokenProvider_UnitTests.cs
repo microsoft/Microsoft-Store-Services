@@ -7,6 +7,7 @@
 
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.StoreServices;
+using Microsoft.StoreServices.Authentication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
 
@@ -24,10 +25,10 @@ namespace StoreServices_UnitTests
             var cacheOptions = new MemoryCacheOptions();
             var memoryCache = new MemoryCache(cacheOptions);
 
-            Assert.ThrowsException<System.ArgumentException>(() => new CachedAccessTokenProvider( null, "1", "1", "1") );
-            Assert.ThrowsException<System.ArgumentException>(() => new CachedAccessTokenProvider(memoryCache, null, "1", "1"));
-            Assert.ThrowsException<System.ArgumentException>(() => new CachedAccessTokenProvider(memoryCache, "1", null, "1"));
-            Assert.ThrowsException<System.ArgumentException>(() => new CachedAccessTokenProvider(memoryCache, "1", "1", ""));
+            Assert.ThrowsException<System.ArgumentException>(() => new StoreServicesCachedTokenProvider( null, "1", "1", "1") );
+            Assert.ThrowsException<System.ArgumentException>(() => new StoreServicesCachedTokenProvider(memoryCache, null, "1", "1"));
+            Assert.ThrowsException<System.ArgumentException>(() => new StoreServicesCachedTokenProvider(memoryCache, "1", null, "1"));
+            Assert.ThrowsException<System.ArgumentException>(() => new StoreServicesCachedTokenProvider(memoryCache, "1", "1", ""));
         }
 
         /// <summary>
@@ -39,20 +40,20 @@ namespace StoreServices_UnitTests
         {
             var cacheOptions = new MemoryCacheOptions();
             var memoryCache = new MemoryCache(cacheOptions);
-            var cachedTokenProvider = new CachedAccessTokenProvider(memoryCache, "tenantId", "clientId", "clientSecret");
-            
-            CachedAccessTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestServiceTokenHttpMessageHandler());
+            var cachedTokenProvider = new StoreServicesCachedTokenProvider(memoryCache, "tenantId", "clientId", "clientSecret");
+
+            StoreServicesCachedTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestServiceTokenHttpMessageHandler());
             Assert.AreEqual(0, memoryCache.Count);
             var serviceTokenTask = cachedTokenProvider.GetServiceAccessTokenAsync();
             var serviceToken = serviceTokenTask.Result;
             Assert.AreEqual(1, memoryCache.Count);
 
-            CachedAccessTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestCollectionsTokenHttpMessageHandler());
+            StoreServicesCachedTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestCollectionsTokenHttpMessageHandler());
             var collectionsTokenTask = cachedTokenProvider.GetCollectionsAccessTokenAsync();
             var collectionsToken = collectionsTokenTask.Result;
             Assert.AreEqual(2, memoryCache.Count);
-            
-            CachedAccessTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestPurchaseTokenHttpMessageHandler());
+
+            StoreServicesCachedTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestPurchaseTokenHttpMessageHandler());
             var purchaseTokenTask = cachedTokenProvider.GetPurchaseAccessTokenAsync();
             var purchaseToken = purchaseTokenTask.Result;
             Assert.AreEqual(3, memoryCache.Count);
@@ -66,19 +67,19 @@ namespace StoreServices_UnitTests
         {
             var cacheOptions = new MemoryCacheOptions();
             var memoryCache = new MemoryCache(cacheOptions);
-            var cachedTokenProvider = new CachedAccessTokenProvider(memoryCache, "tenantId", "clientId", "clientSecret");
+            var cachedTokenProvider = new StoreServicesCachedTokenProvider(memoryCache, "tenantId", "clientId", "clientSecret");
 
 
-            CachedAccessTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestServiceTokenHttpMessageHandler());
+            StoreServicesCachedTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestServiceTokenHttpMessageHandler());
             Assert.AreEqual(0, memoryCache.Count);
             var serviceTokenTask = cachedTokenProvider.GetServiceAccessTokenAsync();
             var serviceToken = serviceTokenTask.Result;
 
-            CachedAccessTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestCollectionsTokenHttpMessageHandler());
+            StoreServicesCachedTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestCollectionsTokenHttpMessageHandler());
             var collectionsTokenTask = cachedTokenProvider.GetCollectionsAccessTokenAsync();
             var collectionsToken = collectionsTokenTask.Result;
 
-            CachedAccessTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestPurchaseTokenHttpMessageHandler());
+            StoreServicesCachedTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestPurchaseTokenHttpMessageHandler());
             var purchaseTokenTask = cachedTokenProvider.GetPurchaseAccessTokenAsync();
             var purchaseToken = purchaseTokenTask.Result;
 
@@ -103,14 +104,14 @@ namespace StoreServices_UnitTests
         {
             var cacheOptions = new MemoryCacheOptions();
             var memoryCache = new MemoryCache(cacheOptions);
-            var cachedTokenProvider = new CachedAccessTokenProvider(memoryCache, "tenantId", "clientId", "clientSecret");
+            var cachedTokenProvider = new StoreServicesCachedTokenProvider(memoryCache, "tenantId", "clientId", "clientSecret");
 
-            CachedAccessTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestExpiringServiceTokenHttpMessageHandler());
+            StoreServicesCachedTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestExpiringServiceTokenHttpMessageHandler());
             Assert.AreEqual(0, memoryCache.Count);
             var expiringServiceTokenTask = cachedTokenProvider.GetServiceAccessTokenAsync();
             var expiringServiceToken = expiringServiceTokenTask.Result;
             Assert.AreEqual(1, memoryCache.Count);
-            CachedAccessTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestServiceTokenHttpMessageHandler());
+            StoreServicesCachedTokenProvider.CreateHttpClientFunc = () => new HttpClient(new TestServiceTokenHttpMessageHandler());
             var newServiceTokenTask = cachedTokenProvider.GetServiceAccessTokenAsync();
             Assert.AreEqual(1, memoryCache.Count);  //  size should be one because the old expired token should no longer
                                                     //  be there and the new token should overwrite the old one.
