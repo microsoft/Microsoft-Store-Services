@@ -65,8 +65,8 @@ namespace Microsoft.StoreServices.Collections
         /// <summary>
         /// Must be set to "b2b".
         /// </summary>
-        [JsonProperty("identitytype")]
-        public string Identitytype { get; set; }
+        [JsonProperty("identityType")]
+        public string IdentityType { get; set; }
 
         /// <summary>
         /// The User Store ID key that represents the identity of the user for whom you want to report a consumable product as fulfilled.
@@ -82,7 +82,7 @@ namespace Microsoft.StoreServices.Collections
 
         public CollectionsRequestBeneficiary()
         {
-            Identitytype = "b2b";
+            IdentityType = "b2b";
             UserCollectionsId = "";
             LocalTicketReference = "";
         }
@@ -109,7 +109,7 @@ namespace Microsoft.StoreServices.Collections
     /// <summary>
     /// Filter options for Collections query requests.  Results will be based on specific Status values.
     /// </summary>
-    public static class ValidityTpes
+    public static class ValidityTypes
     {
         /// <summary>
         /// Everything will be returned.

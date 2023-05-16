@@ -6,11 +6,12 @@
 //-----------------------------------------------------------------------------
 
 using Microsoft.StoreServices;
+using Microsoft.StoreServices.Authentication;
 using System.Threading.Tasks;
 
 namespace StoreServices_UnitTests
 {
-    internal class NullStoreServiceAccessTokenProvider : IAccessTokenProvider
+    internal class NullStoreServiceAccessTokenProvider : IStoreServicesTokenProvider
     {
         public Task<AccessToken> GetCollectionsAccessTokenAsync()
         {
@@ -25,6 +26,11 @@ namespace StoreServices_UnitTests
         public Task<AccessToken> GetServiceAccessTokenAsync()
         {
             return Task.FromResult(new AccessToken());
+        }
+
+        public Task<SASToken> GetClawbackV2SASTokenAsync()
+        {
+            return Task.FromResult(new SASToken());
         }
     }
 }

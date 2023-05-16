@@ -78,9 +78,9 @@ namespace Microsoft.StoreServices
     }
 
     /// <summary>
-    /// Represents errors from execution within an IAccessTokenProvider of the Microsoft.StoreServices namespace.
+    /// Represents errors from execution within an IStoreServicesTokenProvider of the Microsoft.StoreServices namespace.
     /// </summary>
-    public class AccessTokenProviderException : StoreServicesException
+    public class StoreServicesTokenProviderException : StoreServicesException
     {
         /// <summary>
         /// HTTP response that represents the failure to obtain an AccessToken.
@@ -88,10 +88,10 @@ namespace Microsoft.StoreServices
         public HttpResponseMessage HttpResponseMessage { get; private set; }
 
         /// <summary>
-        /// Initialize a new instance of the AccessTokenProviderException class with the specified error message and 
+        /// Initialize a new instance of the StoreServicesTokenProviderException class with the specified error message and 
         /// inner exception.
         /// </summary>
-        public AccessTokenProviderException(string message, HttpResponseMessage response) : base(message)
+        public StoreServicesTokenProviderException(string message, HttpResponseMessage response) : base(message)
         {
             HttpResponseMessage = response;
         }

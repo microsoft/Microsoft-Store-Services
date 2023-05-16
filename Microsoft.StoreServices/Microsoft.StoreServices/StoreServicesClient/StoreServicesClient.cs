@@ -7,6 +7,7 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Microsoft.StoreServices.Authentication;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Manages the access tokens required for authenticating our calls to the Microsoft Store Services.
         /// </summary>
-        private readonly IAccessTokenProvider _accessTokenProvider;
+        private readonly IStoreServicesTokenProvider _storeServicesTokenProvider;
 
         /// <summary>
         /// Used for disposing of the item.
@@ -48,11 +49,11 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="serviceIdentity">Identification string of your service for logging purposes on the calls to
         /// the Microsoft Store Services.</param>
-        /// <param name="accessTokenProvider">IAccessTokenProvider created to manages the access tokens required for 
+        /// <param name="tokenProvider">IStoreServicesTokenProvider created to manages the access tokens required for 
         /// authenticating our calls to the Microsoft Store Services.</param>
-        public StoreServicesClient(string serviceIdentity, IAccessTokenProvider accessTokenProvider) 
+        public StoreServicesClient(string serviceIdentity, IStoreServicesTokenProvider tokenProvider) 
         {
-            _accessTokenProvider = accessTokenProvider;
+            _storeServicesTokenProvider = tokenProvider;
             ServiceIdentity = serviceIdentity ?? "UnspecifiedService-Microsoft.StoreServices";
             _isDisposed = false;
         }
@@ -76,7 +77,7 @@ namespace Microsoft.StoreServices
             };
 
             //  Add the Authorization header for AAD / StoreID keys
-            var serviceToken = await _accessTokenProvider.GetServiceAccessTokenAsync();
+            var serviceToken = await _storeServicesTokenProvider.GetServiceAccessTokenAsync();
             httpRequest.Headers.Add("Authorization", $"Bearer {serviceToken.Token}");
             httpRequest.Headers.Add("User-Agent", ServiceIdentity); //  unique name to identify your service in logging
 
@@ -108,37 +109,46 @@ namespace Microsoft.StoreServices
                     DateTimeZoneHandling = DateTimeZoneHandling.Utc
                 });
             }
-            catch (HttpRequestException httpReqEx)
+            catch (HttpRequestException httpRequestEx)
             {
-                throw new StoreServicesClientException($"HTTP request for type {typeof(T)} failed.", httpReqEx);
+                throw new StoreServicesClientException($"HTTP request for type {typeof(T)} failed.", httpRequestEx);
             }
         }
 
         /// <summary>
-        /// Provides a Service Access Token from the IAccessTokenProvider.
+        /// Provides a Service Access Token from the IStoreServicesTokenProvider.
         /// </summary>
         /// <returns></returns>
         public Task<AccessToken> GetServiceAccessTokenAsync()
         {
-            return _accessTokenProvider.GetServiceAccessTokenAsync();
+            return _storeServicesTokenProvider.GetServiceAccessTokenAsync();
         }
 
         /// <summary>
-        /// Provides a Service Access Token from the IAccessTokenProvider.
+        /// Provides a Service Access Token from the IStoreServicesTokenProvider.
         /// </summary>
         /// <returns></returns>
         public Task<AccessToken> GetCollectionsAccessTokenAsync()
         {
-            return _accessTokenProvider.GetCollectionsAccessTokenAsync();
+            return _storeServicesTokenProvider.GetCollectionsAccessTokenAsync();
         }
 
         /// <summary>
-        /// Provides a Service Access Token from the IAccessTokenProvider.
+        /// Provides a Service Access Token from the IStoreServicesTokenProvider.
         /// </summary>
         /// <returns></returns>
         public Task<AccessToken> GetPurchaseAccessTokenAsync()
         {
-            return _accessTokenProvider.GetPurchaseAccessTokenAsync();
+            return _storeServicesTokenProvider.GetPurchaseAccessTokenAsync();
+        }
+
+        /// <summary>
+        /// Provides an SAS Token to the Clawback V2 Events Service from the IStoreServicesTokenProvider.
+        /// </summary>
+        /// <returns></returns>
+        public Task<SASToken> GetClawbackV2SASTokenAsync()
+        {
+            return _storeServicesTokenProvider.GetClawbackV2SASTokenAsync();
         }
 
         /// <summary>

@@ -11,6 +11,9 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.StoreServices.Collections.V8;
 using Microsoft.StoreServices.Collections.V9;
+using Microsoft.StoreServices.Clawback.V1;
+using Microsoft.StoreServices.Clawback.V2;
+using System.Collections.Generic;
 
 namespace Microsoft.StoreServices
 {
@@ -50,7 +53,28 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<ClawbackQueryResponse> ClawbackQueryAsync(ClawbackQueryRequest request);
+        Task<ClawbackV1QueryResponse> ClawbackV1QueryAsync(ClawbackV1QueryRequest request);
+
+        /// <summary>
+        /// Queries the Clawback v2 service for refund events
+        /// </summary>
+        /// <returns></returns>
+        Task<List<ClawbackV2Message>> ClawbackV2QueryEventsAsync(int? maxMessages = null);
+
+        /// <summary>
+        /// Queries the Clawback v2 service and peeks at the messages
+        /// </summary>
+        /// <returns></returns>
+        Task<List<ClawbackV2Message>> ClawbackV2PeekEventsAsync(int? maxMessages = null);
+
+        /// <summary>
+        /// Deletes the provided message from the Clawback message queue.
+        /// </summary>
+        /// <param name="messageToDelete">Which message should be deleted from the message queue.</param>
+        /// <returns>HTTP status code from the delete request to the Azure Message Queue</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="Exception"></exception>
+        Task<int> ClawbackV2DeleteMessageAsync(ClawbackV2Message messageToDelete);
 
         /// <summary>
         /// Query's the Recurrence information for the user based on the parameters object
@@ -66,7 +90,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<RecurrenceChangeResponse> RecurrenceChangeAysnc(RecurrenceChangeRequest request);
+        Task<RecurrenceChangeResponse> RecurrenceChangeAsync(RecurrenceChangeRequest request);
 
         /// <summary>
         /// Provides the Service Access Token from the IAccessTokenControler used when the

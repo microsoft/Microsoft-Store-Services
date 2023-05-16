@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// ClawbackRequest.cs
+// ClawbackV1QueryRequest.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -10,12 +10,12 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Microsoft.StoreServices
+namespace Microsoft.StoreServices.Clawback.V1
 {
     /// <summary>
     /// JSON request body for the Clawback service
     /// </summary>
-    public class ClawbackQueryRequest
+    public class ClawbackV1QueryRequest
     {
         /// <summary>
         /// UserPurchaseId that identifies the user we are asking about
@@ -32,16 +32,16 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Creates an object used to generate the JSON body of the request.
         /// </summary>
-        public ClawbackQueryRequest()
+        public ClawbackV1QueryRequest()
         {
             //  default values most commonly used
-            LineItemStateFilter = new List<string>() 
-            { 
+            LineItemStateFilter = new List<string>()
+            {
                 LineItemStates.Revoked,
                 LineItemStates.Refunded
             };
 
-            UserPurchaseId = ""; 
+            UserPurchaseId = "";
         }
 
         /// <summary>
@@ -49,6 +49,12 @@ namespace Microsoft.StoreServices
         /// </summary>
         [JsonProperty("sbx")]
         public string SandboxId { get; set; }
+
+        /// <summary>
+        /// The maximum number of products to return in one response. The default and maximum value is 100.
+        /// </summary>
+        [JsonProperty("continuationToken", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContinuationToken { get; set; }
     }
 
     /// <summary>
@@ -57,7 +63,7 @@ namespace Microsoft.StoreServices
     public static class LineItemStates
     {
         public const string Purchased = "Purchased";
-        public const string Revoked   = "Revoked";
-        public const string Refunded  = "Refunded";
+        public const string Revoked = "Revoked";
+        public const string Refunded = "Refunded";
     }
 }

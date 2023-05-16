@@ -13,14 +13,14 @@ using System.Net.Http;
 namespace Microsoft.StoreServices
 {
     /// <summary>
-    /// Factory that will provide IStoreServicesClients on request from a shared IAccessTokenProvider.
+    /// Factory that will provide IStoreServicesClients on request from a shared IStoreServicesTokenProvider.
     /// </summary>
     public class StoreServicesClientFactory : IStoreServicesClientFactory
     {
         /// <summary>
-        /// Shared IAccessTokenProvider to be used with each StoreServices client created.
+        /// Shared IStoreServicesTokenProvider to be used with each StoreServices client created.
         /// </summary>
-        private IAccessTokenProvider _accessTokenProvider;
+        private IStoreServicesTokenProvider _tokenProvider;
 
         /// <summary>
         /// Identification string of your service for logging purposes on the calls to the Microsoft
@@ -30,31 +30,31 @@ namespace Microsoft.StoreServices
 
         /// <summary>
         /// Constructor for use in the ASP.NET ConfigureServices() function before you
-        /// have the Service Identity and other values to create the IAccessTokenProvider.
-        /// Once you have these values and the IAccessTokenProvider, use this class' 
+        /// have the Service Identity and other values to create the IStoreServicesTokenProvider.
+        /// Once you have these values and the StoreServicesTokenProvider, use this class' 
         /// Configure() function to set the values.
         /// </summary>
         public StoreServicesClientFactory() { }
 
 
         public void Initialize(string serviceIdentity,
-                              IAccessTokenProvider accessTokenProvider)
+                              IStoreServicesTokenProvider tokenProvider)
         {
-            _accessTokenProvider = accessTokenProvider;
+            _tokenProvider = tokenProvider;
             ServiceIdentity = serviceIdentity ?? "Microsoft.StoreServices.Default";
         }
 
         /// <summary>
-        /// Constructor if you already have the needed service identity and IAccessTokenProvider.
+        /// Constructor if you already have the needed service identity and IStoreServicesTokenProvider.
         /// </summary>
         /// <param name="serviceIdentity">Identification string of your service for logging purposes on the calls to
         /// the Microsoft Store Services.</param>
-        /// <param name="accessTokenProvider">IAccessTokenProvider initialized with your services information that
+        /// <param name="tokenProvider">IStoreServicesTokenProvider initialized with your services information that
         /// will be shared and used by all the generated StoreServicesClients.</param>
         public StoreServicesClientFactory(string serviceIdentity,
-                                          IAccessTokenProvider accessTokenProvider) 
+                                          IStoreServicesTokenProvider tokenProvider) 
         {
-            Initialize(serviceIdentity, accessTokenProvider);
+            Initialize(serviceIdentity, tokenProvider);
         }
         
         /// <summary>
@@ -93,7 +93,7 @@ namespace Microsoft.StoreServices
 
         public IStoreServicesClient CreateClient()
         {
-            return new StoreServicesClient(ServiceIdentity, _accessTokenProvider);
+            return new StoreServicesClient(ServiceIdentity, _tokenProvider);
         }
     }
 }

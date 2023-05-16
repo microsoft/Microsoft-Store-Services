@@ -84,5 +84,6 @@ namespace Microsoft.StoreServices
         /// Purchase access tokens are passed to your client app and used to generate UserPurchaseIds.  
         /// </summary>
         public const string Purchase    = "https://onestore.microsoft.com/b2b/keys/create/purchase";
+
     }
 }

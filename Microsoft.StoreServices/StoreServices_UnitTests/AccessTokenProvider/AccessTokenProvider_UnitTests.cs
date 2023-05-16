@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------------
 
 using Microsoft.StoreServices;
+using Microsoft.StoreServices.Authentication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace StoreServices_UnitTests
@@ -19,9 +20,9 @@ namespace StoreServices_UnitTests
         [TestMethod]
         public void InvalidCreationParameters_Exception()
         {
-            Assert.ThrowsException<System.ArgumentException>(() => new AccessTokenProvider( null, "1", "1") );
-            Assert.ThrowsException<System.ArgumentException>(() => new AccessTokenProvider("1", null, "1"));
-            Assert.ThrowsException<System.ArgumentException>(() => new AccessTokenProvider("1", "1", ""));
+            Assert.ThrowsException<System.ArgumentException>(() => new StoreServicesTokenProvider( null, "1", "1") );
+            Assert.ThrowsException<System.ArgumentException>(() => new StoreServicesTokenProvider("1", null, "1"));
+            Assert.ThrowsException<System.ArgumentException>(() => new StoreServicesTokenProvider("1", "1", ""));
         }
     }
 }

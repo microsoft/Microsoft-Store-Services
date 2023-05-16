@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// IAccessTokenProvider.cs
+// IStoreServicesTokenProvider.cs
 //
 // Xbox Advanced Technology Group (ATG)
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -7,11 +7,12 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Microsoft.StoreServices.Authentication;
 using System.Threading.Tasks;
 
 namespace Microsoft.StoreServices
 {
-    public interface IAccessTokenProvider
+    public interface IStoreServicesTokenProvider
     {
         /// <summary>
         /// Provides a Service access token for your service that will have an audience 
@@ -33,5 +34,12 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <returns></returns>
         Task<AccessToken> GetPurchaseAccessTokenAsync();
+
+        /// <summary>
+        /// Provides an SAS Token (URI) to read and process Clawback v2 events for refunded products
+        /// related to the Azure Active Directory credentials from the Access Tokens
+        /// </summary>
+        /// <returns></returns>
+        Task<SASToken> GetClawbackV2SASTokenAsync();
     }
 }
