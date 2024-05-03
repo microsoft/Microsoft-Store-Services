@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
       <Authors>Xbox Advanced Technology Group</Authors>
       <PackageId>Microsoft.StoreServices</PackageId>
       <Company>Microsoft</Company>
@@ -26,9 +26,18 @@
     <ItemGroup>
       <PackageReference Include="Azure.Storage.Queues" Version="12.17.1" />
       <PackageReference Include="jose-jwt" Version="5.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.4" />
-      <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.18" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.18" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.18">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.18" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.18" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.18">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
