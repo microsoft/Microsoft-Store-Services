@@ -50,14 +50,14 @@ namespace Microsoft.StoreServices.Clawback.V2
         /// <summary>
         /// UTC date time when the purchase was refunded (if in a refunded state).
         /// </summary>
-        [JsonProperty("refundInitiatedDate")]
-        public DateTimeOffset? RefundInitiatedDate { get; set; }
+        [JsonProperty("eventDate")]
+        public DateTimeOffset? EventDate { get; set; }
 
         /// <summary>
         /// Current state of the item indicating if it is active, revoked, or refunded.
         /// </summary>
-        [JsonProperty("refundState")]
-        public string RefundState { get; set; }
+        [JsonProperty("eventState")]
+        public string EventState { get; set; }
 
         /// <summary>
         /// UTC date time when the purchase transaction was made.
@@ -70,13 +70,19 @@ namespace Microsoft.StoreServices.Clawback.V2
         /// </summary>
         [JsonProperty("skuId")]
         public string SkuId { get; set; }
+
+        /// <summary>
+        /// Specific information related to a subscription product that has triggered a Clawback event
+        /// </summary>
+        [JsonProperty("subscriptionData")]
+        public ClawbackSubscriptionData SubscriptionData { get; set; }
     }
 }
 
 /// <summary>
-/// Values supported for the RefundState of the order
+/// Values supported for the EventState of the order
 /// </summary>
-public static class RefundStates
+public static class EventStates
 {
     /// <summary>
     /// Refunded item was able to be removed from the user's entitlement. 
@@ -90,3 +96,5 @@ public static class RefundStates
     /// </summary>
     public const string Revoked = "Revoked";
 }
+
+

@@ -40,13 +40,6 @@ namespace Microsoft.StoreServices
         public StoreServicesException(string message, Exception innerException) : base(message, innerException)
         {
         }
-
-        /// <summary>
-        /// Initialize a new instance of the StoreServicesException class with serialized info.
-        /// </summary>
-        protected StoreServicesException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 
     /// <summary>
