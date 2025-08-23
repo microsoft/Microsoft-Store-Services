@@ -75,7 +75,7 @@ namespace Microsoft.StoreServices
             }
             if (string.IsNullOrEmpty(secretOrManagedId))
             {
-                throw new ArgumentException($"{nameof(_clientSecret)} required", nameof(_clientSecret));
+                throw new ArgumentException($"{nameof(secretOrManagedId)} required", nameof(secretOrManagedId));
             }
 
             _tenantId = tenantId;
