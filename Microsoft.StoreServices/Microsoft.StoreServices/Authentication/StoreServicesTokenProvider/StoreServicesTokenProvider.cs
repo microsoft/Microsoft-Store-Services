@@ -9,7 +9,6 @@
 
 using Azure.Core;
 using Azure.Identity;
-using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 using Microsoft.StoreServices.Authentication;
 using Newtonsoft.Json;
 using System;
