@@ -152,7 +152,7 @@ namespace Microsoft.StoreServices
         }
 
         /// <summary>
-        /// Creartes an Access Token based on the Secret Key provided when creating the Token Provider.
+        /// Creates an Access Token based on the Secret Key provided when creating the Token Provider.
         /// </summary>
         /// <param name="audience"></param>
         /// <returns></returns>
