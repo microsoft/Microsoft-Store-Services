@@ -74,8 +74,8 @@ namespace Microsoft.StoreServices.Clawback.V2
         /// <summary>
         /// Specific information related to a subscription product that has triggered a Clawback event
         /// </summary>
-        [JsonProperty("subscriptionData")]
-        public ClawbackSubscriptionData SubscriptionData { get; set; }
+        [JsonProperty("recurrenceData")]
+        public ClawbackRecurrenceData RecurrenceData { get; set; }
     }
 }
 
