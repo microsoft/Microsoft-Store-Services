@@ -141,7 +141,7 @@ namespace Microsoft.StoreServices
             }
             else if (!string.IsNullOrEmpty(_managedId)) 
             {
-                accessToken = CreateAccessTokenFromManagedIdentity(audience);
+                accessToken = await CreateAccessTokenFromManagedIdentity(audience);
             }
             else
             {
@@ -213,7 +213,7 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="audience">Target audience.</param>
         /// <returns>If successful, returns managed identity token.</returns>
-        protected virtual AccessToken CreateAccessTokenFromManagedIdentity(string audience)
+        protected virtual Task<AccessToken> CreateAccessTokenFromManagedIdentity(string audience)
         {
             ClientAssertionCredential assertion = new(
                 _tenantId,
@@ -233,7 +233,7 @@ namespace Microsoft.StoreServices
                 Token = token.Token
             };
 
-            return convertedToken;
+            return Task.FromResult(convertedToken);
         }
 
         /// <summary>

@@ -41,6 +41,7 @@ namespace Microsoft.StoreServices.Clawback.V2
         [JsonProperty("consumedDurationInDays")]
         public int ConsumedDurationInDays { get; set; }
 
+        /// <summary>
         /// The type of refund issued for the subscription (e.g., "full", "partial", "prorated").
         /// </summary>
         [JsonProperty("refundType")]
