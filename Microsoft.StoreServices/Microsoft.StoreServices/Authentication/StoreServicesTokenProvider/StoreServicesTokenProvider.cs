@@ -57,10 +57,10 @@ namespace Microsoft.StoreServices
         /// secret key or Azure Managed Identity. The Access Tokens are required to authenticate with 
         /// the Microsoft Store Services.
         /// </summary>
-        /// <param name="tenantId"></param>
-        /// <param name="clientId"></param>
-        /// <param name="secretOrManagedId"></param>
-        /// <param name="useManagedId">Specifies if the secretOrManagedId value is a secret or Managed Identity</param>
+        /// <param name="tenantId">The Entra Tenant Id registered for your service. Used to identify the Azure Active Directory tenant.</param>
+        /// <param name="clientId">The Entra Client Id registered for your service. Used to identify the application requesting authentication.</param>
+        /// <param name="secretOrManagedId">The Entra Client secret or Managed Identity value. Used for authenticating the application, depending on the value of useManagedId.</param>
+        /// <param name="useManagedId">If true, secretOrManagedId is treated as a Managed Identity; if false, it is treated as a client secret.</param>
         /// <exception cref="ArgumentException"></exception>
         public StoreServicesTokenProvider(string tenantId, string clientId, string secretOrManagedId, bool useManagedId = false)
         {
