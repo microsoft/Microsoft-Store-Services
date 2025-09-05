@@ -84,12 +84,12 @@ namespace Microsoft.StoreServices
             if (useManagedId)
             {
                 _managedId = secretOrManagedId;
-                _clientSecret = "";
+                _clientSecret = null;
             }
             else
             {
                 _clientSecret = secretOrManagedId;
-                _managedId = "";
+                _managedId = null;
             }
         }
 
