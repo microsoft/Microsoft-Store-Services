@@ -213,27 +213,27 @@ namespace Microsoft.StoreServices
         /// </summary>
         /// <param name="audience">Target audience.</param>
         /// <returns>If successful, returns managed identity token.</returns>
-        protected virtual Task<AccessToken> CreateAccessTokenFromManagedIdentity(string audience)
+        protected virtual async Task<AccessToken> CreateAccessTokenFromManagedIdentity(string audience)
         {
             ClientAssertionCredential assertion = new(
                 _tenantId,
                 _clientId,
-                (token) => GetManagedIdentityToken(_managedId, "api://AzureADTokenExchange").GetAwaiter().GetResult());
-
+                 async (token) => await GetManagedIdentityToken(_managedId, "api://AzureADTokenExchange"));
+            
             //  The scopes need to end with "/.default" here to work
             string[] scopes = { $"{audience}/.default" };
-
+            
             // Request an access token for our Client ID using the managed ID credentials as the auth / secret
-            var token = assertion.GetToken(new TokenRequestContext(scopes));
-
+            var token = await assertion.GetTokenAsync(new TokenRequestContext(scopes));
+            
             var convertedToken = new AccessToken()
             {
                 Audience = audience,
                 ExpiresOn = token.ExpiresOn,
                 Token = token.Token
             };
-
-            return Task.FromResult(convertedToken);
+            
+            return convertedToken;
         }
 
         /// <summary>
