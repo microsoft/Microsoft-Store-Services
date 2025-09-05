@@ -26,6 +26,11 @@ namespace Microsoft.StoreServices
     public class StoreServicesTokenProvider : IStoreServicesTokenProvider
     {
         /// <summary>
+        /// Audience value used for the Mangaed Identity token exchange.
+        /// </summary>
+        private const string AzureADTokenExchangeAudience = "api://AzureADTokenExchange";
+
+        /// <summary>
         /// Can be overridden with an HttpClientFactory.CreateClient() if used by your service.
         /// Ex: StoreServicesTokenProvider.CreateHttpClientFunc = httpClientFactory.CreateClient;
         /// </summary>
@@ -218,7 +223,7 @@ namespace Microsoft.StoreServices
             ClientAssertionCredential assertion = new(
                 _tenantId,
                 _clientId,
-                 async (token) => await GetManagedIdentityToken(_managedId, "api://AzureADTokenExchange"));
+                 async (token) => await GetManagedIdentityToken(_managedId, AzureADTokenExchangeAudience));
             
             //  The scopes need to end with "/.default" here to work
             string[] scopes = { $"{audience}/.default" };
