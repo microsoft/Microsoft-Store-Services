@@ -31,7 +31,7 @@ namespace Microsoft.StoreServices
         /// on your Entra ID credentials provided with either a secret key or Azure Managed Identity. 
         /// </summary>
         /// <param name="serverCache">The memory cache instance used to store and retrieve access tokens.</param>
-        /// <param name="tenantId">The Entra ID (Azure AD) tenant ID for your application.</param>
+        /// <param name="tenantId">The Entra ID tenant ID for your application.</param>
         /// <param name="clientId">The client ID (application ID) registered in Entra ID.</param>
         /// <param name="secretOrManagedId">The client secret for the application, or the managed identity resource ID if using managed identity.</param>
         /// <param name="useManagedId">True to use Azure Managed Identity for authentication; false to use the client secret.</param>
