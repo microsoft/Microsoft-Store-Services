@@ -218,7 +218,7 @@ namespace Microsoft.StoreServices
             ClientAssertionCredential assertion = new(
                 _tenantId,
                 _clientId,
-                 async (token) => await GetManagedIdentityToken(_managedId, "api://AzureADTokenExchange"));
+                (token) => GetManagedIdentityToken(_managedId, "api://AzureADTokenExchange").GetAwaiter().GetResult());
 
             //  The scopes need to end with "/.default" here to work
             string[] scopes = { $"{audience}/.default" };
