@@ -26,7 +26,7 @@ namespace Microsoft.StoreServices
     public class StoreServicesTokenProvider : IStoreServicesTokenProvider
     {
         /// <summary>
-        /// Audience value used for the Mangaed Identity token exchange.
+        /// Audience value used for the Managed Identity token exchange.
         /// </summary>
         private const string AzureADTokenExchangeAudience = "api://AzureADTokenExchange";
 
