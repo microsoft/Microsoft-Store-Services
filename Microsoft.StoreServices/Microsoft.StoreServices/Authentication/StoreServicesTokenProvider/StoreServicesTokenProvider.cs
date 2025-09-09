@@ -68,15 +68,15 @@ namespace Microsoft.StoreServices
         {
             if (string.IsNullOrEmpty(tenantId))
             {
-                throw new ArgumentException($"{nameof(_tenantId)} required", nameof(_tenantId));
+                throw new ArgumentException($"{nameof(tenantId)} required", nameof(tenantId));
             }
             if (string.IsNullOrEmpty(clientId))
             {
-                throw new ArgumentException($"{nameof(_clientId)} required", nameof(_clientId));
+                throw new ArgumentException($"{nameof(clientId)} required", nameof(clientId));
             }
             if (string.IsNullOrEmpty(clientSecret))
             {
-                throw new ArgumentException($"{nameof(clientSecret)} required", nameof(_clientSecret));
+                throw new ArgumentException($"{nameof(clientSecret)} required", nameof(clientSecret));
             }
 
             _tenantId = tenantId;
@@ -99,11 +99,11 @@ namespace Microsoft.StoreServices
         {
             if (string.IsNullOrEmpty(tenantId))
             {
-                throw new ArgumentException($"{nameof(_tenantId)} required", nameof(_tenantId));
+                throw new ArgumentException($"{nameof(tenantId)} required", nameof(tenantId));
             }
             if (string.IsNullOrEmpty(clientId))
             {
-                throw new ArgumentException($"{nameof(_clientId)} required", nameof(_clientId));
+                throw new ArgumentException($"{nameof(clientId)} required", nameof(clientId));
             }
             if (string.IsNullOrEmpty(secretOrManagedId))
             {
