@@ -56,6 +56,34 @@ namespace Microsoft.StoreServices
         /// </summary>
         protected string _managedId;
 
+        /// <summary>
+        /// Generates an access token provider based on your Entra credentials passed in with a secret key
+        /// The Access Tokens are required to authenticate with the Microsoft Store Services.  This API 
+        /// takes a secret key, for Azure Managed Identity use the overloaded constructor.
+        /// </summary>
+        /// <param name="tenantId">Registered AAD Tenant Id for your service</param>
+        /// <param name="clientId">Registered AAD Client Id for your service</param>
+        /// <param name="clientSecret">Registered AAD Client secret for your service</param>
+        public StoreServicesTokenProvider(string tenantId, string clientId, string clientSecret)
+        {
+            if (string.IsNullOrEmpty(tenantId))
+            {
+                throw new ArgumentException($"{nameof(_tenantId)} required", nameof(_tenantId));
+            }
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentException($"{nameof(_clientId)} required", nameof(_clientId));
+            }
+            if (string.IsNullOrEmpty(clientSecret))
+            {
+                throw new ArgumentException($"{nameof(clientSecret)} required", nameof(_clientSecret));
+            }
+
+            _tenantId = tenantId;
+            _clientId = clientId;
+            _clientSecret = clientSecret;
+            _managedId = null;
+        }
 
         /// <summary>
         /// Generates an access token provider based on your Entra credentials passed in with either a

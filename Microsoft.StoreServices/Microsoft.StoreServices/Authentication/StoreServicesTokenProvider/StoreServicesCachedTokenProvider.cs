@@ -28,6 +28,26 @@ namespace Microsoft.StoreServices
 
         /// <summary>
         /// Generates an access token provider that will manage a cache of the access tokens based 
+        /// on your Entra credentials provided.  This API takes a secret key, for Azure Managed Identity
+        /// use the overloaded constructor.
+        /// <param name="serverCache">IMemoryCache to be used to cache and retrieve the tokens</param>
+        /// <param name="tenantId">Registered AAD Tenant Id for your service</param>
+        /// <param name="clientId">Registered AAD Client Id for your service</param>
+        /// <param name="clientSecret">Registered AAD Client secret for your service</param>
+        public StoreServicesCachedTokenProvider(IMemoryCache serverCache,
+                                                 string tenantId,
+                                                 string clientId,
+                                                 string clientSecret) : base(tenantId, clientId, clientSecret)
+        {
+            if (serverCache == null)
+            {
+                throw new ArgumentException($"{nameof(serverCache)} required", nameof(serverCache));
+            }
+            _serverCache = serverCache;
+        }
+
+        /// <summary>
+        /// Generates an access token provider that will manage a cache of the access tokens based 
         /// on your Entra ID credentials provided with either a secret key or Azure Managed Identity. 
         /// </summary>
         /// <param name="serverCache">The memory cache instance used to store and retrieve access tokens.</param>
