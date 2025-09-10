@@ -76,7 +76,7 @@ namespace Microsoft.StoreServices
                 Content = new StringContent(requestBodyString, Encoding.UTF8, "application/json")
             };
 
-            //  Add the Authorization header for AAD / StoreID keys
+            //  Add the Authorization header for Entra / StoreID keys
             var serviceToken = await _storeServicesTokenProvider.GetServiceAccessTokenAsync();
             httpRequest.Headers.Add("Authorization", $"Bearer {serviceToken.Token}");
             httpRequest.Headers.Add("User-Agent", ServiceIdentity); //  unique name to identify your service in logging

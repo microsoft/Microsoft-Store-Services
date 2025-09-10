@@ -7,9 +7,12 @@
 // license information.
 //-----------------------------------------------------------------------------
 
+using Azure.Core;
+using Azure.Identity;
 using Microsoft.StoreServices.Authentication;
 using Newtonsoft.Json;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,29 +26,40 @@ namespace Microsoft.StoreServices
     public class StoreServicesTokenProvider : IStoreServicesTokenProvider
     {
         /// <summary>
+        /// Audience value used for the Managed Identity token exchange.
+        /// </summary>
+        private const string AzureADTokenExchangeAudience = "api://AzureADTokenExchange";
+
+        /// <summary>
         /// Can be overridden with an HttpClientFactory.CreateClient() if used by your service.
         /// Ex: StoreServicesTokenProvider.CreateHttpClientFunc = httpClientFactory.CreateClient;
         /// </summary>
         public static Func<HttpClient> CreateHttpClientFunc = () => new HttpClient();
 
         /// <summary>
-        /// Registered AAD Tenant Id for your service.
+        /// Registered Entra Tenant Id for your service.
         /// </summary>
         protected string _tenantId;
 
         /// <summary>
-        /// Registered AAD Client Id for your service.
+        /// Registered Entra Client Id for your service.
         /// </summary>
         protected string _clientId;
 
         /// <summary>
-        /// Registered AAD Client secret for your service.
+        /// Registered Entra Client secret for your service.
         /// </summary>
         protected string _clientSecret;
 
         /// <summary>
-        /// Generates an access token provider based on your AAD credentials passed in that will generate
-        /// access tokens required to authenticate with the Microsoft Store Services.
+        /// Registered Entra Managed ID for your service.
+        /// </summary>
+        protected string _managedId;
+
+        /// <summary>
+        /// Generates an access token provider based on your Entra credentials passed in with a secret key
+        /// The Access Tokens are required to authenticate with the Microsoft Store Services.  This API 
+        /// takes a secret key, for Azure Managed Identity use the overloaded constructor.
         /// </summary>
         /// <param name="tenantId">Registered AAD Tenant Id for your service</param>
         /// <param name="clientId">Registered AAD Client Id for your service</param>
@@ -54,20 +68,62 @@ namespace Microsoft.StoreServices
         {
             if (string.IsNullOrEmpty(tenantId))
             {
-                throw new ArgumentException($"{nameof(_tenantId)} required", nameof(_tenantId));
+                throw new ArgumentException($"{nameof(tenantId)} required", nameof(tenantId));
             }
             if (string.IsNullOrEmpty(clientId))
             {
-                throw new ArgumentException($"{nameof(_clientId)} required", nameof(_clientId));
+                throw new ArgumentException($"{nameof(clientId)} required", nameof(clientId));
             }
             if (string.IsNullOrEmpty(clientSecret))
             {
-                throw new ArgumentException($"{nameof(_clientSecret)} required", nameof(_clientSecret));
+                throw new ArgumentException($"{nameof(clientSecret)} required", nameof(clientSecret));
             }
 
             _tenantId = tenantId;
             _clientId = clientId;
             _clientSecret = clientSecret;
+            _managedId = null;
+        }
+
+        /// <summary>
+        /// Generates an access token provider based on your Entra credentials passed in with either a
+        /// secret key or Azure Managed Identity. The Access Tokens are required to authenticate with 
+        /// the Microsoft Store Services.
+        /// </summary>
+        /// <param name="tenantId">The Entra Tenant Id registered for your service. Used to identify the Azure Active Directory tenant.</param>
+        /// <param name="clientId">The Entra Client Id registered for your service. Used to identify the application requesting authentication.</param>
+        /// <param name="secretOrManagedId">The Entra Client secret or Managed Identity value. Used for authenticating the application, depending on the value of useManagedId.</param>
+        /// <param name="useManagedId">If true, secretOrManagedId is treated as a Managed Identity; if false, it is treated as a client secret.</param>
+        /// <exception cref="ArgumentException"></exception>
+        public StoreServicesTokenProvider(string tenantId, string clientId, string secretOrManagedId, bool useManagedId = false)
+        {
+            if (string.IsNullOrEmpty(tenantId))
+            {
+                throw new ArgumentException($"{nameof(tenantId)} required", nameof(tenantId));
+            }
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentException($"{nameof(clientId)} required", nameof(clientId));
+            }
+            if (string.IsNullOrEmpty(secretOrManagedId))
+            {
+                throw new ArgumentException($"{nameof(secretOrManagedId)} required", nameof(secretOrManagedId));
+            }
+
+            _tenantId = tenantId;
+            _clientId = clientId;
+
+            //  Write the values based on if the caller specified they passed in a secret key or a managed id
+            if (useManagedId)
+            {
+                _managedId = secretOrManagedId;
+                _clientSecret = null;
+            }
+            else
+            {
+                _clientSecret = secretOrManagedId;
+                _managedId = null;
+            }
         }
 
         /// <summary>
@@ -101,9 +157,41 @@ namespace Microsoft.StoreServices
         /// Generates an access token based on the URI audience value passed in.  
         /// provided.
         /// </summary>
-        /// <param name="audience">Audience URI defining the token (see AccessTokenAudienceTypes)</param>
+        /// <param name="audience">audience URI defining the token (see AccessTokenAudienceTypes)</param>
         /// <returns>Access token, otherwise Exception will be thrown</returns>
         protected virtual async Task<AccessToken> CreateAccessTokenAsync(string audience)
+        {
+            //  Validate we have the needed values
+            if (string.IsNullOrEmpty(audience))
+            {
+                throw new ArgumentException($"{nameof(audience)} required", nameof(audience));
+            }
+
+            var accessToken = new AccessToken();
+            if (!string.IsNullOrEmpty(_clientSecret))
+            {
+                accessToken = await CreateAccessTokenFromSecret(audience);
+            }
+            else if (!string.IsNullOrEmpty(_managedId)) 
+            {
+                accessToken = await CreateAccessTokenFromManagedIdentity(audience);
+            }
+            else
+            {
+                throw new ArgumentException($"Secret key or Managed ID required when creating token provider", "SecretOrManagedId");
+            }
+
+            return accessToken;
+        }
+
+        /// <summary>
+        /// Creates an Access Token based on the Secret Key provided when creating the Token Provider.
+        /// </summary>
+        /// <param name="audience"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="StoreServicesHttpResponseException"></exception>
+        protected virtual async Task<AccessToken> CreateAccessTokenFromSecret(string audience)
         {
             //  Validate we have the needed values
             if (string.IsNullOrEmpty(audience))
@@ -139,7 +227,7 @@ namespace Microsoft.StoreServices
                     var token = JsonConvert.DeserializeObject<AccessToken>(responseBody);
                     if (string.IsNullOrEmpty(token.Audience))
                     {
-                        //  The Azure v2.0 AAD URI doesn't pass back the audience in the request body
+                        //  The Azure v2.0 Entra ID URI doesn't pass back the audience in the request body
                         //  so we copy it from the audience that we put in the request
                         token.Audience = audience;
                     }
@@ -150,6 +238,48 @@ namespace Microsoft.StoreServices
                     throw new StoreServicesHttpResponseException($"Unable to acquire access token for {audience} : {httpResponse.ReasonPhrase}", httpResponse);
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates an access token for an Entra ID app, but uses Managed Identity assigned to the Azure Resource / VM 
+        /// instead of a Secret key.
+        /// </summary>
+        /// <param name="audience">Target audience.</param>
+        /// <returns>If successful, returns managed identity token.</returns>
+        protected virtual async Task<AccessToken> CreateAccessTokenFromManagedIdentity(string audience)
+        {
+            ClientAssertionCredential assertion = new(
+                _tenantId,
+                _clientId,
+                 async (token) => await GetManagedIdentityToken(_managedId, AzureADTokenExchangeAudience));
+            
+            //  The scopes need to end with "/.default" here to work
+            string[] scopes = { $"{audience}/.default" };
+            
+            // Request an access token for our Client ID using the managed ID credentials as the auth / secret
+            var token = await assertion.GetTokenAsync(new TokenRequestContext(scopes));
+            
+            var convertedToken = new AccessToken()
+            {
+                Audience = audience,
+                ExpiresOn = token.ExpiresOn,
+                Token = token.Token
+            };
+            
+            return convertedToken;
+        }
+
+        /// <summary>
+        /// Gets a token for the user-assigned Managed Identity.
+        /// </summary>
+        /// <param name="miClientId">Client ID for the Managed Identity.</param>
+        /// <param name="audience">Target audience. For public clouds should be api://AzureADTokenExchange.</param>
+        /// <returns>If successful, returns managed identity access token.</returns>
+        protected static async Task<string> GetManagedIdentityToken(string miClientId, string audience)
+        {
+            var miCredential = new ManagedIdentityCredential(miClientId);
+            string[] scopes = { $"{audience}/.default" };
+            return (await miCredential.GetTokenAsync(new Azure.Core.TokenRequestContext(scopes)).ConfigureAwait(false)).Token;
         }
 
         /// <summary>
@@ -164,43 +294,43 @@ namespace Microsoft.StoreServices
 
         /// <summary>
         /// Generates an SAS Token (URI) based on the audience (generation URI) passed in
-        /// and using the appropriate Access Tokens from the configured AAD Credentials.
+        /// and using the appropriate Access Tokens from the configured Entra ID Credentials.
         /// </summary>
         /// <param name="SASTarget">URI defining the SAS Token generation endpoint</param>
-        /// <param name="AccessToken">AccessToken to use and will represent the AAD Client App Identity</param>
+        /// <param name="accessToken">accessToken to use and will represent the Entra Client App Identity</param>
         /// <returns>SASToken, otherwise Exception will be thrown</returns>
-        protected virtual async Task<SASToken> CreateSASTokenAsync(string TokenType, string AccessToken)
+        protected virtual async Task<SASToken> CreateSASTokenAsync(string tokenType, string accessToken)
         {
             //  Validate we have the needed values
-            if (string.IsNullOrEmpty(TokenType))
+            if (string.IsNullOrEmpty(tokenType))
             {
-                throw new ArgumentException($"{nameof(TokenType)} required", nameof(TokenType));
+                throw new ArgumentException($"{nameof(tokenType)} required", nameof(tokenType));
             }
 
-            //  If an existing AccessToken was not provide, we need to generate one based on 
+            //  If an existing accessToken was not provide, we need to generate one based on 
             //  the SASTarget
-            if (string.IsNullOrEmpty(AccessToken))
+            if (string.IsNullOrEmpty(accessToken))
             {
-                if (TokenType == SASTokenType.ClawbackV2)
+                if (tokenType == SASTokenType.ClawbackV2)
                 {
                     var purchaseAccessToken = await GetServiceAccessTokenAsync();
-                    AccessToken = purchaseAccessToken.Token;
+                    accessToken = purchaseAccessToken.Token;
 
-                    if(string.IsNullOrEmpty(AccessToken))
+                    if(string.IsNullOrEmpty(accessToken))
                     {
                         throw new StoreServicesException($"Unable to generate a new PurchaseAccessToken");
                     }
                 }
                 else
                 {
-                    throw new ArgumentException($"Unknown SASTokenType of {TokenType} ", nameof(TokenType));
+                    throw new ArgumentException($"Unknown SASTokenType of {tokenType} ", nameof(tokenType));
                 }
             }
 
-            var requestUri = TokenType;  // For the SAS tokens the Type is the URI to generate the token
+            var requestUri = tokenType;  // For the SAS tokens the Type is the URI to generate the token
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, requestUri.ToString());
 
-            httpRequest.Headers.Add("Authorization", $"Bearer {AccessToken}");
+            httpRequest.Headers.Add("Authorization", $"Bearer {accessToken}");
 
             // Post the request and wait for the response
             var httpClient = CreateHttpClientFunc();
@@ -215,7 +345,7 @@ namespace Microsoft.StoreServices
                 }
                 else
                 {
-                    throw new StoreServicesHttpResponseException($"Unable to acquire SAS token from {TokenType} : {httpResponse.ReasonPhrase}", httpResponse);
+                    throw new StoreServicesHttpResponseException($"Unable to acquire SAS token from {tokenType} : {httpResponse.ReasonPhrase}", httpResponse);
                 }
             }
         }

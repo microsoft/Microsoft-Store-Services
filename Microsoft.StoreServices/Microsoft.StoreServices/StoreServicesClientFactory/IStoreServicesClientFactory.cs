@@ -24,7 +24,7 @@ namespace Microsoft.StoreServices
         /// <summary>
         /// Used to set the IStoreServicesTokenProvider and ServiceIdentity of the factory if 
         /// we were unable to initialize the object with them. Ex: Factory is created in
-        /// ASP.NET's ConfigureServices(), but you don't have the AAD Ids until Configure().
+        /// ASP.NET's ConfigureServices(), but you don't have the Entra Ids until Configure().
         /// </summary>
         /// <param name="serviceIdentity">Identification string of your service for logging purposes on the calls to
         /// the Microsoft Store Services.</param>

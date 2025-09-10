@@ -36,7 +36,7 @@ namespace Microsoft.StoreServices
         {
             get { return expiresIn; }
 
-            //  The Azure AAD 2.0 URI only includes the expires_in time value so we need to
+            //  The Azure Entra ID 2.0 URI only includes the expires_in time value so we need to
             //  generate the ExpiresOn value based off of it and when this was created.
             set
             {
@@ -70,7 +70,7 @@ namespace Microsoft.StoreServices
     public class AccessTokenAudienceTypes
     {
         /// <summary>
-        /// Service access tokens identify the AAD tenant and your service.
+        /// Service access tokens identify the Entra tenant and your service.
         /// This token is used in the Authorization header of all calls to the Microsoft Store Services.
         /// </summary>
         public const string Service     = "https://onestore.microsoft.com";
