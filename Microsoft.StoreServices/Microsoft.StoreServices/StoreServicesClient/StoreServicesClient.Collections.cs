@@ -82,7 +82,7 @@ namespace Microsoft.StoreServices
                 {
                     throw new ArgumentException($"{nameof(request.RemoveQuantity)} must be greater than 0", nameof(request.RemoveQuantity));
                 }
-                if (string.IsNullOrEmpty(request.TrackingId))
+                if (request.TrackingId == Guid.Empty)
                 {
                     throw new ArgumentException($"{nameof(request.TrackingId)} must be provided", nameof(request.TrackingId));
                 }

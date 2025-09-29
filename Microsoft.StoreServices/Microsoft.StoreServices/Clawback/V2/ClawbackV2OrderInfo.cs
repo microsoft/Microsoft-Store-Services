@@ -21,13 +21,13 @@ namespace Microsoft.StoreServices.Clawback.V2
         /// Unique Id representing this product within the purchase transaction.
         /// </summary>   
         [JsonProperty("lineItemId")]
-        public string LineItemId { get; set; }
+        public Guid LineItemId { get; set; }
 
         /// <summary>
         /// OrderId represents a unique identifier for the purchase transaction this information is tied to.
         /// </summary>
         [JsonProperty("orderId")]
-        public string OrderId { get; set; }
+        public Guid OrderId { get; set; }
 
         /// <summary>
         /// ProductId (StoreId) of the item offered within the store.

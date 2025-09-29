@@ -102,7 +102,7 @@ namespace Microsoft.StoreServices.Collections
         /// The transaction ID as a result of the purchase of this item. Can be used for reporting an item as fulfilled.
         /// </summary>
         [JsonProperty("transactionId")]
-        public string TransactionId { get; set; }
+        public Guid TransactionId { get; set; }
 
         /// <summary>
         /// Information about this product—if it’s a trial and the time remaining.

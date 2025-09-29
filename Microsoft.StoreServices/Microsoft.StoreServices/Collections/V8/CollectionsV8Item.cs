@@ -23,14 +23,14 @@ namespace Microsoft.StoreServices.Collections.V8
         /// in most cases.
         /// </summary>
         [JsonProperty("legacyOfferInstanceId")]
-        public string LegacyOfferInstanceId { get; set; }
+        public Guid LegacyOfferInstanceId { get; set; }
 
         /// <summary>
         /// The older ProductID format from the Xbox Developer Portal and used by the Xbox Inventory Service. New products created
         /// in Partner Center don’t have these by default but can be enrolled to have this value if needed.
         /// </summary>
         [JsonProperty("legacyProductId")]
-        public string LegacyProductId { get; set; }
+        public Guid LegacyProductId { get; set; }
 
         /// <summary>
         /// The ID of the previously supplied localTicketReference in the request body.
