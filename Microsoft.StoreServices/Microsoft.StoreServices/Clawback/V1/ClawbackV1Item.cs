@@ -24,7 +24,7 @@ namespace Microsoft.StoreServices.Clawback.V1
         /// OrderId represents a unique identifier for the purchase transaction this information is tied to.
         /// </summary>
         [JsonProperty("orderId")]
-        public string OrderId { get; set; }
+        public Guid OrderId { get; set; }
 
         /// <summary>
         /// List of items that were purchased with the purchase transaction that the OrderId represents.
@@ -54,7 +54,7 @@ namespace Microsoft.StoreServices.Clawback.V1
         /// Unique Id representing this product within the purchase transaction.
         /// </summary>   
         [JsonProperty("lineItemId")]
-        public string LineItemId { get; set; }
+        public Guid LineItemId { get; set; }
 
         /// <summary>
         /// Current state of the item indicating if it is active, revoked, or refunded.

@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.StoreServices.Collections.V8
@@ -33,7 +34,7 @@ namespace Microsoft.StoreServices.Collections.V8
         /// The unique tracking ID that was provided in the request to track and validate that the fulfillment succeeded.
         /// </summary>
         [JsonProperty("trackingId")]
-        public string TrackingId { get; set; }
+        public Guid TrackingId { get; set; }
 
         /// <summary>
         /// The ProductId / StoreId of the consumable that was fulfilled.
@@ -58,14 +59,14 @@ namespace Microsoft.StoreServices.Collections.V8
         /// Id of user's purchase order used to fulfill all or part of this consume request.
         /// </summary>
         [JsonProperty("orderId")]
-        public string OrderId { get; set; }
+        public Guid OrderId { get; set; }
 
         /// <summary>
         /// Id of the line item the consumable was within the purchase order made by the user.
         /// This Id is more unique to a consumable purchase than OrderId as there can be multiple line item Ids per Order Id.
         /// </summary>
         [JsonProperty("orderLineItemId")]
-        public string OrderLineItemId { get; set; }
+        public Guid OrderLineItemId { get; set; }
 
         /// <summary>
         /// Amount of the consume request that was fulfilled by this specific OrderId / LineItemId

@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System;
 
 namespace Microsoft.StoreServices.Collections.V8
 {
@@ -37,7 +38,7 @@ namespace Microsoft.StoreServices.Collections.V8
         /// so it is marked with virtual so it can be overridden.
         /// </summary>
         [JsonProperty("trackingId")]
-        public virtual string TrackingId { get; set; }
+        public virtual Guid TrackingId { get; set; }
 
         /// <summary>
         /// Quantity to be removed from the user's balance of the consumable product.

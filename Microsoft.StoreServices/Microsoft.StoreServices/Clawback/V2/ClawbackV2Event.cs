@@ -23,7 +23,7 @@ namespace Microsoft.StoreServices.Clawback.V2
         /// Unique ID for the Clawback event
         /// </summary>
         [JsonProperty("id")] 
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Identifies the source of the refund / clawback event came from
